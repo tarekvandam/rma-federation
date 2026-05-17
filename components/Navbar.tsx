@@ -5,20 +5,23 @@ import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useLanguage } from "./LanguageProvider";
+import { translations } from "@/lib/i18n";
 
 export default function Navbar() {
+  const { locale, setLocale } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "News", path: "/news" },
-    { name: "Championships", path: "/championships" },
-    { name: "Rankings", path: "/rankings" },
-    { name: "Media", path: "/media" },
-    { name: "Membership", path: "/membership" },
-    { name: "Contact", path: "/contact" },
+    { label: translations[locale].nav.home, path: "/" },
+    { label: translations[locale].nav.about, path: "/about" },
+    { label: translations[locale].nav.news, path: "/news" },
+    { label: translations[locale].nav.championships, path: "/championships" },
+    { label: translations[locale].nav.rankings, path: "/rankings" },
+    { label: translations[locale].nav.media, path: "/media" },
+    { label: translations[locale].nav.membership, path: "/membership" },
+    { label: translations[locale].nav.contact, path: "/contact" },
   ];
 
   useEffect(() => {
@@ -60,6 +63,7 @@ export default function Navbar() {
                 alt="RMA Logo"
                 fill
                 sizes="56px"
+                loading="lazy"
                 className="object-cover"
               />
             </div>
@@ -77,20 +81,30 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-8 text-sm font-semibold tracking-[0.02em] text-white/85">
             {navLinks.map((link) => (
               <Link
-                key={link.name}
+                key={link.label}
                 href={link.path}
                 className="group relative overflow-hidden transition duration-300 hover:text-red-400"
               >
-                <span className="relative z-10">{link.name}</span>
+                <span className="relative z-10">{link.label}</span>
                 <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-red-500 opacity-0 transition-all duration-300 group-hover:opacity-100" />
               </Link>
             ))}
           </div>
 
+          <div className="hidden md:flex items-center gap-3">
+            <button
+              className="inline-flex h-12 items-center justify-center rounded-full border border-white/10 bg-white/5 px-4 text-sm font-semibold text-white transition-all duration-300 hover:bg-white/10 hover:text-red-400"
+              onClick={() => setLocale(locale === "en" ? "ar" : "en")}
+              type="button"
+            >
+              {translations[locale].nav.languageToggle}
+            </button>
+          </div>
+
           <button
             className="md:hidden inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition-all duration-300 hover:bg-white/10 hover:text-red-400"
             onClick={() => setIsOpen((current) => !current)}
-            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-label={isOpen ? translations[locale].nav.closeMenu : translations[locale].nav.openMenu}
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -110,12 +124,12 @@ export default function Navbar() {
               <div className="flex flex-col gap-3">
                 {navLinks.map((link) => (
                   <Link
-                    key={link.name}
+                    key={link.label}
                     href={link.path}
                     onClick={() => setIsOpen(false)}
                     className="rounded-2xl px-4 py-3 text-sm font-semibold text-white/90 transition duration-300 hover:bg-white/10 hover:text-red-400"
                   >
-                    {link.name}
+                    {link.label}
                   </Link>
                 ))}
               </div>
