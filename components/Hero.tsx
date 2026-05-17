@@ -5,50 +5,62 @@ import { motion } from "framer-motion";
 export default function Hero() {
   return (
     <section
-      className="relative h-screen bg-cover bg-center flex items-center justify-center"
+      className="relative h-screen min-h-[720px] overflow-hidden bg-cover bg-center flex items-center"
       style={{
         backgroundImage: "url('/images/hero.jpg')",
       }}
     >
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/75"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.04),_rgba(0,0,0,0.95))]" />
+      <div className="absolute inset-0 bg-black/75" />
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-4">
-
-        <motion.h1
-          initial={{ opacity: 0, y: 80 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="text-5xl md:text-7xl font-extrabold text-white mb-6"
-        >
-          WORLD REAL
-          <span className="text-red-600"> MARTIAL ART </span>
-          FEDERATION
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 80 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2 }}
-          className="text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto mb-8"
-        >
-          Real Combat. Real Discipline. Real Martial Art.
-        </motion.p>
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 py-16 sm:px-8 lg:px-12">
 
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.5 }}
-          className="flex flex-col md:flex-row gap-4 justify-center"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="flex flex-col items-center text-center gap-10"
         >
-          <button className="bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 px-10 py-4 rounded-full text-white font-bold text-lg shadow-lg shadow-red-900/50 transition-all duration-300 transform hover:scale-105">
-            Join Federation
-          </button>
+          <div className="space-y-2">
+            <p className="text-xs uppercase tracking-[0.5em] text-red-400/90">
+              World Real Martial Art Federation
+            </p>
+            <p className="text-sm uppercase tracking-[0.35em] text-white/40">
+              Cinematic combat. Authentic discipline.
+            </p>
+          </div>
 
-          <button className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 px-10 py-4 rounded-full text-white font-bold text-lg transition-all duration-300 transform hover:scale-105">
-            Explore Championships
-          </button>
+          <motion.h1
+            initial={{ opacity: 0, y: 80 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+            className="max-w-4xl text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight text-white drop-shadow-[0_25px_45px_rgba(0,0,0,0.65)]"
+          >
+            WORLD REAL <span className="text-red-500">MARTIAL ART</span> FEDERATION
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 80 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.4, ease: "easeOut" }}
+            className="max-w-3xl text-base sm:text-xl md:text-2xl text-gray-200/90 leading-relaxed"
+          >
+            Train like a champion in a modern martial arts arena with cinematic energy, disciplined technique, and elite community support.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.6, ease: "easeOut" }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full"
+          >
+            <button className="w-full sm:w-auto bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 px-10 py-4 rounded-full text-white font-semibold text-lg shadow-2xl shadow-red-900/40 transition-transform duration-300 hover:-translate-y-0.5 hover:scale-[1.02]">
+              Join Federation
+            </button>
+            <button className="w-full sm:w-auto bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 px-10 py-4 rounded-full text-white font-semibold text-lg transition-transform duration-300 hover:-translate-y-0.5 hover:scale-[1.02]">
+              Explore Championships
+            </button>
+          </motion.div>
         </motion.div>
       </div>
     </section>
