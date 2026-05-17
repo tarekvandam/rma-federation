@@ -1,0 +1,192 @@
+"use client";
+
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { useLanguage } from "./LanguageProvider";
+import { translations } from "@/lib/i18n";
+
+export default function Membership() {
+  const { locale } = useLanguage();
+  const t = translations[locale].membership;
+  const [selectedPlan, setSelectedPlan] = useState(t.planOptions[1]);
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSubmitted(true);
+  };
+
+  return (
+    <section className="bg-black text-white min-h-screen pt-32 pb-24 px-4 sm:px-6 lg:px-10">
+      <div className="mx-auto max-w-7xl">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="mb-16 rounded-[36px] border border-white/10 bg-[#09090b]/80 p-8 shadow-[0_28px_120px_rgba(0,0,0,0.7)] backdrop-blur-xl"
+        >
+          <span className="inline-flex rounded-full bg-red-600/15 px-4 py-2 text-xs uppercase tracking-[0.35em] text-red-300 shadow-sm shadow-red-900/20">
+            {t.badge}
+          </span>
+          <div className="mt-6 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-3xl">
+              <h1 className="text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl">
+                {t.title}
+              </h1>
+              <p className="mt-5 max-w-2xl text-base leading-8 text-gray-300 sm:text-lg">
+                {t.description}
+              </p>
+            </div>
+            <div className="rounded-3xl border border-white/10 bg-white/5 px-6 py-5 text-sm text-gray-200 shadow-xl shadow-black/20 backdrop-blur-xl sm:px-8">
+              <p className="font-semibold text-white">{t.benefitsTitle}</p>
+              <p className="mt-2 text-sm text-gray-300">{t.joinSubtitle}</p>
+            </div>
+          </div>
+        </motion.div>
+
+        <div className="grid gap-10 xl:grid-cols-[1.2fr_0.8fr] xl:items-start">
+          <div className="space-y-10">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="rounded-[32px] border border-white/10 bg-[#0f1114] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.35)]"
+            >
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.35em] text-red-400/80">
+                    {t.benefitsTitle}
+                  </p>
+                  <h2 className="mt-4 text-3xl font-black text-white sm:text-4xl">
+                    {t.benefitsTitle}
+                  </h2>
+                </div>
+                <p className="max-w-xl text-sm text-gray-400">{t.description}</p>
+              </div>
+
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                {t.benefits.map((benefit) => (
+                  <div key={benefit} className="rounded-3xl border border-white/10 bg-black/30 p-5">
+                    <p className="font-semibold text-white">{benefit}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="rounded-[32px] border border-white/10 bg-[#0f1114] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.35)]"
+            >
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.35em] text-red-400/80">{t.badge}</p>
+                  <h2 className="mt-4 text-3xl font-black text-white sm:text-4xl">{t.title}</h2>
+                </div>
+                <span className="inline-flex rounded-full bg-red-500/10 px-4 py-2 text-sm font-semibold text-red-300">
+                  {t.planOptions.length} plans
+                </span>
+              </div>
+
+              <div className="mt-8 grid gap-5 md:grid-cols-3">
+                {t.plans.map((plan) => (
+                  <div key={plan.name} className="rounded-[32px] border border-white/10 bg-black/20 p-6 transition hover:-translate-y-1 hover:border-red-600/40">
+                    <p className="text-sm uppercase tracking-[0.35em] text-red-400/80">{plan.name}</p>
+                    <p className="mt-4 text-3xl font-black text-white">{plan.price}</p>
+                    <p className="mt-4 text-sm leading-7 text-gray-300">{plan.description}</p>
+                    <ul className="mt-6 space-y-3 text-sm text-gray-300">
+                      {plan.features.map((feature) => (
+                        <li key={feature} className="flex items-start gap-3">
+                          <span className="mt-1 block h-2.5 w-2.5 rounded-full bg-red-500" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="rounded-[32px] border border-white/10 bg-[#0f1114] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.35)]"
+          >
+            <h3 className="text-3xl font-black text-white">{t.joinTitle}</h3>
+            <p className="mt-4 text-gray-400 leading-7">{t.joinSubtitle}</p>
+
+            <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+              <div>
+                <label className="block text-sm font-semibold text-gray-200">{t.formLabels.name}</label>
+                <input
+                  value={formData.name}
+                  onChange={(event) => setFormData({ ...formData, name: event.target.value })}
+                  placeholder={t.formPlaceholder.name}
+                  className="mt-3 w-full rounded-3xl border border-white/10 bg-black/60 px-4 py-3 text-white outline-none transition focus:border-red-500/70"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-200">{t.formLabels.email}</label>
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={(event) => setFormData({ ...formData, email: event.target.value })}
+                  placeholder={t.formPlaceholder.email}
+                  className="mt-3 w-full rounded-3xl border border-white/10 bg-black/60 px-4 py-3 text-white outline-none transition focus:border-red-500/70"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-200">{t.formLabels.plan}</label>
+                <select
+                  value={selectedPlan}
+                  onChange={(event) => setSelectedPlan(event.target.value)}
+                  className="mt-3 w-full rounded-3xl border border-white/10 bg-black/60 px-4 py-3 text-white outline-none transition focus:border-red-500/70"
+                >
+                  {t.planOptions.map((option) => (
+                    <option key={option} value={option} className="bg-[#0f1114] text-white">
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-200">{t.formLabels.message}</label>
+                <textarea
+                  value={formData.message}
+                  onChange={(event) => setFormData({ ...formData, message: event.target.value })}
+                  placeholder={t.formPlaceholder.message}
+                  rows={5}
+                  className="mt-3 w-full rounded-3xl border border-white/10 bg-black/60 px-4 py-3 text-white outline-none transition focus:border-red-500/70"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full rounded-full bg-gradient-to-r from-red-600 to-red-800 px-6 py-4 text-base font-semibold text-white transition hover:opacity-95"
+              >
+                {t.formLabels.submit}
+              </button>
+
+              {submitted && (
+                <p className="rounded-3xl border border-green-500/20 bg-green-500/10 px-5 py-4 text-sm text-green-200">
+                  Thank you! Your membership request has been received.
+                </p>
+              )}
+            </form>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}

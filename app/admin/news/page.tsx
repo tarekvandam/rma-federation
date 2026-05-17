@@ -62,6 +62,222 @@ export default function AdminNewsPage() {
       alert("تمت الإضافة بنجاح!");
       setTitle(""); setDescription("");
       fetchNews();
+    }    {
+      "name": "insert_edit_into_file",
+      "arguments": {
+        "filePath": "H:\\rma-federation\\app\\about\\page.tsx",
+        "contentToInsert": `
+    import React from 'react';
+    import { motion } from 'framer-motion';
+    
+    const AboutPage: React.FC = () => {
+      return (
+        <motion.div
+          initial={{ opacity: 0, y: -100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1>About RMA</h1>
+          <p>Real Martial Art is a martial arts and self-defense coaching company founded by Tarek Vandam.</p>
+          <section>
+            <h2>Founder Information</h2>
+            <ul>
+              <li><strong>Name:</strong> Tarek Vandam</li>
+              <li><strong>Role:</strong> Founder of RMA (Real Martial Art)</li>
+              <li><strong>Background:</strong>
+                - Martial arts and self-defense coach
+                - Official representative of Hapkido in Egypt
+                - MMA coach
+                - Kyokushin Karate practitioner
+                - Certified in CPR and BLS
+                - Sports training diploma
+                - Nutrition diploma
+                - Creator of realistic combat awareness content
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>RMA Philosophy</h2>
+            <p>Real Martial Art is dedicated to providing a realistic combat experience, exposing fake martial arts myths, and promoting self-defense. The company emphasizes discipline, personal transformation, and real fighting vs fantasy.</p>
+          </section>
+          <section>
+            <h2>Achievements</h2>
+            <ul>
+              <li><strong>Facebook Followers:</strong> 60K+</li>
+              <li><strong>YouTube Subscribers:</strong> 60K+</li>
+              <li><strong>Views:</strong> 16M+</li>
+              <li><strong>Martial Arts Certifications:</strong> International martial arts certifications</li>
+              <li><strong>International Events Participation:</strong> Participation in international events</li>
+            </ul>
+          </section>
+        </motion.div>
+      );
+    };
+    
+    export default AboutPage;
+    `
+    }    {
+      "name": "insert_edit_into_file",
+      "arguments": {
+        "filePath": "H:\\rma-federation\\app\\about\\page.tsx",
+        "contentToInsert": `
+    import React from 'react';
+    import { motion } from 'framer-motion';
+    
+    const AboutPage: React.FC = () => {
+      return (
+        <motion.div
+          initial={{ opacity: 0, y: -100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1>About RMA</h1>
+          <p>Real Martial Art is a martial arts and self-defense coaching company founded by Tarek Vandam.</p>
+          <section>
+            <h2>Founder Information</h2>
+            <ul>
+              <li><strong>Name:</strong> Tarek Vandam</li>
+              <li><strong>Role:</strong> Founder of RMA (Real Martial Art)</li>
+              <li><strong>Background:</strong>
+                - Martial arts and self-defense coach
+                - Official representative of Hapkido in Egypt
+                - MMA coach
+                - Kyokushin Karate practitioner
+                - Certified in CPR and BLS
+                - Sports training diploma
+                - Nutrition diploma
+                - Creator of realistic combat awareness content
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>RMA Philosophy</h2>
+            <p>Real Martial Art is dedicated to providing a realistic combat experience, exposing fake martial arts myths, and promoting self-defense. The company emphasizes discipline, personal transformation, and real fighting vs fantasy.</p>
+          </section>
+          <section>
+            <h2>Achievements</h2>
+            <ul>
+              <li><strong>Facebook Followers:</strong> 60K+</li>
+              <li><strong>YouTube Subscribers:</strong> 60K+</li>
+              <li><strong>Views:</strong> 16M+</li>
+              <li><strong>Martial Arts Certifications:</strong> International martial arts certifications</li>
+              <li><strong>International Events Participation:</strong> Participation in international events</li>
+            </ul>
+          </section>
+        </motion.div>
+      );
+    };
+    
+    export default AboutPage;
+    `
+    }    {
+      "name": "insert_edit_into_file",
+      "arguments": {
+        "filePath": "H:\\rma-federation\\app\\about\\page.tsx",
+        "contentToInsert": `
+    import React from 'react';
+    import { motion } from 'framer-motion';
+    
+    const AboutPage: React.FC = () => {
+      return (
+        <motion.div
+          initial={{ opacity: 0, y: -100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1>About RMA</h1>
+          <p>Real Martial Art is a martial arts and self-defense coaching company founded by Tarek Vandam.</p>
+          <section>
+            <h2>Founder Information</h2>
+            <ul>
+              <li><strong>Name:</strong> Tarek Vandam</li>
+              <li><strong>Role:</strong> Founder of RMA (Real Martial Art)</li>
+              <li><strong>Background:</strong>
+                - Martial arts and self-defense coach
+                - Official representative of Hapkido in Egypt
+                - MMA coach
+                - Kyokushin Karate practitioner
+                - Certified in CPR and BLS
+                - Sports training diploma
+                - Nutrition diploma
+                - Creator of realistic combat awareness content
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>RMA Philosophy</h2>
+            <p>Real Martial Art is dedicated to providing a realistic combat experience, exposing fake martial arts myths, and promoting self-defense. The company emphasizes discipline, personal transformation, and real fighting vs fantasy.</p>
+          </section>
+          <section>
+            <h2>Achievements</h2>
+            <ul>
+              <li><strong>Facebook Followers:</strong> 60K+</li>
+              <li><strong>YouTube Subscribers:</strong> 60K+</li>
+              <li><strong>Views:</strong> 16M+</li>
+              <li><strong>Martial Arts Certifications:</strong> International martial arts certifications</li>
+              <li><strong>International Events Participation:</strong> Participation in international events</li>
+            </ul>
+          </section>
+        </motion.div>
+      );
+    };
+    
+    export default AboutPage;
+    `
+    }    {
+      "name": "insert_edit_into_file",
+      "arguments": {
+        "filePath": "H:\\rma-federation\\app\\about\\page.tsx",
+        "contentToInsert": `
+    import React from 'react';
+    import { motion } from 'framer-motion';
+    
+    const AboutPage: React.FC = () => {
+      return (
+        <motion.div
+          initial={{ opacity: 0, y: -100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1>About RMA</h1>
+          <p>Real Martial Art is a martial arts and self-defense coaching company founded by Tarek Vandam.</p>
+          <section>
+            <h2>Founder Information</h2>
+            <ul>
+              <li><strong>Name:</strong> Tarek Vandam</li>
+              <li><strong>Role:</strong> Founder of RMA (Real Martial Art)</li>
+              <li><strong>Background:</strong>
+                - Martial arts and self-defense coach
+                - Official representative of Hapkido in Egypt
+                - MMA coach
+                - Kyokushin Karate practitioner
+                - Certified in CPR and BLS
+                - Sports training diploma
+                - Nutrition diploma
+                - Creator of realistic combat awareness content
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>RMA Philosophy</h2>
+            <p>Real Martial Art is dedicated to providing a realistic combat experience, exposing fake martial arts myths, and promoting self-defense. The company emphasizes discipline, personal transformation, and real fighting vs fantasy.</p>
+          </section>
+          <section>
+            <h2>Achievements</h2>
+            <ul>
+              <li><strong>Facebook Followers:</strong> 60K+</li>
+              <li><strong>YouTube Subscribers:</strong> 60K+</li>
+              <li><strong>Views:</strong> 16M+</li>
+              <li><strong>Martial Arts Certifications:</strong> International martial arts certifications</li>
+              <li><strong>International Events Participation:</strong> Participation in international events</li>
+            </ul>
+          </section>
+        </motion.div>
+      );
+    };
+    
+    export default AboutPage;
+    `
     }
   }
 

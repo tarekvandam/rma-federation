@@ -17,33 +17,7 @@ export default function TrainerProfiles() {
     ...profile,
     image: trainerImages[index] ?? trainerImages[0],
   }));
-  {
-    name: "Coach Lina Torres",
-    role: "Defense & Strategy",
-    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop",
-    stats: [
-      { label: "Years Training", value: "14" },
-      { label: "Seminars Delivered", value: "280" },
-      { label: "Certifications", value: "7" },
-    ],
-    certifications: ["Women's Defense", "Combat Analytics", "Situational Awareness", "Fight Psychology"],
-    description: "Specializes in defensive systems, tactical awareness, and transforming athletes into confident, adaptable martial artists.",
-  },
-  {
-    name: "Sensei Mateo Cruz",
-    role: "Transformation Mentor",
-    image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1600&auto=format&fit=crop",
-    stats: [
-      { label: "Years Training", value: "20" },
-      { label: "Ranked Masters", value: "37" },
-      { label: "Academy Awards", value: "12" },
-    ],
-    certifications: ["Holistic Martial Arts", "Leadership Coaching", "Combat Conditioning", "Ring Control"],
-    description: "A mentor who blends technical precision with mindset transformation for fighters who demand real results.",
-  },
-];
 
-export default function TrainerProfiles() {
   return (
     <section className="relative overflow-hidden bg-[#07080b] py-20 sm:py-24 px-4 sm:px-6 lg:px-10">
       <div className="absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_top,_rgba(255,0,0,0.14),_rgba(0,0,0,0.96))] opacity-75 pointer-events-none" />
