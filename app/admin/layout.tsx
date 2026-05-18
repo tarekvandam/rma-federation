@@ -14,6 +14,7 @@ const navItems = [
   { label: "العضوية", href: "/admin/membership", icon: "🪪" },
   { label: "الدول", href: "/admin/countries", icon: "🌍" },
   { label: "الميديا", href: "/admin/media", icon: "🎬" },
+  { label: "التوثيق", href: "/admin/verification", icon: "✅" },
   { label: "الرئيسية", href: "/", icon: "🏠" },
 ];
 

@@ -10,6 +10,7 @@ const quickLinks = [
   { label: "الترتيب", href: "/admin/rankings", icon: "📊", color: "from-blue-600/20 to-blue-900/10", border: "border-blue-600/30" },
   { label: "المدربين", href: "/admin/trainers", icon: "🥋", color: "from-green-600/20 to-green-900/10", border: "border-green-600/30" },
   { label: "الميديا", href: "/admin/media", icon: "🎬", color: "from-purple-600/20 to-purple-900/10", border: "border-purple-600/30" },
+  { label: "التوثيق", href: "/admin/verification", icon: "✅", color: "from-green-600/20 to-green-900/10", border: "border-green-600/30" },
   { label: "الرئيسية", href: "/", icon: "🏠", color: "from-zinc-600/20 to-zinc-900/10", border: "border-zinc-600/30" },
 ];
 
