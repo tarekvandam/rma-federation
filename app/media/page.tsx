@@ -2,22 +2,27 @@ import { supabase } from "@/lib/supabase";
 import { generateMetadata } from "@/lib/seo";
 
 export const metadata = generateMetadata(
-  "Media Center",
-  "Watch RMA Federation videos, training sessions, championships, and martial arts content."
+  "Media Center — Videos & Gallery",
+  "Watch RMA Federation training videos, championship highlights, self-defense techniques, and browse the official gallery. Boxing, kickboxing, Muay Thai, MMA, and martial arts content.",
+  "شاهد فيديوهات تدريب اتحاد RMA، Highlights البطولات، تقنيات الدفاع عن النفس، وتصفح المعرض الرسمي."
 );
 
 export const dynamic = "force-dynamic";
-
-const galleryImages = [
-  "/gallery/1.jpg", "/gallery/2.jpg", "/gallery/3.jpg",
-  "/gallery/4.jpg", "/images/hero.jpg", "/gallery/1.jpg",
-];
 
 export default async function MediaPage() {
   const { data: videos } = await supabase
     .from("media_videos")
     .select("*")
     .order("created_at", { ascending: false });
+
+  const { data: gallery } = await supabase
+    .from("media_gallery")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  const galleryImages = gallery && gallery.length > 0
+    ? gallery.map((g: any) => g.image)
+    : [];
 
   return (
     <main className="bg-black text-white min-h-screen pt-32 px-6 pb-20">
@@ -61,16 +66,20 @@ export default async function MediaPage() {
 
         <section>
           <h2 className="text-4xl font-bold mb-10">Gallery</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {galleryImages.map((image, index) => (
-              <img
-                key={index}
-                src={image}
-                alt={`RMA gallery image ${index + 1}`}
-                className="rounded-2xl object-cover h-72 w-full hover:scale-105 transition duration-300"
-              />
-            ))}
-          </div>
+          {galleryImages.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {galleryImages.map((image: string, index: number) => (
+                <img
+                  key={index}
+                  src={image}
+                  alt={`RMA gallery image ${index + 1}`}
+                  className="rounded-2xl object-cover h-72 w-full hover:scale-105 transition duration-300"
+                />
+              ))}
+            </div>
+          ) : (
+            <p className="text-gray-500 text-center py-16 text-lg">No gallery images uploaded yet — add them from the admin panel.</p>
+          )}
         </section>
       </div>
     </main>
