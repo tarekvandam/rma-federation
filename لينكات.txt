@@ -2,3 +2,15 @@ http://localhost:3000/admin/news
 
 
 https://rma-federation.vercel.app/admin
+
+
+
+
+
+إزاي تشتغل:
+
+ابعت للاعب لينك https://rma-federation.vercel.app/players/apply
+اللاعب يدخل اسمه - صورته - لون حزامه - تاريخه - تاريخ الترقيات
+انت تروح https://rma-federation.vercel.app/admin/players
+تضغط ✅ Approve عشان يوافق أو ❌ Reject عشان يرفض
+اللي وافقت عليه يظهر في https://rma-federation.vercel.app/players

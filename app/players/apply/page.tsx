@@ -133,7 +133,7 @@ export default function PlayerApplyPage() {
             </div>
             <div>
               <label className="block text-sm text-gray-400 mb-1">Date Obtained *</label>
-              <input type="date" value={dateObtained} onChange={(e) => setDateObtained(e.target.value)} required
+              <input type="text" placeholder="DD/MM/YYYY" value={dateObtained} onChange={(e) => setDateObtained(e.target.value)} required
                 className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-red-600" />
             </div>
           </div>
@@ -155,7 +155,7 @@ export default function PlayerApplyPage() {
                 <option value="">Belt</option>
                 {beltOptions.map((b) => <option key={b} value={b}>{b}</option>)}
               </select>
-              <input type="date" value={newPromoDate} onChange={(e) => setNewPromoDate(e.target.value)}
+              <input type="text" placeholder="DD/MM/YYYY" value={newPromoDate} onChange={(e) => setNewPromoDate(e.target.value)}
                 className="bg-black border border-zinc-700 p-2 rounded-xl outline-none focus:border-red-600 text-sm" />
               <button type="button" onClick={addPromotion}
                 className="bg-zinc-800 px-4 py-2 rounded-xl text-sm hover:bg-red-600 transition">+ Add</button>
