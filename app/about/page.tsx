@@ -110,7 +110,7 @@ export default function AboutPage() {
             </h1>
 
             <p className="mt-8 max-w-2xl text-lg sm:text-xl text-gray-300 leading-relaxed">
-              Founded by <span className="text-white font-bold">Tarek Vandam</span> — a martial artist, coach, and founder dedicated to realistic combat, exposing fake systems, and building disciplined fighters worldwide.
+              Founded by <span className="text-white font-bold">Tarek Vandam</span> — a martial artist, coach, and founder dedicated to realistic combat, exposing fake systems, and building disciplined fighters worldwide. RMA was established in <span className="text-red-400 font-bold">2013</span> and has been evolving ever since.
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
@@ -156,7 +156,7 @@ export default function AboutPage() {
               World Real Martial Art Federation (RMA) is a modern martial arts organization dedicated to building a <strong className="text-white">realistic combat system</strong> based on practical application, scientific training methods, and authentic self-defense principles.
             </p>
             <p className="text-lg sm:text-xl text-gray-300 leading-8 max-w-4xl mx-auto">
-              Founded by <strong className="text-white">Tarek Vandam</strong>, RMA was created to challenge unrealistic martial arts myths and promote effective combat skills that can be applied in real-life situations, competitions, and personal protection.
+              Founded by <strong className="text-white">Tarek Vandam</strong> in <strong className="text-red-400">2013</strong>, RMA was created to challenge unrealistic martial arts myths and promote effective combat skills that can be applied in real-life situations, competitions, and personal protection.
             </p>
           </div>
 
