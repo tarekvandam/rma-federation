@@ -25,7 +25,11 @@ export default function TrainerProfiles() {
       const defaults = translations[locale].trainers.profiles;
       const { data, error } = await supabase.from("trainers").select("*").order("created_at", { ascending: true });
       
-      const dbTrainers = (data || []).map(t => ({ ...t, stats: [], certifications: [] }));
+      const dbTrainers = (data || []).map(t => ({
+        ...t,
+        stats: t.years_experience ? [{ label: locale === "ar" ? "سنوات الخبرة" : "Years Experience", value: String(t.years_experience) }] : [],
+        certifications: t.certifications || [],
+      }));
       const merged = defaults.map(d => {
         const match = dbTrainers.find(t => t.name === d.name);
         return match || d;
