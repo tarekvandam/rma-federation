@@ -161,8 +161,10 @@ export const translations = {
         rank: "Rank",
         fighter: "Fighter",
         weightClass: "Weight Class",
-        record: "Record",
-        streak: "Streak",
+        tournament: "Tournament",
+        rounds: "Rounds",
+        points: "Points",
+        country: "Country",
       },
       weightClasses: [
         {
@@ -462,8 +464,10 @@ export const translations = {
         rank: "الترتيب",
         fighter: "المقاتل",
         weightClass: "فئة الوزن",
-        record: "السجل",
-        streak: "السلسلة",
+        tournament: "البطولة",
+        rounds: "الجولات",
+        points: "النقاط",
+        country: "الدولة",
       },
       weightClasses: [
         {
