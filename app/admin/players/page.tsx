@@ -15,8 +15,22 @@ type Submission = {
   created_at: string;
 };
 
+const beltOptions = [
+  "White", "Yellow 1st", "Yellow 2nd", "Orange 1st", "Orange 2nd",
+  "Green 1st", "Green 2nd", "Blue 1st", "Blue 2nd",
+  "Brown 1st", "Brown 2nd", "Red 1st", "Red 2nd",
+  "Black 1st Dan", "Black 2nd Dan", "Black 3rd Dan",
+  "Black 4th Dan", "Black 5th Dan", "Black 6th Dan",
+];
+
 export default function AdminPlayersPage() {
   const [submissions, setSubmissions] = useState<Submission[]>([]);
+  const [editing, setEditing] = useState<Submission | null>(null);
+  const [editName, setEditName] = useState("");
+  const [editBelt, setEditBelt] = useState("");
+  const [editDate, setEditDate] = useState("");
+  const [editImage, setEditImage] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
 
   async function fetchData() {
     const { data } = await supabase
@@ -38,6 +52,37 @@ export default function AdminPlayersPage() {
       await supabase.from("player_submissions").delete().eq("id", id);
       fetchData();
     }
+  }
+
+  function openEdit(item: Submission) {
+    setEditing(item);
+    setEditName(item.name);
+    setEditBelt(item.belt_color);
+    setEditDate(item.date_obtained || "");
+    setEditImage(null);
+  }
+
+  async function saveEdit() {
+    if (!editing) return;
+    let imageUrl = editing.image;
+    if (editImage) {
+      setUploading(true);
+      const ext = editImage.name.split(".").pop();
+      const fn = `${Date.now()}.${ext}`;
+      const { error: uploadError } = await supabase.storage.from("news-images").upload(fn, editImage);
+      if (!uploadError) {
+        imageUrl = `https://bqedictvigmpxscbjboq.supabase.co/storage/v1/object/public/news-images/${fn}`;
+      }
+      setUploading(false);
+    }
+    await supabase.from("player_submissions").update({
+      name: editName,
+      belt_color: editBelt,
+      date_obtained: editDate,
+      image: imageUrl,
+    }).eq("id", editing.id);
+    setEditing(null);
+    fetchData();
   }
 
   const pending = submissions.filter((s) => s.status === "pending");
@@ -69,6 +114,8 @@ export default function AdminPlayersPage() {
                       className="bg-red-600 text-white px-3 py-1.5 rounded-lg text-sm hover:bg-red-700 transition">❌ Reject</button>
                   </>
                 )}
+                <button onClick={() => openEdit(item)}
+                  className="bg-blue-600 text-white px-3 py-1.5 rounded-lg text-sm hover:bg-blue-700 transition">✏️ Edit</button>
                 <button onClick={() => deleteSubmission(item.id)}
                   className="bg-zinc-800 text-gray-400 px-3 py-1.5 rounded-lg text-sm hover:bg-zinc-700 transition">🗑️</button>
               </div>
@@ -101,7 +148,7 @@ export default function AdminPlayersPage() {
       <h2 className="text-xl font-bold mb-4 text-green-400">تمت الموافقة ({approved.length})</h2>
       <div className="space-y-3 mb-8">
         {approved.length === 0 && <p className="text-gray-500 text-center py-4">لا يوجد</p>}
-        {renderCards(approved, false)}
+        {renderCards(approved, true)}
       </div>
 
       {/* Rejected */}
@@ -110,6 +157,43 @@ export default function AdminPlayersPage() {
         {rejected.length === 0 && <p className="text-gray-500 text-center py-4">لا يوجد</p>}
         {renderCards(rejected, false)}
       </div>
+
+      {/* Edit Modal */}
+      {editing && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4">
+          <div className="bg-zinc-900 rounded-3xl border border-zinc-700 p-8 w-full max-w-lg space-y-5">
+            <h2 className="text-2xl font-bold text-white">تعديل اللاعب</h2>
+
+            <input type="text" value={editName} onChange={(e) => setEditName(e.target.value)}
+              className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-blue-500 text-white" placeholder="الاسم" />
+
+            <select value={editBelt} onChange={(e) => setEditBelt(e.target.value)}
+              className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-blue-500 text-white">
+              {beltOptions.map((b) => <option key={b} value={b}>{b}</option>)}
+            </select>
+
+            <input type="text" value={editDate} onChange={(e) => setEditDate(e.target.value)}
+              className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-blue-500 text-white" placeholder="تاريخ الحصول (DD/MM/YYYY)" />
+
+            <div>
+              <label className="block text-sm text-gray-400 mb-2">صورة جديدة (اختياري)</label>
+              <input type="file" accept="image/*" onChange={(e) => setEditImage(e.target.files?.[0] || null)}
+                className="text-sm file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer" />
+            </div>
+
+            <div className="flex gap-3">
+              <button onClick={saveEdit} disabled={uploading}
+                className="flex-1 bg-blue-600 py-3 rounded-xl font-bold hover:bg-blue-700 transition disabled:opacity-50">
+                {uploading ? "جاري الرفع..." : "حفظ التعديلات"}
+              </button>
+              <button onClick={() => setEditing(null)}
+                className="flex-1 bg-zinc-800 py-3 rounded-xl font-bold hover:bg-zinc-700 transition">
+                إلغاء
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
