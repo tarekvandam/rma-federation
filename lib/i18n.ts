@@ -66,23 +66,6 @@ export const translations = {
       runtimeLabel: "Duration",
       watchPreview: "Watch Preview",
       play: "Play",
-      videos: [
-        {
-          title: "RMA Fight Breakdown: Real Impact Training",
-          channel: "RMA Federation",
-          runtime: "12:34",
-        },
-        {
-          title: "Discipline & Defense: Night Training Session",
-          channel: "RMA Insights",
-          runtime: "9:18",
-        },
-        {
-          title: "Myth-Busting Martial Arts Techniques",
-          channel: "RMA Academy",
-          runtime: "10:52",
-        },
-      ],
     },
     trainers: {
       badge: "Coach Profiles",
@@ -416,23 +399,6 @@ export const translations = {
       runtimeLabel: "المدة",
       watchPreview: "شاهد المعاينة",
       play: "تشغيل",
-      videos: [
-        {
-          title: "تحليل قتال الاتحاد: تدريب التأثير الحقيقي",
-          channel: "اتحاد RMA",
-          runtime: "12:34",
-        },
-        {
-          title: "الانضباط والدفاع: تدريب ليلي",
-          channel: "رؤى RMA",
-          runtime: "9:18",
-        },
-        {
-          title: "كشف أساطير تقنيات الفنون القتالية",
-          channel: "أكاديمية RMA",
-          runtime: "10:52",
-        },
-      ],
     },
     trainers: {
       badge: "ملفات المدربين",

@@ -3,20 +3,38 @@
 import { motion } from "framer-motion";
 import { useLanguage } from "./LanguageProvider";
 import { translations } from "@/lib/i18n";
-
-const thumbnails = [
-  "/gallery/3.jpg",
-  "/gallery/4.jpg",
-  "/images/hero.jpg",
-];
+import { supabase } from "@/lib/supabase";
+import { useState, useEffect } from "react";
 
 export default function YouTubeShowcase() {
   const { locale } = useLanguage();
   const t = translations[locale].youtube;
-  const highlights = t.videos.map((video, index) => ({
-    ...video,
-    thumbnail: thumbnails[index] ?? thumbnails[0],
-  }));
+  const [videos, setVideos] = useState<any[]>([]);
+
+  useEffect(() => {
+    supabase
+      .from("media_videos")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .then(({ data }) => {
+        if (data && data.length > 0) {
+          setVideos(
+            data.map((v) => ({
+              title: v.title,
+              youtube_id: v.youtube_id,
+              channel: v.channel || "RMA Federation",
+              runtime: v.runtime || "",
+              thumbnail: `https://img.youtube.com/vi/${v.youtube_id}/maxresdefault.jpg`,
+            }))
+          );
+        } else {
+          setVideos([]);
+        }
+      });
+  }, []);
+
+  if (videos.length === 0) return null;
+
   return (
     <section className="relative overflow-hidden bg-[#060607] py-20 sm:py-24 px-4 sm:px-6 lg:px-10">
       <div className="absolute inset-x-0 top-0 h-[280px] bg-[radial-gradient(circle_at_top,_rgba(255,0,0,0.14),_rgba(0,0,0,0.95))] opacity-80 pointer-events-none" />
@@ -42,7 +60,7 @@ export default function YouTubeShowcase() {
         </motion.div>
 
         <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-          {highlights.map((video, index) => (
+          {videos.map((video, index) => (
             <motion.article
               key={index}
               initial={{ opacity: 0, y: 60 }}
@@ -60,11 +78,13 @@ export default function YouTubeShowcase() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                 <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-black/70 px-3 py-2 text-xs uppercase tracking-[0.35em] text-white/90 backdrop-blur-sm">
                   <span className="block h-2 w-2 rounded-full bg-red-500 animate-pulse" />
-                  LIVE
+                  {t.live}
                 </div>
-                <div className="absolute right-4 top-4 inline-flex items-center gap-2 rounded-full bg-black/70 px-3 py-2 text-xs uppercase tracking-[0.35em] text-white/90 backdrop-blur-sm">
-                  {video.runtime}
-                </div>
+                {video.runtime && (
+                  <div className="absolute right-4 top-4 inline-flex items-center gap-2 rounded-full bg-black/70 px-3 py-2 text-xs uppercase tracking-[0.35em] text-white/90 backdrop-blur-sm">
+                    {video.runtime}
+                  </div>
+                )}
               </div>
 
               <div className="space-y-4 px-6 pb-6 pt-6 sm:px-8">

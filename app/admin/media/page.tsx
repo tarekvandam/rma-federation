@@ -5,6 +5,8 @@ import { supabase } from "../../../lib/supabase";
 
 export default function AdminMediaPage() {
   const [title, setTitle] = useState("");
+  const [channel, setChannel] = useState("");
+  const [runtime, setRuntime] = useState("");
   const [youtubeUrl, setYoutubeUrl] = useState("");
 
   function extractYoutubeId(url: string) {
@@ -43,8 +45,8 @@ export default function AdminMediaPage() {
     e.preventDefault();
     const id = extractYoutubeId(youtubeUrl);
     if (!id) { alert("رابط يوتيوب غير صحيح"); return; }
-    const { error } = await supabase.from("media_videos").insert([{ title, youtube_id: id }]);
-    if (!error) { setTitle(""); setYoutubeUrl(""); fetchData(); }
+    const { error } = await supabase.from("media_videos").insert([{ title, channel: channel || "RMA Federation", runtime, youtube_id: id }]);
+    if (!error) { setTitle(""); setChannel(""); setRuntime(""); setYoutubeUrl(""); fetchData(); }
     else { alert(`خطأ: ${error.message}`); }
   }
 
@@ -78,6 +80,8 @@ export default function AdminMediaPage() {
         <div>
           <form onSubmit={addVideo} className="bg-zinc-900 p-6 rounded-2xl mb-8 space-y-4 border border-zinc-800">
             <input type="text" placeholder="عنوان الفيديو" value={title} onChange={(e) => setTitle(e.target.value)} required className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-purple-500" />
+            <input type="text" placeholder="اسم القناة (مثال: RMA Federation)" value={channel} onChange={(e) => setChannel(e.target.value)} className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-purple-500" />
+            <input type="text" placeholder="المدة (مثال: 12:34)" value={runtime} onChange={(e) => setRuntime(e.target.value)} className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-purple-500" />
             <input type="text" placeholder="رابط يوتيوب (مثال: https://youtu.be/g5_SF0A4NBo)" value={youtubeUrl} onChange={(e) => setYoutubeUrl(e.target.value)} required className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-purple-500" />
             <button type="submit" className="w-full bg-purple-600 py-3 rounded-xl font-bold hover:bg-purple-700 transition">إضافة فيديو</button>
           </form>
@@ -86,7 +90,10 @@ export default function AdminMediaPage() {
               <div key={v.id} className="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
                 <iframe className="w-full h-48 rounded-lg mb-3" src={`https://www.youtube.com/embed/${v.youtube_id}`} title={v.title} allowFullScreen />
                 <div className="flex justify-between items-center">
-                  <p className="font-medium">{v.title}</p>
+                  <div>
+                    <p className="font-medium">{v.title}</p>
+                    {v.channel && <p className="text-sm text-gray-400">{v.channel}{v.runtime ? ` · ${v.runtime}` : ""}</p>}
+                  </div>
                   <button onClick={() => deleteItem("media_videos", v.id)} className="text-red-400 hover:text-red-300 text-sm">حذف</button>
                 </div>
               </div>
