@@ -35,11 +35,13 @@ export default async function NewsPage() {
             >
 
               {/* Image */}
-              <img
-                src={item.image}
-                alt={item.title}
-                className="h-60 w-full object-cover"
-              />
+              {item.image ? (
+                <img src={item.image} alt={item.title} className="h-60 w-full object-cover" />
+              ) : (
+                <div className="h-60 w-full bg-zinc-800 flex items-center justify-center">
+                  <span className="text-gray-600 text-4xl">📰</span>
+                </div>
+              )}
 
               {/* Content */}
               <div className="p-6">
