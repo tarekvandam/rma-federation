@@ -5,7 +5,12 @@ import { supabase } from "../../../lib/supabase";
 
 export default function AdminMediaPage() {
   const [title, setTitle] = useState("");
-  const [youtubeId, setYoutubeId] = useState("");
+  const [youtubeUrl, setYoutubeUrl] = useState("");
+
+  function extractYoutubeId(url: string) {
+    const match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+    return match ? match[1] : url;
+  }
   const [uploading, setUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [videos, setVideos] = useState<any[]>([]);
@@ -36,8 +41,10 @@ export default function AdminMediaPage() {
 
   async function addVideo(e: React.FormEvent) {
     e.preventDefault();
-    const { error } = await supabase.from("media_videos").insert([{ title, youtubeId }]);
-    if (!error) { setTitle(""); setYoutubeId(""); fetchData(); }
+    const id = extractYoutubeId(youtubeUrl);
+    if (!id) { alert("رابط يوتيوب غير صحيح"); return; }
+    const { error } = await supabase.from("media_videos").insert([{ title, youtube_id: id }]);
+    if (!error) { setTitle(""); setYoutubeUrl(""); fetchData(); }
     else { alert(`خطأ: ${error.message}`); }
   }
 
@@ -71,13 +78,13 @@ export default function AdminMediaPage() {
         <div>
           <form onSubmit={addVideo} className="bg-zinc-900 p-6 rounded-2xl mb-8 space-y-4 border border-zinc-800">
             <input type="text" placeholder="عنوان الفيديو" value={title} onChange={(e) => setTitle(e.target.value)} required className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-purple-500" />
-            <input type="text" placeholder="YouTube ID (مثال: g5_SF0A4NBo)" value={youtubeId} onChange={(e) => setYoutubeId(e.target.value)} required className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-purple-500" />
+            <input type="text" placeholder="رابط يوتيوب (مثال: https://youtu.be/g5_SF0A4NBo)" value={youtubeUrl} onChange={(e) => setYoutubeUrl(e.target.value)} required className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-purple-500" />
             <button type="submit" className="w-full bg-purple-600 py-3 rounded-xl font-bold hover:bg-purple-700 transition">إضافة فيديو</button>
           </form>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {videos.map((v) => (
               <div key={v.id} className="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
-                <iframe className="w-full h-48 rounded-lg mb-3" src={`https://www.youtube.com/embed/${v.youtubeId}`} title={v.title} allowFullScreen />
+                <iframe className="w-full h-48 rounded-lg mb-3" src={`https://www.youtube.com/embed/${v.youtube_id}`} title={v.title} allowFullScreen />
                 <div className="flex justify-between items-center">
                   <p className="font-medium">{v.title}</p>
                   <button onClick={() => deleteItem("media_videos", v.id)} className="text-red-400 hover:text-red-300 text-sm">حذف</button>
