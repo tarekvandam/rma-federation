@@ -60,14 +60,14 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3 md:gap-4 group">
-            <div className="relative h-14 w-14 rounded-full bg-gradient-to-br from-red-600 via-rose-700 to-black shadow-2xl shadow-red-900/30 ring-1 ring-white/10 overflow-hidden border border-white/10">
+            <div className="relative h-14 w-14 bg-gradient-to-br from-red-600 via-rose-700 to-black shadow-2xl shadow-red-900/30 ring-1 ring-white/10 rounded-xl border border-white/10 p-1.5">
               <Image
                 src="/images/logo.png"
                 alt="RMA Logo"
                 fill
                 sizes="56px"
                 loading="lazy"
-                className="object-cover"
+                className="object-contain"
               />
             </div>
 
