@@ -81,14 +81,14 @@ export default function Navbar() {
             </div>
           </Link>
 
-          <div className="hidden md:flex items-center gap-8 text-sm font-semibold tracking-[0.02em] text-white/85">
+          <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-white/85">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.path}
-                className="group relative overflow-hidden transition duration-300 hover:text-red-400"
+                className="group relative transition duration-300 hover:text-red-400"
               >
-                <span className="relative z-10">{link.label}</span>
+                <span>{link.label}</span>
                 <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-red-500 opacity-0 transition-all duration-300 group-hover:opacity-100" />
               </Link>
             ))}
