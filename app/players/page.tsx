@@ -35,12 +35,26 @@ function getBeltClass(belt: string) {
   return beltColors[base] || "bg-zinc-700 text-white";
 }
 
+const beltOrder: Record<string, number> = {
+  "White": 0,
+  "Yellow 1st": 1, "Yellow 2nd": 2,
+  "Orange 1st": 3, "Orange 2nd": 4,
+  "Green 1st": 5, "Green 2nd": 6,
+  "Blue 1st": 7, "Blue 2nd": 8,
+  "Brown 1st": 9, "Brown 2nd": 10,
+  "Red 1st": 11, "Red 2nd": 12,
+  "Black 1st Dan": 13, "Black 2nd Dan": 14, "Black 3rd Dan": 15,
+  "Black 4th Dan": 16, "Black 5th Dan": 17, "Black 6th Dan": 18,
+};
+
 export default async function PlayersPage() {
   const { data: players } = await supabase
     .from("player_submissions")
     .select("*")
     .eq("status", "approved")
     .order("created_at", { ascending: true });
+
+  players?.sort((a, b) => (beltOrder[b.belt_color] ?? -1) - (beltOrder[a.belt_color] ?? -1));
 
   return (
     <main className="bg-black text-white min-h-screen pt-32 px-4 sm:px-6 pb-20">
