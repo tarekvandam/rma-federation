@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/media', changeFrequency: 'monthly', priority: 0.6 },
     { path: '/countries', changeFrequency: 'monthly', priority: 0.7 },
     { path: '/promotion', changeFrequency: 'monthly', priority: 0.7 },
+    { path: '/players', changeFrequency: 'daily', priority: 0.7 },
     { path: '/membership', changeFrequency: 'monthly', priority: 0.7 },
     { path: '/contact', changeFrequency: 'monthly', priority: 0.6 },
   ]

@@ -23,6 +23,7 @@ export default function Navbar() {
     { label: translations[locale].nav.membership, path: "/membership" },
     { label: translations[locale].nav.countries, path: "/countries" },
     { label: translations[locale].nav.promotion, path: "/promotion" },
+    { label: translations[locale].nav.players, path: "/players" },
     { label: translations[locale].nav.contact, path: "/contact" },
   ];
 

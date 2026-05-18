@@ -10,6 +10,7 @@ const navItems = [
   { label: "البطولات", href: "/admin/championships", icon: "🏆" },
   { label: "الترتيب", href: "/admin/rankings", icon: "📊" },
   { label: "المدربين", href: "/admin/trainers", icon: "🥋" },
+  { label: "اللاعبين", href: "/admin/players", icon: "👤" },
   { label: "الدول", href: "/admin/countries", icon: "🌍" },
   { label: "الميديا", href: "/admin/media", icon: "🎬" },
   { label: "الرئيسية", href: "/", icon: "🏠" },
