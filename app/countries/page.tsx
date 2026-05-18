@@ -5,8 +5,8 @@ import type { Metadata } from "next";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "RMA Around the World | Countries",
-  description: "The Real Martial Art Federation is expanding globally - find certified RMA trainers and academies worldwide.",
+  title: "RMA Around the World — Global Countries | RMA Federation",
+  description: "Discover RMA Federation trainers and academies worldwide. Real Martial Art is expanding globally across 60+ countries. Find certified martial arts coaches near you.",
 };
 
 type Country = {

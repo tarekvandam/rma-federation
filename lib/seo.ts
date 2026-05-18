@@ -1,22 +1,109 @@
 import { Metadata } from 'next';
 
-const defaultImage = 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200&auto=format&fit=crop';
+const siteUrl = 'https://rma-federation.org';
+const defaultImage = `${siteUrl}/images/hero.jpg`;
+const logoImage = `${siteUrl}/images/logo.png`;
 
 export const siteMetadata = {
   title: 'World Real Martial Art Federation',
+  shortTitle: 'RMA Federation',
   description:
-    'The official platform for the World Real Martial Art Federation. Join our global community for real combat, discipline, and training in martial arts and self-defense.',
-  url: 'https://rma-federation.org',
-  keywords: ['martial arts', 'self-defense', 'combat sports', 'fitness', 'real martial art', 'martial arts federation', 'self defense', 'combat training'],
-  author: 'World Real Martial Art Federation',
+    'Official platform of the World Real Martial Art Federation (RMA). Join a global community dedicated to real combat, self-defense, discipline, and championship-level martial arts training. Programs in boxing, kickboxing, Muay Thai, MMA, Jiu-Jitsu, Karate, Taekwondo, Krav Maga, and more.',
+  arDescription:
+    'المنصة الرسمية للاتحاد العالمي للفنون القتالية الحقيقية (RMA). انضم إلى مجتمع عالمي مكرس للقتال الحقيقي، الدفاع عن النفس، الانضباط، والتدريب القتالي على مستوى البطولة.',
+  url: siteUrl,
+  keywords: [
+    'real martial art', 'RMA federation', 'martial arts', 'self defense', 'combat sports',
+    'boxing', 'kickboxing', 'Muay Thai', 'MMA', 'mixed martial arts', 'Brazilian Jiu-Jitsu',
+    'Karate', 'Taekwondo', 'Judo', 'Krav Maga', 'Kung Fu', 'Wrestling',
+    'martial arts training', 'self defense classes', 'fight training',
+    'martial arts federation', 'world martial arts', 'international martial arts',
+    'combat training', 'fighting techniques', 'martial arts near me',
+    'martial arts academy', 'martial arts gym', 'learn martial arts online',
+    'Tarek Vandam', 'martial arts Egypt', 'RMA champions',
+    'martial arts belts', 'belt ranking system', 'martial arts promotion',
+    'MMA training', 'kickboxing training', 'boxing training',
+    'martial arts for beginners', 'advanced martial arts', 'martial arts competition',
+    'martial arts tournament', 'fighting championship', 'martial arts news',
+    'real combat training', 'practical self defense', 'street defense techniques',
+    'martial arts discipline', 'martial arts philosophy',
+    'فنون قتالية', 'دفاع عن النفس', 'اتحاد فنون قتالية', 'ملاكمة', 'كيك بوكسينغ',
+    'مواي تاي', 'جيو جيتسو', 'كاراتيه', 'تايكوندو', 'جودو',
+  ],
+  author: 'Tarek Vandam — World Real Martial Art Federation',
   image: defaultImage,
+  logo: logoImage,
   sameAs: [
     'https://www.facebook.com/tarekninjateam',
     'https://www.youtube.com/@tarekvandam',
   ],
+  phone: '+20 100 190 4418',
+  email: 'realmartialartrma@gmail.com',
+  founded: 2013,
+  founder: 'Tarek Vandam',
 };
 
-export const generateMetadata = (pageTitle?: string, pageDescription?: string): Metadata => {
+export function generateOrganizationSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'SportsOrganization',
+        name: siteMetadata.title,
+        alternateName: 'RMA Federation',
+        description: siteMetadata.description,
+        url: siteMetadata.url,
+        logo: siteMetadata.logo,
+        image: siteMetadata.image,
+        sameAs: siteMetadata.sameAs,
+        foundingDate: '2013',
+        founder: {
+          '@type': 'Person',
+          name: 'Tarek Vandam',
+          jobTitle: 'Founder & Head Coach',
+          url: siteMetadata.url,
+          sameAs: siteMetadata.sameAs,
+        },
+        contactPoint: [
+          {
+            '@type': 'ContactPoint',
+            contactType: 'customer service',
+            telephone: siteMetadata.phone,
+            email: siteMetadata.email,
+            availableLanguage: ['English', 'Arabic'],
+          },
+        ],
+        sport: ['MartialArts', 'Boxing', 'Kickboxing', 'MuayThai', 'MixedMartialArts', 'JiuJitsu', 'Karate', 'Taekwondo', 'Judo', 'KravMaga', 'SelfDefense'],
+        areaServed: 'Worldwide',
+        knowsAbout: [
+          'Martial Arts', 'Self Defense', 'Combat Sports', 'Boxing', 'Kickboxing', 'MMA',
+          'Muay Thai', 'Brazilian Jiu-Jitsu', 'Karate', 'Taekwondo', 'Judo', 'Krav Maga',
+        ],
+      },
+      {
+        '@type': 'WebSite',
+        name: siteMetadata.title,
+        alternateName: siteMetadata.shortTitle,
+        url: siteMetadata.url,
+        description: siteMetadata.description,
+        inLanguage: ['en', 'ar'],
+        publisher: {
+          '@type': 'Organization',
+          name: siteMetadata.title,
+          url: siteMetadata.url,
+          logo: siteMetadata.logo,
+        },
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: `${siteMetadata.url}/search?q={search_term_string}`,
+          'query-input': 'required name=search_term_string',
+        },
+      },
+    ],
+  };
+}
+
+export const generateMetadata = (pageTitle?: string, pageDescription?: string, arPageDescription?: string): Metadata => {
   const title = pageTitle ? `${pageTitle} | ${siteMetadata.title}` : siteMetadata.title;
   const description = pageDescription || siteMetadata.description;
 
@@ -25,36 +112,50 @@ export const generateMetadata = (pageTitle?: string, pageDescription?: string): 
     description,
     keywords: siteMetadata.keywords,
     authors: [{ name: siteMetadata.author }],
+    metadataBase: new URL(siteMetadata.url),
+    alternates: {
+      canonical: siteMetadata.url,
+      languages: {
+        'en': siteMetadata.url,
+        'ar': siteMetadata.url,
+      },
+    },
     openGraph: {
       title,
       description,
       url: siteMetadata.url,
       siteName: siteMetadata.title,
       type: 'website',
+      locale: 'en_US',
       images: [
         {
           url: siteMetadata.image,
-          alt: 'Martial arts training and championship action',
+          alt: 'RMA Federation martial arts training and championship action',
           width: 1200,
           height: 630,
         },
       ],
-      locale: 'en_US',
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
       images: [siteMetadata.image],
+      creator: '@tarekvandam',
     },
-    metadataBase: new URL(siteMetadata.url),
     robots: {
       index: true,
       follow: true,
       googleBot: {
         index: true,
         follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
       },
+    },
+    verification: {
+      google: 'YOUR_GOOGLE_VERIFICATION_CODE',
     },
   };
 };

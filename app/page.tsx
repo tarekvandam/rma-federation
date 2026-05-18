@@ -1,4 +1,3 @@
-import Script from "next/script";
 import Hero from "../components/Hero";
 import IdentitySection from "../components/IdentitySection";
 import YouTubeShowcase from "../components/YouTubeShowcase";
@@ -8,61 +7,21 @@ import Championships from "../components/Championships";
 
 import { generateMetadata, siteMetadata } from "@/lib/seo";
 
-export const metadata = generateMetadata();
-
-const schema = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'SportsOrganization',
-      name: siteMetadata.title,
-      description: siteMetadata.description,
-      url: siteMetadata.url,
-      logo: `${siteMetadata.url}/images/logo.png`,
-      sameAs: siteMetadata.sameAs,
-      contactPoint: [
-        {
-          '@type': 'ContactPoint',
-          contactType: 'customer service',
-          telephone: '+20 100 190 4418',
-          email: 'realmartialartrma@gmail.com',
-        },
-      ],
-      sport: 'MartialArts',
-      areaServed: 'Worldwide',
-    },
-    {
-      '@type': 'WebSite',
-      name: siteMetadata.title,
-      url: siteMetadata.url,
-      description: siteMetadata.description,
-      publisher: {
-        '@type': 'Organization',
-        name: siteMetadata.title,
-        url: siteMetadata.url,
-      },
-    },
-  ],
-};
+export const metadata = generateMetadata(
+  "Home — Real Combat, Real Discipline, Real Martial Art",
+  "Welcome to the World Real Martial Art Federation (RMA). Train in boxing, kickboxing, Muay Thai, MMA, Jiu-Jitsu, Karate, Taekwondo, Krav Maga, and self-defense with world-class coaches. Join our global community for discipline, combat, and championship training.",
+  "مرحباً بك في الاتحاد العالمي للفنون القتالية الحقيقية (RMA). تدرب في الملاكمة، الكيك بوكسينغ، المواي تاي، الفنون القتالية المختلطة، الجيو جيتسو، الكاراتيه، التايكوندو، الكراف ماغا، والدفاع عن النفس مع مدربين عالميين."
+);
 
 export default function Home() {
   return (
-    <>
-      <Script
-        id="structured-data"
-        type="application/ld+json"
-        strategy="afterInteractive"
-      >
-        {JSON.stringify(schema)}
-      </Script>
-      <main className="bg-black min-h-screen text-white">
-        <Hero />
-        <IdentitySection />
-        <YouTubeShowcase />
-        <TrainerProfiles />
-        <NewsSection />
-        <Championships />
-      </main>
-    </>
+    <main className="bg-black min-h-screen text-white">
+      <Hero />
+      <IdentitySection />
+      <YouTubeShowcase />
+      <TrainerProfiles />
+      <NewsSection />
+      <Championships />
+    </main>
   );
 }

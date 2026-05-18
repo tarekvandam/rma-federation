@@ -2,8 +2,9 @@ import { supabase } from "@/lib/supabase";
 import { generateMetadata } from "@/lib/seo";
 
 export const metadata = generateMetadata(
-  "Players",
-  "Meet the fighters of the Real Martial Art Federation."
+  "Players — RMA Federation Athletes & Belt Rankings",
+  "Browse registered Real Martial Art Federation players and fighters. View belt rankings, promotion history, and athlete profiles from our global martial arts community.",
+  "تصفح لاعبي ورياضيي اتحاد الفنون القتالية الحقيقية المسجلين. تعرف على تاريخ الأحزمة والترقيات وملفات الرياضيين من مجتمعنا القتالي العالمي."
 );
 
 export const dynamic = "force-dynamic";
