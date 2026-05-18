@@ -38,17 +38,7 @@ export default function Championships() {
     );
   }
 
-  if (!events.length) {
-    return (
-      <section className="bg-zinc-950 py-20 sm:py-24 px-4 sm:px-6 lg:px-10 min-h-[60vh] flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-6xl mb-6">🏆</p>
-          <h2 className="text-3xl font-bold text-white mb-4">No Championships Yet</h2>
-          <p className="text-gray-400">Upcoming events will be announced soon.</p>
-        </div>
-      </section>
-    );
-  }
+  if (!events.length) return null;
 
   return (
     <section className="bg-zinc-950 py-20 sm:py-24 px-4 sm:px-6 lg:px-10">
