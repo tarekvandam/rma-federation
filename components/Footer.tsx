@@ -14,6 +14,7 @@ export default function Footer() {
     { label: translations[locale].nav.membership, href: "/membership" },
     { label: translations[locale].nav.media, href: "/media" },
     { label: translations[locale].nav.countries, href: "/countries" },
+    { label: translations[locale].nav.promotion, href: "/promotion" },
   ];
 
   return (
