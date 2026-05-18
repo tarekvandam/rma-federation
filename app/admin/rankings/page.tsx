@@ -9,6 +9,7 @@ export default function AdminRankingsPage() {
   const [country, setCountry] = useState("");
   const [tournament, setTournament] = useState("");
   const [rounds, setRounds] = useState("");
+  const [date, setDate] = useState("");
   const [rank, setRank] = useState("");
   const [points, setPoints] = useState("");
   const [items, setItems] = useState<any[]>([]);
@@ -18,6 +19,7 @@ export default function AdminRankingsPage() {
   const [editCountry, setEditCountry] = useState("");
   const [editTournament, setEditTournament] = useState("");
   const [editRounds, setEditRounds] = useState("");
+  const [editDate, setEditDate] = useState("");
   const [editRank, setEditRank] = useState("");
   const [editPoints, setEditPoints] = useState("");
 
@@ -33,11 +35,12 @@ export default function AdminRankingsPage() {
     const { error } = await supabase.from("rankings").insert([{
       name, weight, country, tournament,
       rounds: parseInt(rounds) || 0,
+      event_date: date || null,
       rank: Number(rank),
       points: Number(points),
     }]);
     if (!error) {
-      setName(""); setWeight(""); setCountry(""); setTournament(""); setRounds(""); setRank(""); setPoints("");
+      setName(""); setWeight(""); setCountry(""); setTournament(""); setRounds(""); setDate(""); setRank(""); setPoints("");
       fetchData();
     } else { alert(`خطأ: ${error.message}`); }
   }
@@ -56,6 +59,7 @@ export default function AdminRankingsPage() {
     setEditCountry(item.country || "");
     setEditTournament(item.tournament || "");
     setEditRounds(String(item.rounds ?? ""));
+    setEditDate(item.event_date || "");
     setEditRank(String(item.rank));
     setEditPoints(String(item.points));
   }
@@ -68,6 +72,7 @@ export default function AdminRankingsPage() {
       country: editCountry,
       tournament: editTournament,
       rounds: parseInt(editRounds) || 0,
+      event_date: editDate || null,
       rank: Number(editRank),
       points: Number(editPoints),
     }).eq("id", editing.id);
@@ -87,6 +92,7 @@ export default function AdminRankingsPage() {
           <input type="text" placeholder="اسم البطولة" value={tournament} onChange={(e) => setTournament(e.target.value)} className="bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-blue-500" />
           <input type="number" placeholder="عدد الجولات" value={rounds} onChange={(e) => setRounds(e.target.value)} className="bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-blue-500" />
           <input type="number" placeholder="الترتيب" value={rank} onChange={(e) => setRank(e.target.value)} required className="bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-blue-500" />
+          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-blue-500 [color-scheme:dark]" />
         </div>
         <input type="number" placeholder="النقاط" value={points} onChange={(e) => setPoints(e.target.value)} required className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-blue-500" />
         <button type="submit" className="w-full bg-blue-600 py-3 rounded-xl font-bold hover:bg-blue-700 transition">إضافة</button>
@@ -103,6 +109,7 @@ export default function AdminRankingsPage() {
               <th className="py-3 px-4">الدولة</th>
               <th className="py-3 px-4">البطولة</th>
               <th className="py-3 px-4">الجولات</th>
+              <th className="py-3 px-4">التاريخ</th>
               <th className="py-3 px-4">النقاط</th>
               <th className="py-3 px-4"></th>
             </tr>
@@ -116,6 +123,7 @@ export default function AdminRankingsPage() {
                 <td className="py-3 px-4 text-gray-400">{item.country}</td>
                 <td className="py-3 px-4 text-gray-400">{item.tournament || "—"}</td>
                 <td className="py-3 px-4 text-gray-400">{item.rounds || "—"}</td>
+                <td className="py-3 px-4 text-gray-400">{item.event_date || "—"}</td>
                 <td className="py-3 px-4 font-bold text-blue-400">{item.points}</td>
                 <td className="py-3 px-4 flex gap-2">
                   <button onClick={() => openEdit(item)} className="text-blue-400 hover:text-blue-300">✏️</button>
@@ -146,6 +154,8 @@ export default function AdminRankingsPage() {
                 className="bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-blue-500 text-white" placeholder="البطولة" />
               <input type="number" value={editRounds} onChange={(e) => setEditRounds(e.target.value)}
                 className="bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-blue-500 text-white" placeholder="الجولات" />
+              <input type="date" value={editDate} onChange={(e) => setEditDate(e.target.value)}
+                className="bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-blue-500 text-white [color-scheme:dark]" />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <input type="number" value={editRank} onChange={(e) => setEditRank(e.target.value)}

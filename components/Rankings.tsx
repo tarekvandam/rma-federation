@@ -15,6 +15,7 @@ type Fighter = {
   points: number;
   tournament: string;
   rounds: number;
+  event_date: string;
 };
 
 export default function Rankings() {
@@ -100,6 +101,7 @@ export default function Rankings() {
                     <th className="px-5 py-4">{t.columns.country}</th>
                     <th className="px-5 py-4">{t.columns.tournament}</th>
                     <th className="px-5 py-4">{t.columns.rounds}</th>
+                    <th className="px-5 py-4">{t.columns.date}</th>
                     <th className="px-5 py-4">{t.columns.points}</th>
                   </tr>
                 </thead>
@@ -117,6 +119,7 @@ export default function Rankings() {
                       <td className="border-t border-white/10 px-5 py-5 text-gray-300">{fighter.country}</td>
                       <td className="border-t border-white/10 px-5 py-5 text-gray-300">{fighter.tournament || "—"}</td>
                       <td className="border-t border-white/10 px-5 py-5 text-gray-300">{fighter.rounds || "—"}</td>
+                      <td className="border-t border-white/10 px-5 py-5 text-gray-300">{fighter.event_date || "—"}</td>
                       <td className="border-t border-white/10 px-5 py-5">
                         <span className="inline-flex rounded-full bg-red-500/10 px-3 py-1 text-xs font-bold text-red-300">
                           {fighter.points} pts
