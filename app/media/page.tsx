@@ -1,3 +1,4 @@
+import { supabase } from "@/lib/supabase";
 import { generateMetadata } from "@/lib/seo";
 
 export const metadata = generateMetadata(
@@ -5,31 +6,27 @@ export const metadata = generateMetadata(
   "Watch RMA Federation videos, training sessions, championships, and martial arts content."
 );
 
-const videos = [
-  {
-    title: "RMA Fight Breakdown & Training Analysis",
-    embed: "https://www.youtube.com/embed/g5_SF0A4NBo?start=108",
-  },
-  {
-    title: "Realistic Self-Defense Techniques",
-    embed: "https://www.youtube.com/embed/bA7ZVmedMZM",
-  },
-  {
-    title: "RMA Championship Highlights",
-    embed: "https://www.youtube.com/embed/-1mpvcg5xF0",
-  },
+export const revalidate = 60;
+
+const defaultVideos = [
+  { title: "RMA Fight Breakdown & Training Analysis", youtube_id: "g5_SF0A4NBo" },
+  { title: "Realistic Self-Defense Techniques", youtube_id: "bA7ZVmedMZM" },
+  { title: "RMA Championship Highlights", youtube_id: "-1mpvcg5xF0" },
 ];
 
 const galleryImages = [
-  "/gallery/1.jpg",
-  "/gallery/2.jpg",
-  "/gallery/3.jpg",
-  "/gallery/4.jpg",
-  "/images/hero.jpg",
-  "/gallery/1.jpg",
+  "/gallery/1.jpg", "/gallery/2.jpg", "/gallery/3.jpg",
+  "/gallery/4.jpg", "/images/hero.jpg", "/gallery/1.jpg",
 ];
 
-export default function MediaPage() {
+export default async function MediaPage() {
+  const { data: dbVideos } = await supabase
+    .from("media_videos")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  const videos = dbVideos && dbVideos.length > 0 ? dbVideos : defaultVideos;
+
   return (
     <main className="bg-black text-white min-h-screen pt-32 px-6 pb-20">
       <div className="max-w-7xl mx-auto">
@@ -40,24 +37,20 @@ export default function MediaPage() {
           <h1 className="text-5xl font-bold mb-4">
             Media <span className="text-red-600">Center</span>
           </h1>
-          <p className="text-gray-400 text-lg">
-            Official federation videos, training sessions, and gallery
-          </p>
+          <p className="text-gray-400 text-lg">Official federation videos, training sessions, and gallery</p>
         </div>
 
         <section className="mb-24">
-          <h2 className="text-4xl font-bold mb-10">
-            Featured Videos
-          </h2>
+          <h2 className="text-4xl font-bold mb-10">Featured Videos</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {videos.map((video, index) => (
+            {videos.map((video: any, index: number) => (
               <div
                 key={index}
                 className="bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-red-600/40 transition duration-300"
               >
                 <iframe
                   className="w-full h-[220px]"
-                  src={video.embed}
+                  src={`https://www.youtube.com/embed/${video.youtube_id}`}
                   title={video.title}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -71,9 +64,7 @@ export default function MediaPage() {
         </section>
 
         <section>
-          <h2 className="text-4xl font-bold mb-10">
-            Gallery
-          </h2>
+          <h2 className="text-4xl font-bold mb-10">Gallery</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {galleryImages.map((image, index) => (
               <img
