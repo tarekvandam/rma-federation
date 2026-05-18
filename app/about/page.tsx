@@ -383,7 +383,7 @@ export default function AboutPage() {
               </h2>
 
               <p className="text-lg leading-8 text-gray-300 animate-[fadeUp_0.8s_ease-out_0.2s_both]">
-                A martial artist and self-defense coach with years of combat experience, Tarek Vandam founded <strong className="text-white">Real Martial Art (RMA)</strong> to bridge the gap between fantasy fighting and real-world effectiveness.
+                A martial artist and self-defense coach with years of combat experience, Tarek Vandam founded <strong className="text-white">Real Martial Art (RMA)</strong> in <strong className="text-red-400">2013</strong> to bridge the gap between fantasy fighting and real-world effectiveness.
               </p>
 
               <p className="text-lg leading-8 text-gray-300 animate-[fadeUp_0.8s_ease-out_0.25s_both]">
