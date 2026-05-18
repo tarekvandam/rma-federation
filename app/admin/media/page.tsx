@@ -33,9 +33,9 @@ export default function AdminMediaPage() {
       setUploading(true);
       const ext = file.name.split('.').pop();
       const fn = `${Date.now()}.${ext}`;
-      const { error } = await supabase.storage.from('media-images').upload(fn, file);
+      const { error } = await supabase.storage.from('news-images').upload(fn, file);
       if (error) throw error;
-      const { data } = supabase.storage.from('media-images').getPublicUrl(fn);
+      const { data } = supabase.storage.from('news-images').getPublicUrl(fn);
       return data.publicUrl;
     } catch { return ""; }
     finally { setUploading(false); }
@@ -54,7 +54,7 @@ export default function AdminMediaPage() {
     e.preventDefault();
     if (!selectedFile) return;
     const imageUrl = await handleUpload(selectedFile);
-    if (!imageUrl) return;
+    if (!imageUrl) { alert("فشل رفع الصورة — تأكد من وجود Storage bucket"); return; }
     const { error } = await supabase.from("media_gallery").insert([{ image: imageUrl, title: title || "Gallery Image" }]);
     if (!error) { setTitle(""); setSelectedFile(null); fetchData(); }
     else { alert(`خطأ: ${error.message}`); }
