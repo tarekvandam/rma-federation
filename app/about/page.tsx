@@ -68,9 +68,10 @@ const certifications = [
 ];
 
 const achievements = [
-  { icon: FaFacebook, value: "60K+", label: "Facebook Followers", color: "#1877F2" },
-  { icon: FaYoutube, value: "60K+", label: "YouTube Subscribers", color: "#FF0000" },
-  { icon: Eye, value: "16M+", label: "Total Views", color: "#ef4444" },
+  { icon: FaFacebook, value: "87K", label: "Facebook Followers", color: "#1877F2" },
+  { icon: FaYoutube, value: "81.1K", label: "YouTube Subscribers", color: "#FF0000" },
+  { icon: Video, value: "1.1K", label: "YouTube Videos", color: "#FF0000" },
+  { icon: Eye, value: "200M+", label: "Total Views", color: "#ef4444" },
   { icon: Globe, value: "International", label: "Events Participation", color: "#22c55e" },
 ];
 
