@@ -10,6 +10,11 @@ export default function AdminTrainersPage() {
   const [uploading, setUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [items, setItems] = useState<any[]>([]);
+  const [editing, setEditing] = useState<any | null>(null);
+  const [editName, setEditName] = useState("");
+  const [editRole, setEditRole] = useState("");
+  const [editDesc, setEditDesc] = useState("");
+  const [editImage, setEditImage] = useState<File | null>(null);
 
   async function fetchData() {
     const { data } = await supabase.from("trainers").select("*").order("created_at", { ascending: false });
@@ -19,14 +24,13 @@ export default function AdminTrainersPage() {
   useEffect(() => { fetchData(); }, []);
 
   async function handleUpload(file: File) {
+    setUploading(true);
     try {
-      setUploading(true);
       const ext = file.name.split('.').pop();
       const fn = `${Date.now()}.${ext}`;
       const { error } = await supabase.storage.from('news-images').upload(fn, file);
       if (error) throw error;
-      const { data } = supabase.storage.from('news-images').getPublicUrl(fn);
-      return data.publicUrl;
+      return `https://bqedictvigmpxscbjboq.supabase.co/storage/v1/object/public/news-images/${fn}`;
     } catch (err: any) { alert("Upload error: " + (err?.message || err)); return ""; }
     finally { setUploading(false); }
   }
@@ -46,6 +50,31 @@ export default function AdminTrainersPage() {
       await supabase.from("trainers").delete().eq("id", id);
       fetchData();
     }
+  }
+
+  function openEdit(item: any) {
+    setEditing(item);
+    setEditName(item.name);
+    setEditRole(item.role);
+    setEditDesc(item.description || "");
+    setEditImage(null);
+  }
+
+  async function saveEdit() {
+    if (!editing) return;
+    let imageUrl = editing.image;
+    if (editImage) {
+      const url = await handleUpload(editImage);
+      if (url) imageUrl = url;
+    }
+    await supabase.from("trainers").update({
+      name: editName,
+      role: editRole,
+      description: editDesc,
+      image: imageUrl,
+    }).eq("id", editing.id);
+    setEditing(null);
+    fetchData();
   }
 
   return (
@@ -74,10 +103,41 @@ export default function AdminTrainersPage() {
                 <p className="text-sm text-gray-500">{item.role}</p>
               </div>
             </div>
-            <button onClick={() => deleteItem(item.id)} className="bg-zinc-800 text-red-400 hover:bg-red-600 hover:text-white px-4 py-2 rounded-lg transition">حذف</button>
+            <div className="flex gap-2">
+              <button onClick={() => openEdit(item)} className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition">✏️ تعديل</button>
+              <button onClick={() => deleteItem(item.id)} className="bg-zinc-800 text-red-400 hover:bg-red-600 hover:text-white px-4 py-2 rounded-lg transition">حذف</button>
+            </div>
           </div>
         ))}
       </div>
+
+      {/* Edit Modal */}
+      {editing && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4">
+          <div className="bg-zinc-900 rounded-3xl border border-zinc-700 p-8 w-full max-w-lg space-y-5">
+            <h2 className="text-2xl font-bold text-white">تعديل المدرب</h2>
+            <input type="text" value={editName} onChange={(e) => setEditName(e.target.value)}
+              className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-green-500 text-white" placeholder="الاسم" />
+            <input type="text" value={editRole} onChange={(e) => setEditRole(e.target.value)}
+              className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-green-500 text-white" placeholder="التخصص" />
+            <textarea value={editDesc} onChange={(e) => setEditDesc(e.target.value)} rows={3}
+              className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-green-500 text-white" placeholder="الوصف" />
+            <div>
+              <label className="block text-sm text-gray-400 mb-2">صورة جديدة (اختياري)</label>
+              <input type="file" accept="image/*" onChange={(e) => setEditImage(e.target.files?.[0] || null)}
+                className="text-sm file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-green-600 file:text-white hover:file:bg-green-700 cursor-pointer" />
+            </div>
+            <div className="flex gap-3">
+              <button onClick={saveEdit} disabled={uploading}
+                className="flex-1 bg-green-600 py-3 rounded-xl font-bold hover:bg-green-700 transition disabled:opacity-50">
+                {uploading ? "جاري الرفع..." : "حفظ التعديلات"}
+              </button>
+              <button onClick={() => setEditing(null)}
+                className="flex-1 bg-zinc-800 py-3 rounded-xl font-bold hover:bg-zinc-700 transition">إلغاء</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
