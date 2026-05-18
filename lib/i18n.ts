@@ -253,33 +253,6 @@ export const translations = {
       title: "Join the RMA Federation",
       description: "Choose a premium membership plan for exclusive training, events, and martial arts community access.",
       benefitsTitle: "Federation Benefits",
-      benefits: [
-        "Access to elite training programs and technique breakdowns.",
-        "Invitations to exclusive seminars, camps, and championship previews.",
-        "Priority registration for events, coaching sessions, and ranks.",
-        "Member-only media, martial arts resources, and insider updates.",
-        "Discounts on federation gear and performance nutrition.",
-      ],
-      plans: [
-        {
-          name: "Warrior",
-          price: "$49/mo",
-          description: "Essential access for emerging fighters and disciplined students.",
-          features: ["Weekly technique lessons", "Community training guides", "Member newsletter"],
-        },
-        {
-          name: "Champion",
-          price: "$89/mo",
-          description: "Advanced support for competitors and serious martial artists.",
-          features: ["Live coaching sessions", "Event priority entry", "Tactical fight analysis"],
-        },
-        {
-          name: "Elite",
-          price: "$149/mo",
-          description: "Full federation integration for elite athletes and trainers.",
-          features: ["One-on-one coaching", "Access to elite mastermind", "Custom training plans"],
-        },
-      ],
       joinTitle: "Become a Member",
       joinSubtitle: "Submit your details and our federation team will contact you with membership next steps.",
       formLabels: {
@@ -294,7 +267,6 @@ export const translations = {
         email: "Enter your email",
         message: "Training goals, experience level, or questions",
       },
-      planOptions: ["Warrior", "Champion", "Elite"],
     },
     contactPage: {
       badge: "Contact",
@@ -586,33 +558,6 @@ export const translations = {
       title: "انضم إلى اتحاد RMA",
       description: "اختر خطة عضوية مميزة للوصول الحصري إلى التدريب، الفعاليات، ومجتمع فنون القتال.",
       benefitsTitle: "فوائد الاتحاد",
-      benefits: [
-        "الوصول إلى برامج تدريب النخبة وتحليلات التقنية.",
-        "دعوات إلى الندوات الحصرية والمعسكرات ومعاينات البطولات.",
-        "أولوية التسجيل في الفعاليات وجلسات التدريب ورفع الرتب.",
-        "وسائط حصرية لأعضاء الاتحاد وموارد فنون القتال وتحديثات داخلية.",
-        "خصومات على معدات الاتحاد والتغذية الرياضية.",
-      ],
-      plans: [
-        {
-          name: "محارب",
-          price: "$49/شهر",
-          description: "الوصول الأساسي للرياضيين الصاعدين والطلاب المنضبطين.",
-          features: ["دروس تقنية أسبوعية", "أدلة تدريب المجتمع", "نشرة الأعضاء"],
-        },
-        {
-          name: "بطل",
-          price: "$89/شهر",
-          description: "دعم متقدم للمنافسين وفناني القتال الجادين.",
-          features: ["جلسات تدريب مباشرة", "أولوية دخول الفعاليات", "تحليل القتال التكتيكي"],
-        },
-        {
-          name: "نخبة",
-          price: "$149/شهر",
-          description: "اندماج كامل في الاتحاد للرياضيين والمدربين النخبة.",
-          features: ["تدريب فردي", "الوصول إلى مجموعة النخبة", "خطط تدريب مخصصة"],
-        },
-      ],
       joinTitle: "كن عضوًا",
       joinSubtitle: "قدّم تفاصيلك وسيتواصل فريق الاتحاد معك لخطوات العضوية التالية.",
       formLabels: {
@@ -627,7 +572,6 @@ export const translations = {
         email: "أدخل بريدك الإلكتروني",
         message: "أهداف التدريب، مستوى الخبرة، أو الأسئلة",
       },
-      planOptions: ["محارب", "بطل", "نخبة"],
     },
     contactPage: {
       badge: "اتصل بنا",
