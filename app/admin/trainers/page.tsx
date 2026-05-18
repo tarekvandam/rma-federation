@@ -27,7 +27,7 @@ export default function AdminTrainersPage() {
       if (error) throw error;
       const { data } = supabase.storage.from('news-images').getPublicUrl(fn);
       return data.publicUrl;
-    } catch { return ""; }
+    } catch (err: any) { alert("Upload error: " + (err?.message || err)); return ""; }
     finally { setUploading(false); }
   }
 
