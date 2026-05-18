@@ -6,7 +6,7 @@ export const metadata = generateMetadata(
   "Watch RMA Federation videos, training sessions, championships, and martial arts content."
 );
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 const galleryImages = [
   "/gallery/1.jpg", "/gallery/2.jpg", "/gallery/3.jpg",
