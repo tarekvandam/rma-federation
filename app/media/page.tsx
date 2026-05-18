@@ -8,26 +8,16 @@ export const metadata = generateMetadata(
 
 export const revalidate = 60;
 
-const defaultVideos = [
-  { title: "RMA Fight Breakdown & Training Analysis", youtube_id: "g5_SF0A4NBo" },
-  { title: "Realistic Self-Defense Techniques", youtube_id: "bA7ZVmedMZM" },
-  { title: "RMA Championship Highlights", youtube_id: "-1mpvcg5xF0" },
-];
-
 const galleryImages = [
   "/gallery/1.jpg", "/gallery/2.jpg", "/gallery/3.jpg",
   "/gallery/4.jpg", "/images/hero.jpg", "/gallery/1.jpg",
 ];
 
 export default async function MediaPage() {
-  const { data: dbVideos } = await supabase
+  const { data: videos } = await supabase
     .from("media_videos")
     .select("*")
     .order("created_at", { ascending: false });
-
-  const videos = dbVideos && dbVideos.length > 0
-    ? [...dbVideos, ...defaultVideos]
-    : defaultVideos;
 
   return (
     <main className="bg-black text-white min-h-screen pt-32 px-6 pb-20">
@@ -44,25 +34,29 @@ export default async function MediaPage() {
 
         <section className="mb-24">
           <h2 className="text-4xl font-bold mb-10">Featured Videos</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {videos.map((video: any, index: number) => (
-              <div
-                key={index}
-                className="bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-red-600/40 transition duration-300"
-              >
-                <iframe
-                  className="w-full h-[220px]"
-                  src={`https://www.youtube.com/embed/${video.youtube_id}`}
-                  title={video.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-                <div className="p-5">
-                  <h3 className="text-lg font-bold text-white">{video.title}</h3>
+          {videos && videos.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {videos.map((video: any, index: number) => (
+                <div
+                  key={index}
+                  className="bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-red-600/40 transition duration-300"
+                >
+                  <iframe
+                    className="w-full h-[220px]"
+                    src={`https://www.youtube.com/embed/${video.youtube_id}`}
+                    title={video.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                  <div className="p-5">
+                    <h3 className="text-lg font-bold text-white">{video.title}</h3>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-gray-500 text-center py-16 text-lg">No videos uploaded yet — add them from the admin panel.</p>
+          )}
         </section>
 
         <section>
