@@ -25,6 +25,7 @@ export default function YouTubeShowcase() {
               channel: v.channel || "RMA Federation",
               runtime: v.runtime || "",
               thumbnail: `https://img.youtube.com/vi/${v.youtube_id}/maxresdefault.jpg`,
+              url: `https://www.youtube.com/watch?v=${v.youtube_id}`,
             }))
           );
         } else {
@@ -68,7 +69,8 @@ export default function YouTubeShowcase() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.7, delay: index * 0.15, ease: "easeOut" }}
               whileHover={{ y: -6 }}
-              className="group overflow-hidden rounded-[32px] border border-white/10 bg-[#111214] shadow-[0_24px_80px_rgba(0,0,0,0.35)] transition-all duration-500 hover:-translate-y-1 hover:border-red-600/40 hover:shadow-red-900/20"
+              onClick={() => window.open(video.url, "_blank")}
+              className="cursor-pointer group overflow-hidden rounded-[32px] border border-white/10 bg-[#111214] shadow-[0_24px_80px_rgba(0,0,0,0.35)] transition-all duration-500 hover:-translate-y-1 hover:border-red-600/40 hover:shadow-red-900/20"
             >
               <div className="relative overflow-hidden">
                 <div
@@ -101,7 +103,10 @@ export default function YouTubeShowcase() {
                   <span className="text-xs uppercase tracking-[0.35em] text-red-400/80">
                     {t.watchPreview}
                   </span>
-                  <button className="inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm font-semibold text-red-300 transition-all duration-300 hover:bg-red-500/20 hover:text-white">
+                  <button
+                    onClick={(e) => { e.stopPropagation(); window.open(video.url, "_blank"); }}
+                    className="inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm font-semibold text-red-300 transition-all duration-300 hover:bg-red-500/20 hover:text-white"
+                  >
                     {t.play}
                     <span className="text-lg">▶</span>
                   </button>
