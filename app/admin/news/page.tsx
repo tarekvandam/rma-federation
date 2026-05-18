@@ -25,14 +25,27 @@ export default function AdminNewsPage() {
       const fileExt = file.name.split('.').pop();
       const fileName = `${Date.now()}.${fileExt}`;
 
-      let { error: uploadError } = await supabase.storage
-        .from('news-images')
-        .upload(fileName, file);
+      const formData = new FormData();
+      formData.append("file", file);
 
-      if (uploadError) throw uploadError;
+      const res = await fetch(
+        `https://bqedictvigmpxscbjboq.supabase.co/storage/v1/object/news-images/${fileName}`,
+        {
+          method: "POST",
+          headers: {
+            apikey: "sb_publishable_7p64Ye0CsqkP9Iny8QQsTA_y0KRCOIn",
+            Authorization: "Bearer sb_publishable_7p64Ye0CsqkP9Iny8QQsTA_y0KRCOIn",
+          },
+          body: file,
+        }
+      );
 
-      const { data } = supabase.storage.from('news-images').getPublicUrl(fileName);
-      return data.publicUrl;
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(errText);
+      }
+
+      return `https://bqedictvigmpxscbjboq.supabase.co/storage/v1/object/public/news-images/${fileName}`;
 
     } catch (err: any) {
       alert("Upload error: " + (err?.message || err?.error || "unknown error"));
