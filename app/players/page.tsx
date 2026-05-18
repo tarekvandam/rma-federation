@@ -29,6 +29,11 @@ const beltColors: Record<string, string> = {
   black: "bg-gray-900 text-white border border-gray-600",
 };
 
+function getBeltClass(belt: string) {
+  const base = belt.split(" ")[0].toLowerCase();
+  return beltColors[base] || "bg-zinc-700 text-white";
+}
+
 export default async function PlayersPage() {
   const { data: players } = await supabase
     .from("player_submissions")
@@ -57,7 +62,7 @@ export default async function PlayersPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {(players as Player[])?.map((player, index) => {
-            const beltClass = beltColors[player.belt_color.toLowerCase()] || "bg-zinc-700 text-white";
+            const beltClass = getBeltClass(player.belt_color);
             return (
               <div
                 key={player.id}
@@ -93,7 +98,7 @@ export default async function PlayersPage() {
                     <p className="text-xs uppercase tracking-wider text-red-400 mb-2">Promotions</p>
                     <div className="flex flex-wrap gap-1.5">
                       {player.promotions.map((p, i) => {
-                        const pClass = beltColors[p.belt.toLowerCase()] || "bg-zinc-700 text-white";
+                        const pClass = getBeltClass(p.belt);
                         return (
                           <span key={i} className={`inline-flex items-center gap-1 rounded-full ${pClass} px-2.5 py-0.5 text-xs font-bold shadow`}>
                             {p.belt} {p.date}

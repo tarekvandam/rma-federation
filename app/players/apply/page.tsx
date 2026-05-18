@@ -14,7 +14,17 @@ export default function PlayerApplyPage() {
   const [uploading, setUploading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const beltOptions = ["White", "Yellow", "Orange", "Green", "Blue", "Brown", "Red", "Black"];
+  const beltOptions = [
+    "White",
+    "Yellow 1st", "Yellow 2nd",
+    "Orange 1st", "Orange 2nd",
+    "Green 1st", "Green 2nd",
+    "Blue 1st", "Blue 2nd",
+    "Brown 1st", "Brown 2nd",
+    "Red 1st", "Red 2nd",
+    "Black 1st Dan", "Black 2nd Dan", "Black 3rd Dan",
+    "Black 4th Dan", "Black 5th Dan", "Black 6th Dan",
+  ];
 
   function addPromotion() {
     if (!newPromoBelt || !newPromoDate) return;
