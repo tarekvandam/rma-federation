@@ -13,12 +13,13 @@ export default function Footer() {
     { label: translations[locale].nav.championships, href: "/championships" },
     { label: translations[locale].nav.membership, href: "/membership" },
     { label: translations[locale].nav.media, href: "/media" },
+    { label: translations[locale].nav.countries, href: "/countries" },
   ];
 
   return (
     <footer className="bg-black border-t border-red-700 pt-16 pb-8 px-6">
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 gap-10 sm:grid-cols-2 xl:grid-cols-4 gap-12">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 gap-12 sm:grid-cols-2 xl:grid-cols-4">
 
         {/* About */}
         <div>

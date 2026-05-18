@@ -8,24 +8,31 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const router = useRouter();
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
+    setError("");
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error: signInError } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
-    if (error) {
-      alert("بيانات الدخول غير صحيحة يا كوتش!");
+    if (signInError) {
+      setError("بيانات الدخول غير صحيحة يا كوتش!");
       setLoading(false);
-    } else {
-      router.push("/admin/news"); // لو الدخول صح يوديه للوحة التحكم
-      router.refresh();
+      return;
     }
+
+    if (data?.session?.access_token) {
+      document.cookie = `sb-access-token=${data.session.access_token}; path=/; max-age=${60 * 60 * 24 * 7}`;
+    }
+
+    router.push("/admin/news");
+    router.refresh();
   }
 
   return (
@@ -35,26 +42,29 @@ export default function LoginPage() {
         <p className="text-zinc-500 text-center mb-8 italic text-sm">Real Combat. Real Discipline.</p>
 
         <form onSubmit={handleLogin} className="flex flex-col gap-5">
-          <input 
-            type="email" 
-            placeholder="بريدك الإلكتروني" 
+          <input
+            type="email"
+            placeholder="بريدك الإلكتروني"
             className="bg-black border border-zinc-700 p-4 rounded-xl outline-none focus:border-red-600"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <input 
-            type="password" 
-            placeholder="كلمة السر" 
+          <input
+            type="password"
+            placeholder="كلمة السر"
             className="bg-black border border-zinc-700 p-4 rounded-xl outline-none focus:border-red-600"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button 
-            type="submit" 
+          {error && (
+            <p className="text-red-400 text-sm text-center">{error}</p>
+          )}
+          <button
+            type="submit"
             disabled={loading}
-            className="bg-red-600 hover:bg-red-700 py-4 rounded-xl font-bold text-lg transition duration-300"
+            className="bg-red-600 hover:bg-red-700 py-4 rounded-xl font-bold text-lg transition duration-300 disabled:opacity-50"
           >
             {loading ? "جاري التحقق..." : "تسجيل الدخول"}
           </button>

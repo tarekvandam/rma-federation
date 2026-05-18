@@ -5,9 +5,9 @@ import { useLanguage } from "./LanguageProvider";
 import { translations } from "@/lib/i18n";
 
 const thumbnails = [
-  "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1600&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=1600&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?q=80&w=1600&auto=format&fit=crop",
+  "/gallery/3.jpg",
+  "/gallery/4.jpg",
+  "/images/hero.jpg",
 ];
 
 export default function YouTubeShowcase() {

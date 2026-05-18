@@ -3,119 +3,10 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { motion } from "framer-motion";
 import { FaInstagram, FaYoutube, FaFacebook } from "react-icons/fa";
-import { MessageSquare, Phone, Send } from "lucide-react";
+import { MessageSquare, Phone, Send, Loader2 } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { translations } from "@/lib/i18n";
-
-const AboutPage = () => (
-  <Container>
-    {/* Hero */}
-    <Row className="justify-content-center">
-      <Col md={8}>
-        <h1>About RMA Federation</h1>
-        <p>Our mission is to provide the best martial arts training experience.</p>
-      </Col>
-    </Row>
-
-    {/* Founder Story */}
-    <Row className="justify-content-center mt-5">
-      <Col md={8}>
-        <h2>Founder Story</h2>
-        <p>Meet our founder, [Founder's Name]. He has been teaching martial arts for over 30 years.</p>
-      </Col>
-    </Row>
-
-    {/* Certifications */}
-    <Row className="justify-content-center mt-5">
-      <Col md={8}>
-        <h2>Certifications</h2>
-        <ul>
-          <li>[Certification Name]</li>
-          <li>[Certification Name]</li>
-        </ul>
-      </Col>
-    </Row>
-
-    {/* RMA Philosophy */}
-    <Row className="justify-content-center mt-5">
-      <Col md={8}>
-        <h2>RMA Philosophy</h2>
-        <p>Our philosophy is to provide a safe and supportive environment for martial arts training.</p>
-      </Col>
-    </Row>
-
-    {/* Achievements */}
-    <Row className="justify-content-center mt-5">
-      <Col md={8}>
-        <h2>Achievements</h2>
-        <ul>
-          <li>[Achievement Name]</li>
-          <li>[Achievement Name]</li>
-        </ul>
-      </Col>
-    </Row>
-
-    {/* CTA */}
-    <Row className="justify-content-center mt-5">
-      <Col md={8}>
-        <h2>Join Our Community</h2>
-        <p>Sign up for our newsletter to stay updated on the latest news and events.</p>
-        <a href="#" className="btn btn-primary">Sign Up Now</a>
-      </Col>
-    </Row>
-  </Container>
-);
-export default AboutPage;
-
-const RMAPhilosophy = () => {
-  return (
-    <Container maxW="container.xl" py={16}>
-      <Heading as="h2" size="xl" mb={8} color="white">
-        Our RMA Philosophy
-      </Heading>
-      <Text fontSize="lg" color="gray.300" mb={12}>
-        At RMA, we believe in the power of martial arts to transform lives and communities. Our philosophy is rooted in the principles of discipline, resilience, and self-improvement.
-      </Text>
-
-      {/* Feature Cards */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        <Card title="Discipline" description="Our training is rigorous and focused on building a strong foundation of discipline." />
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-      >
-        <Card title="Resilience" description="We believe in the power of resilience and how it can help us overcome challenges and achieve our goals." />
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
-      >
-        <Card title="Self-Improvement" description="Our training is not just about physical strength but also mental and emotional growth." />
-      </motion.div>
-
-      {/* Premium CTA Button */}
-      <Button variant="outline" colorScheme="blue" mt={12}>
-        Learn More
-      </Button>
-    </Container>
-  );
-};
-
-const Card = ({ title, description }) => {
-  return (
-    <div className="bg-gray-800 rounded-lg p-6 shadow-md hover:shadow-xl transition duration-300">
-      <h3 className="text-white text-lg font-bold mb-4">{title}</h3>
-      <p className="text-gray-200 text-base mb-4">{description}</p>
-    </div>
-  );
-};
+import { sendEmail } from "@/lib/emailjs";
 
 export default function Contact() {
   const { locale } = useLanguage();
@@ -128,21 +19,36 @@ export default function Contact() {
     message: "",
   });
 
+  const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
-
-    setForm((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSent(true);
+    setSending(true);
+    setError("");
+
+    try {
+      await sendEmail({
+        from_name: form.name,
+        from_email: form.email,
+        subject: form.subject,
+        message: form.message,
+      });
+      setSent(true);
+      setForm({ name: "", email: "", subject: "", message: "" });
+    } catch {
+      setError("Failed to send message. Please try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -195,7 +101,7 @@ export default function Contact() {
                   </div>
                   <p className="mt-4 text-gray-300">{t.whatsapp.description}</p>
                   <a
-                    href="https://wa.me/201234567890?text=Hello%20RMA%20Federation"
+                    href="https://wa.me/201001904418?text=Hello%20RMA%20Federation"
                     target="_blank"
                     rel="noreferrer"
                     className="mt-6 inline-flex items-center gap-3 rounded-full bg-green-500/10 px-5 py-3 text-sm font-semibold text-green-200 transition hover:bg-green-500/20"
@@ -214,7 +120,7 @@ export default function Contact() {
                   <div className="mt-6 rounded-3xl overflow-hidden border border-white/10 bg-zinc-950">
                     <iframe
                       className="h-[220px] w-full"
-                      src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                      src="https://www.youtube.com/embed/g5_SF0A4NBo?start=108"
                       title="RMA Federation Spotlight"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
@@ -238,7 +144,7 @@ export default function Contact() {
                 <p className="mt-3 text-sm text-gray-400">@rma_federation</p>
               </a>
               <a
-                href="https://www.facebook.com"
+                href="https://www.facebook.com/tarekninjateam"
                 target="_blank"
                 rel="noreferrer"
                 className="group rounded-3xl border border-white/10 bg-[#0b0b12]/80 p-6 transition hover:border-red-500/30"
@@ -282,6 +188,7 @@ export default function Contact() {
                   value={form.name}
                   onChange={handleChange}
                   placeholder={t.form.namePlaceholder}
+                  required
                   className="mt-3 w-full rounded-3xl border border-white/10 bg-black/60 px-4 py-3 text-white outline-none transition focus:border-red-500/70"
                 />
               </div>
@@ -293,6 +200,7 @@ export default function Contact() {
                   value={form.email}
                   onChange={handleChange}
                   placeholder={t.form.emailPlaceholder}
+                  required
                   className="mt-3 w-full rounded-3xl border border-white/10 bg-black/60 px-4 py-3 text-white outline-none transition focus:border-red-500/70"
                 />
               </div>
@@ -303,6 +211,7 @@ export default function Contact() {
                   value={form.subject}
                   onChange={handleChange}
                   placeholder={t.form.subjectPlaceholder}
+                  required
                   className="mt-3 w-full rounded-3xl border border-white/10 bg-black/60 px-4 py-3 text-white outline-none transition focus:border-red-500/70"
                 />
               </div>
@@ -314,19 +223,35 @@ export default function Contact() {
                   onChange={handleChange}
                   placeholder={t.form.messagePlaceholder}
                   rows={6}
+                  required
                   className="mt-3 w-full rounded-3xl border border-white/10 bg-black/60 px-4 py-3 text-white outline-none transition focus:border-red-500/70"
                 />
               </div>
               <button
                 type="submit"
-                className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-gradient-to-r from-red-600 to-red-800 px-6 py-4 text-base font-semibold text-white transition hover:opacity-95"
+                disabled={sending}
+                className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-gradient-to-r from-red-600 to-red-800 px-6 py-4 text-base font-semibold text-white transition hover:opacity-95 disabled:opacity-50"
               >
-                <Send size={18} />
-                {t.form.button}
+                {sending ? (
+                  <>
+                    <Loader2 size={18} className="animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send size={18} />
+                    {t.form.button}
+                  </>
+                )}
               </button>
               {sent && (
                 <div className="rounded-3xl border border-emerald-500/20 bg-emerald-500/10 px-5 py-4 text-sm text-emerald-200">
                   Thank you — your message has been sent. We will reply as soon as possible.
+                </div>
+              )}
+              {error && (
+                <div className="rounded-3xl border border-red-500/20 bg-red-500/10 px-5 py-4 text-sm text-red-200">
+                  {error}
                 </div>
               )}
             </form>

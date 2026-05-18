@@ -2,19 +2,39 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Loader2 } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { translations } from "@/lib/i18n";
+import { sendEmail } from "@/lib/emailjs";
 
 export default function Membership() {
   const { locale } = useLanguage();
   const t = translations[locale].membership;
   const [selectedPlan, setSelectedPlan] = useState(t.planOptions[1]);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [sending, setSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSubmitted(true);
+    setSending(true);
+    setError("");
+
+    try {
+      await sendEmail({
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: `Membership Request - ${selectedPlan}`,
+        message: `Plan: ${selectedPlan}\n\n${formData.message}`,
+      });
+      setSubmitted(true);
+      setFormData({ name: "", email: "", message: "" });
+    } catch {
+      setError("Failed to send request. Please try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -130,6 +150,7 @@ export default function Membership() {
                   value={formData.name}
                   onChange={(event) => setFormData({ ...formData, name: event.target.value })}
                   placeholder={t.formPlaceholder.name}
+                  required
                   className="mt-3 w-full rounded-3xl border border-white/10 bg-black/60 px-4 py-3 text-white outline-none transition focus:border-red-500/70"
                 />
               </div>
@@ -141,6 +162,7 @@ export default function Membership() {
                   value={formData.email}
                   onChange={(event) => setFormData({ ...formData, email: event.target.value })}
                   placeholder={t.formPlaceholder.email}
+                  required
                   className="mt-3 w-full rounded-3xl border border-white/10 bg-black/60 px-4 py-3 text-white outline-none transition focus:border-red-500/70"
                 />
               </div>
@@ -167,20 +189,34 @@ export default function Membership() {
                   onChange={(event) => setFormData({ ...formData, message: event.target.value })}
                   placeholder={t.formPlaceholder.message}
                   rows={5}
+                  required
                   className="mt-3 w-full rounded-3xl border border-white/10 bg-black/60 px-4 py-3 text-white outline-none transition focus:border-red-500/70"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full rounded-full bg-gradient-to-r from-red-600 to-red-800 px-6 py-4 text-base font-semibold text-white transition hover:opacity-95"
+                disabled={sending}
+                className="w-full rounded-full bg-gradient-to-r from-red-600 to-red-800 px-6 py-4 text-base font-semibold text-white transition hover:opacity-95 disabled:opacity-50"
               >
-                {t.formLabels.submit}
+                {sending ? (
+                  <>
+                    <Loader2 size={18} className="animate-spin inline mr-2" />
+                    Sending...
+                  </>
+                ) : (
+                  t.formLabels.submit
+                )}
               </button>
 
               {submitted && (
-                <p className="rounded-3xl border border-green-500/20 bg-green-500/10 px-5 py-4 text-sm text-green-200">
+                <p className="rounded-3xl border border-emerald-500/20 bg-emerald-500/10 px-5 py-4 text-sm text-emerald-200">
                   Thank you! Your membership request has been received.
+                </p>
+              )}
+              {error && (
+                <p className="rounded-3xl border border-red-500/20 bg-red-500/10 px-5 py-4 text-sm text-red-200">
+                  {error}
                 </p>
               )}
             </form>

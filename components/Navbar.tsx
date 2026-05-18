@@ -21,6 +21,7 @@ export default function Navbar() {
     { label: translations[locale].nav.rankings, path: "/rankings" },
     { label: translations[locale].nav.media, path: "/media" },
     { label: translations[locale].nav.membership, path: "/membership" },
+    { label: translations[locale].nav.countries, path: "/countries" },
     { label: translations[locale].nav.contact, path: "/contact" },
   ];
 
