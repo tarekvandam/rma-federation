@@ -25,12 +25,12 @@ export default function TrainerProfiles() {
       const defaults = translations[locale].trainers.profiles;
       const { data, error } = await supabase.from("trainers").select("*").order("created_at", { ascending: true });
       
-      if (data && data.length > 0) {
-        const dbTrainers = data.map(t => ({ ...t, stats: [], certifications: [] }));
-        setTrainers([...defaults, ...dbTrainers]);
-      } else {
-        setTrainers(defaults);
-      }
+      const dbTrainers = (data || []).map(t => ({ ...t, stats: [], certifications: [] }));
+      const merged = defaults.map(d => {
+        const match = dbTrainers.find(t => t.name === d.name);
+        return match || d;
+      });
+      setTrainers([...merged, ...dbTrainers.filter(t => !defaults.some(d => d.name === t.name))]);
       setLoading(false);
     }
     fetchTrainers();

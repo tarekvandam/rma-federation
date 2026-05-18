@@ -81,6 +81,10 @@ export default function AdminTrainersPage() {
     <div>
       <h1 className="text-3xl font-bold text-green-500 mb-8">🥋 إدارة المدربين</h1>
 
+      <div className="bg-zinc-900/50 border border-zinc-800 p-4 rounded-xl mb-6 text-sm text-yellow-400">
+        ⚠️ لتعديل المدربين الأساسيين (Tarek Vandam, Mayada Salah)، أضفهم هنا بنفس الأسماء بالضبط، ثم عدّل بياناتهم.
+      </div>
+
       <form onSubmit={addItem} className="bg-zinc-900 p-6 rounded-2xl mb-8 space-y-4 border border-zinc-800">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <input type="text" placeholder="اسم المدرب" value={name} onChange={(e) => setName(e.target.value)} required className="bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-green-500" />
