@@ -86,10 +86,9 @@ export default function Navbar() {
               <Link
                 key={link.label}
                 href={link.path}
-                className="group relative transition duration-300 hover:text-red-400"
+                className="border-b-2 border-transparent transition duration-300 hover:text-red-400 hover:border-red-500"
               >
-                <span>{link.label}</span>
-                <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-red-500 opacity-0 transition-all duration-300 group-hover:opacity-100" />
+                {link.label}
               </Link>
             ))}
           </div>

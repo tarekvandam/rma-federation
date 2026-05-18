@@ -66,7 +66,7 @@ export default function RootLayout({
   const schema = generateOrganizationSchema();
 
   return (
-    <html lang="en">
+    <html lang="en" dir="auto">
       <body className="bg-black text-white">
         <Script
           id="organization-schema"
