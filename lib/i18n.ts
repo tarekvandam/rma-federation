@@ -79,8 +79,6 @@ export const translations = {
           description: "Founder of RMA Federation — Tarek Vandam — with 30 years of experience in realistic martial arts and combat systems. Built the federation on authentic fighting principles, leading international certifications and training elite fighters worldwide.",
           stats: [
             { label: "Years Experience", value: "30" },
-            { label: "Certified Students", value: "5k+" },
-            { label: "Total Certifications", value: "14" },
           ],
           certifications: ["RMA Founder Certificate", "ISMA Level 4", "Krav Maga Expert", "WKF Certified Coach", "Defensive Tactics Pro", "Mental Resilience Master", "Combat First Aid", "Sports Psychology", "International Referee", "Advanced Self-Defense", "Federation Leadership", "Medical Sports Certificate", "Diploma in Martial Arts", "Master Instructor Level"],
         },
@@ -91,8 +89,6 @@ export const translations = {
           description: "10 years of dedicated training in Kickboxing, Jeet Kune Do, and RMA systems. Certified instructor shaping the next generation of fighters with technical precision and real combat readiness.",
           stats: [
             { label: "Years Experience", value: "10" },
-            { label: "Certified Students", value: "500+" },
-            { label: "Total Certifications", value: "8" },
           ],
           certifications: ["RMA Certified Instructor", "Kickboxing Level 3", "Jeet Kune Do Core", "Self-Defense Pro", "Sports First Aid", "Combat Strategy", "Referee Level 2", "Women's Defense Coach"],
         },      ],
@@ -384,8 +380,6 @@ export const translations = {
           description: "مؤسس اتحاد RMA — طارق فاندام — بخبرة 30 عامًا في الفنون القتالية الواقعية وأنظمة القتال. بنى الاتحاد على مبادئ القتال الأصيل، ويقود شهادات دولية ويدرب مقاتلين نخبة حول العالم.",
           stats: [
             { label: "سنوات الخبرة", value: "30" },
-            { label: "الطلاب المعتمدون", value: "5000+" },
-            { label: "إجمالي الشهادات", value: "14" },
           ],
           certifications: ["شهادة مؤسس RMA", "ISMA مستوى 4", "خبير كراف ماغا", "مدرب معتمد WKF", "تكتيكات دفاعية برو", "المرونة الذهنية", "الإسعافات القتالية", "علم نفس الرياضة", "حكم دولي", "دفاع متقدم عن النفس", "قيادة الاتحاد", "شهادة طبية رياضية", "دبلوم فنون قتالية", "مدرب رئيسي"],
         },
@@ -396,8 +390,6 @@ export const translations = {
           description: "10 سنوات من التدريب المتخصص في الكيك بوكس والجيت كون دو وأنظمة RMA. مدربة معتمدة تشكل الجيل القادم من المقاتلين بالدقة التقنية والجاهزية القتالية الحقيقية.",
           stats: [
             { label: "سنوات الخبرة", value: "10" },
-            { label: "الطلاب المعتمدون", value: "500+" },
-            { label: "إجمالي الشهادات", value: "8" },
           ],
           certifications: ["مدربة معتمدة RMA", "كيك بوكس مستوى 3", "الجيت كون دو", "دفاع عن النفس برو", "إسعافات رياضية", "استراتيجية القتال", "حكم مستوى 2", "مدربة دفاع عن المرأة"],
         },      ],
