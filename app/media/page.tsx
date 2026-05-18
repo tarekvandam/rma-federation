@@ -25,7 +25,9 @@ export default async function MediaPage() {
     .select("*")
     .order("created_at", { ascending: false });
 
-  const videos = dbVideos && dbVideos.length > 0 ? dbVideos : defaultVideos;
+  const videos = dbVideos && dbVideos.length > 0
+    ? [...dbVideos, ...defaultVideos]
+    : defaultVideos;
 
   return (
     <main className="bg-black text-white min-h-screen pt-32 px-6 pb-20">
