@@ -34,8 +34,8 @@ export default function AdminNewsPage() {
       const { data } = supabase.storage.from('news-images').getPublicUrl(fileName);
       return data.publicUrl;
 
-    } catch {
-      alert('Error uploading image!');
+    } catch (err: any) {
+      alert("Upload error: " + (err?.message || err?.error || "unknown error"));
       return "";
     } finally {
       setUploading(false);
