@@ -16,6 +16,7 @@ const navItems = [
   { label: "الدول", href: "/admin/countries", icon: "🌍" },
   { label: "الميديا", href: "/admin/media", icon: "🎬" },
   { label: "التوثيق", href: "/admin/verification", icon: "✅" },
+  { label: "الشركاء", href: "/admin/partners", icon: "🤝" },
   { label: "الرئيسية", href: "/", icon: "🏠" },
 ];
 
