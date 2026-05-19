@@ -146,26 +146,19 @@ export default async function CountryProfilePage({ params }: { params: Promise<{
         </Link>
 
         <div className="bg-zinc-900 rounded-3xl border border-zinc-800 overflow-hidden">
-          {/* Hero Image */}
-          <div className="relative h-64 sm:h-80 md:h-96 bg-zinc-800 flex items-center justify-center overflow-hidden">
+          {/* Image */}
+          <div className="bg-zinc-800 flex items-center justify-center">
             {country.trainer_image ? (
-              <div
-                className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: `url(${country.trainer_image})` }}
+              <img
+                src={country.trainer_image}
+                alt={country.trainer_name}
+                className="w-full max-h-[80vh] object-contain bg-zinc-900"
               />
             ) : (
-              <span className="text-8xl opacity-20">{flagEmoji}</span>
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/40 to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6">
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-4xl">{flagEmoji}</span>
-                {country.flag && (
-                  <img src={country.flag} alt={country.country} className="w-10 h-auto rounded shadow" />
-                )}
+              <div className="h-64 sm:h-80 flex items-center justify-center">
+                <span className="text-8xl opacity-20">{flagEmoji}</span>
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black">{country.country}</h1>
-            </div>
+            )}
           </div>
 
           {/* Profile Info */}
