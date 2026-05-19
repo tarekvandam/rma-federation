@@ -8,7 +8,7 @@ export const siteMetadata = {
   title: 'World Real Martial Art Federation',
   shortTitle: 'RMA Federation',
   description:
-    'Official platform of the World Real Martial Art Federation (RMA). Join a global community dedicated to real combat, self-defense, discipline, and championship-level martial arts training. Programs in boxing, kickboxing, Muay Thai, MMA, Jiu-Jitsu, Karate, Taekwondo, Krav Maga, and more.',
+    'World Real Martial Art Federation (RMA) — official platform for boxing, kickboxing, Muay Thai, MMA, Jiu-Jitsu, Karate, Taekwondo, and self-defense training with world-class coaches.',
   arDescription:
     'المنصة الرسمية للاتحاد العالمي للفنون القتالية الحقيقية (RMA). انضم إلى مجتمع عالمي مكرس للقتال الحقيقي، الدفاع عن النفس، الانضباط، والتدريب القتالي على مستوى البطولة.',
   url: siteUrl,
