@@ -20,8 +20,10 @@ export default async function MediaPage() {
     .select("*")
     .order("created_at", { ascending: false });
 
-  const galleryImages = gallery && gallery.length > 0
-    ? gallery.map((g: any) => g.image)
+  const galleryItems = gallery ? gallery.filter((g: any) => !g.title?.startsWith("[PARTNER]")) : [];
+
+  const galleryImages = galleryItems.length > 0
+    ? galleryItems.map((g: any) => g.image)
     : [];
 
   return (

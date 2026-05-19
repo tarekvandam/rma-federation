@@ -1,24 +1,18 @@
--- Fix RLS policies for existing tables
-ALTER TABLE championships ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Allow all" ON championships FOR ALL USING (true) WITH CHECK (true);
-
-ALTER TABLE player_submissions ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Allow all" ON player_submissions FOR ALL USING (true) WITH CHECK (true);
-
-ALTER TABLE media_gallery ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Allow all" ON media_gallery FOR ALL USING (true) WITH CHECK (true);
-
-ALTER TABLE certificates ENABLE ROW LEVEL SECURITY;  
-CREATE POLICY "Allow all" ON certificates FOR ALL USING (true) WITH CHECK (true);
-
-ALTER TABLE rankings ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Allow all" ON rankings FOR ALL USING (true) WITH CHECK (true);
-
-ALTER TABLE trainers ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Allow all" ON trainers FOR ALL USING (true) WITH CHECK (true);
-
-ALTER TABLE countries ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Allow all" ON countries FOR ALL USING (true) WITH CHECK (true);
-
-ALTER TABLE news ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Allow all" ON news FOR ALL USING (true) WITH CHECK (true);
+-- Safely create RLS policies (drop if exists first)
+DO $$
+DECLARE
+  tables text[] := ARRAY['championships','player_submissions','media_gallery','certificates','rankings','trainers','countries','news'];
+  t text;
+BEGIN
+  FOREACH t IN ARRAY tables
+  LOOP
+    EXECUTE format('ALTER TABLE %I ENABLE ROW LEVEL SECURITY;', t);
+    BEGIN
+      EXECUTE format('DROP POLICY IF EXISTS "Allow all" ON %I;', t);
+      EXECUTE format('CREATE POLICY "Allow all" ON %I FOR ALL USING (true) WITH CHECK (true);', t);
+    EXCEPTION WHEN undefined_table THEN
+      RAISE NOTICE 'Table % does not exist, skipping', t;
+    END;
+  END LOOP;
+END;
+$$;

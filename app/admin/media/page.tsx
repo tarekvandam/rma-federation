@@ -23,7 +23,7 @@ export default function AdminMediaPage() {
     const { data: vData } = await supabase.from("media_videos").select("*").order("created_at", { ascending: false });
     if (vData) setVideos(vData);
     const { data: gData } = await supabase.from("media_gallery").select("*").order("created_at", { ascending: false });
-    if (gData) setGallery(gData);
+    if (gData) setGallery(gData.filter((item: any) => !item.title?.startsWith("[PARTNER]")));
   }
 
   useEffect(() => { fetchData(); }, []);

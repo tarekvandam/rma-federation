@@ -25,6 +25,7 @@ export default function Navbar() {
     { label: translations[locale].nav.promotion, path: "/promotion" },
     { label: translations[locale].nav.players, path: "/players" },
     { label: translations[locale].nav.contact, path: "/contact" },
+    { label: translations[locale].nav.partners, path: "/partners" },
   ];
 
   useEffect(() => {

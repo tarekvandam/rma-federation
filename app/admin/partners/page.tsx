@@ -27,9 +27,9 @@ export default function AdminPartnersPage() {
       .order("created_at", { ascending: false });
     if (fetchErr) { setError("Error loading: " + fetchErr.message); return; }
     if (data) {
-      setPartners(data.map((item: any) => ({
+      setPartners(data.filter((item: any) => item.title?.startsWith("[PARTNER]")).map((item: any) => ({
         id: item.id,
-        name: item.title?.split("|||")[0] || "",
+        name: item.title?.replace("[PARTNER]", "").split("|||")[0] || "",
         logo_url: item.image || "",
         website_url: item.title?.split("|||")[1] || "",
         created_at: item.created_at,
@@ -64,7 +64,7 @@ export default function AdminPartnersPage() {
       logoUrl = `https://bqedictvigmpxscbjboq.supabase.co/storage/v1/object/public/news-images/${fileName}`;
     }
 
-    const storedTitle = websiteUrl.trim() ? `${name.trim()}|||${websiteUrl.trim()}` : name.trim();
+    const storedTitle = `[PARTNER]${name.trim()}${websiteUrl.trim() ? `|||${websiteUrl.trim()}` : ""}`;
 
     let dbError;
     if (editingId) {

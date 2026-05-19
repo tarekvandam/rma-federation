@@ -25,12 +25,14 @@ export default async function NewsPage() {
 
   const news = newsRes.status === "fulfilled" ? newsRes.value.data : null;
   const rawPartners = partnersRes.status === "fulfilled" ? partnersRes.value.data : null;
-  const partners: Partner[] = (rawPartners || []).map((item: any) => ({
-    id: item.id,
-    name: item.title?.split("|||")[0] || "",
-    logo_url: item.image || "",
-    website_url: item.title?.split("|||")[1] || "",
-  }));
+  const partners: Partner[] = (rawPartners || [])
+    .filter((item: any) => item.title?.startsWith("[PARTNER]"))
+    .map((item: any) => ({
+      id: item.id,
+      name: item.title?.replace("[PARTNER]", "").split("|||")[0] || "",
+      logo_url: item.image || "",
+      website_url: item.title?.split("|||")[1] || "",
+    }));
 
   return (
     <main className="bg-black text-white min-h-screen pt-32 px-6 pb-20">
