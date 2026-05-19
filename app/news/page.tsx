@@ -98,28 +98,19 @@ export default async function NewsPage() {
               </h2>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-8">
+            <div className="flex flex-wrap items-center justify-center gap-6 gap-y-4">
               {(partners as Partner[]).map((p) => (
-                <div key={p.id} className="group relative">
+                <div key={p.id} className="flex items-center gap-2 bg-zinc-800/40 border border-zinc-700/40 rounded-xl px-4 py-2 hover:border-sky-500/30 transition-all duration-300 hover:bg-zinc-800/60">
+                  {p.logo_url ? (
+                    <img src={p.logo_url} alt={p.name} className="h-8 w-auto object-contain" />
+                  ) : null}
                   {p.website_url ? (
-                    <a href={p.website_url} target="_blank" rel="noopener noreferrer"
-                      className="block bg-zinc-800/50 border border-zinc-700/50 hover:border-sky-500/40 rounded-2xl p-6 transition-all duration-300 hover:bg-zinc-800 hover:-translate-y-1">
-                      {p.logo_url ? (
-                        <img src={p.logo_url} alt={p.name} className="h-16 w-auto object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300" />
-                      ) : (
-                        <span className="text-white font-bold px-4">{p.name}</span>
-                      )}
+                    <a href={p.website_url} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-300 hover:text-white truncate max-w-[120px]">
+                      {p.name}
                     </a>
                   ) : (
-                    <div className="bg-zinc-800/50 border border-zinc-700/50 rounded-2xl p-6">
-                      {p.logo_url ? (
-                        <img src={p.logo_url} alt={p.name} className="h-16 w-auto object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300" />
-                      ) : (
-                        <span className="text-white font-bold px-4">{p.name}</span>
-                      )}
-                    </div>
+                    <span className="text-sm text-gray-300 truncate max-w-[120px]">{p.name}</span>
                   )}
-                  <p className="text-center text-xs text-gray-500 mt-2">{p.name}</p>
                 </div>
               ))}
             </div>
