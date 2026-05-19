@@ -98,11 +98,13 @@ export default async function NewsPage() {
               </h2>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-4 gap-y-3">
+            <div className="flex flex-wrap items-center justify-center gap-3">
               {(partners as Partner[]).map((p) => (
-                <div key={p.id} className="flex items-center gap-1.5 bg-zinc-800/40 border border-zinc-700/40 rounded-lg px-3 py-1.5 hover:border-sky-500/30 transition-all duration-300 hover:bg-zinc-800/60">
+                <div key={p.id} className="flex items-center gap-2 bg-zinc-800/40 border border-zinc-700/40 rounded-lg px-3 py-1.5 hover:border-sky-500/30 transition-all duration-300 hover:bg-zinc-800/60">
                   {p.logo_url ? (
-                    <img src={p.logo_url} alt={p.name} className="h-6 w-auto max-w-[60px] object-contain" />
+                    <div className="w-8 h-8 flex items-center justify-center overflow-hidden shrink-0">
+                      <img src={p.logo_url} alt={p.name} className="max-w-full max-h-full object-contain" />
+                    </div>
                   ) : null}
                   {p.website_url ? (
                     <a href={p.website_url} target="_blank" rel="noopener noreferrer" className="text-xs text-gray-300 hover:text-white truncate max-w-[100px]">
