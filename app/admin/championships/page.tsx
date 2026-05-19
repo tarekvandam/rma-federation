@@ -21,25 +21,24 @@ export default function AdminChampionshipsPage() {
   useEffect(() => { fetchData(); }, []);
 
   async function handleUpload(file: File) {
-    try {
-      setUploading(true);
-      const ext = file.name.split('.').pop();
-      const name = `${Date.now()}.${ext}`;
-      const res = await fetch(
-        `https://bqedictvigmpxscbjboq.supabase.co/storage/v1/object/news-images/${name}`,
-        {
-          method: "POST",
-          headers: {
-            apikey: "sb_publishable_7p64Ye0CsqkP9Iny8QQsTA_y0KRCOIn",
-            Authorization: "Bearer sb_publishable_7p64Ye0CsqkP9Iny8QQsTA_y0KRCOIn",
-          },
-          body: file,
-        }
-      );
-      if (res.ok) return `https://bqedictvigmpxscbjboq.supabase.co/storage/v1/object/public/news-images/${name}`;
-      return "";
-    } catch { return ""; }
-    finally { setUploading(false); }
+    setUploading(true);
+    const ext = file.name.split('.').pop();
+    const name = `${Date.now()}.${ext}`;
+    const res = await fetch(
+      `https://bqedictvigmpxscbjboq.supabase.co/storage/v1/object/news-images/${name}`,
+      {
+        method: "POST",
+        headers: {
+          apikey: "sb_publishable_7p64Ye0CsqkP9Iny8QQsTA_y0KRCOIn",
+          Authorization: "Bearer sb_publishable_7p64Ye0CsqkP9Iny8QQsTA_y0KRCOIn",
+        },
+        body: file,
+      }
+    );
+    setUploading(false);
+    if (res.ok) return `https://bqedictvigmpxscbjboq.supabase.co/storage/v1/object/public/news-images/${name}`;
+    alert("فشل رفع الصورة: " + (await res.text()));
+    return "";
   }
 
   async function handleSubmit(e: React.FormEvent) {
