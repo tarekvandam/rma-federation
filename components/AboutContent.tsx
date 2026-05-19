@@ -62,7 +62,7 @@ const en = {
   visionTagline: "Train Real. Fight Smart. Live Strong.",
   founderBadge: "Founder Story",
   founderTag: "Founder & Lead Coach",
-  founderTitle: 'Tarek<br /><span class="text-red-600">Vandam</span>',
+  founderTitle: 'Tarek Sayed<br /><span class="text-red-600">Ibrahim</span>',
   founderP1: 'A martial artist and self-defense coach with years of combat experience, Tarek Sayed Ibrahim founded <strong class="text-white">Real Martial Art (RMA)</strong> in <strong class="text-red-400">2013</strong> to bridge the gap between fantasy fighting and real-world effectiveness.',
   founderP2: 'As the <strong class="text-white">Egypt Representative for the International Kyokushin Karate-do Federation (3rd Dan)</strong> and the <strong class="text-white">International MMA Federation (3rd Dan)</strong>, he brings authentic martial arts lineage combined with modern combat training methodologies.',
   founderP3: 'Through RMA, Tarek has built a global community of disciplined fighters, created millions of views worth of combat education content, and continues to train the next generation of martial artists who value substance over show.',
