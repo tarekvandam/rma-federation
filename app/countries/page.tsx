@@ -68,7 +68,7 @@ export default async function CountriesPage() {
               key={item.id}
               className="bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden hover:border-sky-600/40 transition duration-300 group"
             >
-              <div className="h-48 bg-gradient-to-br from-zinc-800 to-zinc-900 relative flex items-center justify-center overflow-hidden">
+              <div className="aspect-[4/6] bg-gradient-to-br from-zinc-800 to-zinc-900 relative flex items-center justify-center overflow-hidden">
                 {item.trainer_image ? (
                   <div
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
