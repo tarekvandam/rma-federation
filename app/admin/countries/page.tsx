@@ -15,6 +15,7 @@ export default function AdminCountriesPage() {
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [fax, setFax] = useState("");
+  const [continent, setContinent] = useState("");
   const [uploading, setUploading] = useState(false);
   const [items, setItems] = useState<any[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -56,7 +57,7 @@ export default function AdminCountriesPage() {
 
     const payload = {
       country, trainer_name: trainerName, trainer_title: trainerTitle, trainer_image: imageUrl,
-      flag: finalFlag, landline, mobile, email, address, fax,
+      continent, flag: finalFlag, landline, mobile, email, address, fax,
     };
 
     let error;
@@ -72,7 +73,7 @@ export default function AdminCountriesPage() {
 
   function resetForm() {
     setCountry(""); setTrainerName(""); setTrainerTitle(""); setTrainerImage(null); setFlag("");
-    setLandline(""); setMobile(""); setEmail(""); setAddress(""); setFax("");
+    setLandline(""); setMobile(""); setEmail(""); setAddress(""); setFax(""); setContinent("");
     setEditingId(null);
   }
 
@@ -80,7 +81,7 @@ export default function AdminCountriesPage() {
     setCountry(item.country); setTrainerName(item.trainer_name); setTrainerTitle(item.trainer_title || "");
     setFlag(item.flag || ""); setLandline(item.landline || ""); setMobile(item.mobile || "");
     setEmail(item.email || ""); setAddress(item.address || ""); setFax(item.fax || "");
-    setTrainerImage(null);
+    setContinent(item.continent || ""); setTrainerImage(null);
     setEditingId(item.id);
   }
 
@@ -115,6 +116,18 @@ export default function AdminCountriesPage() {
           <div>
             <label className="block text-sm text-gray-400 mb-1">صورة المدرب الشخصية</label>
             <input type="file" accept="image/*" onChange={(e) => setTrainerImage(e.target.files?.[0] || null)} className="text-sm file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-sky-600 file:text-white hover:file:bg-sky-700 cursor-pointer w-full" />
+          </div>
+          <div>
+            <label className="block text-sm text-gray-400 mb-1">القارة</label>
+            <select value={continent} onChange={(e) => setContinent(e.target.value)} className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-sky-500 text-white">
+              <option value="">اختر القارة</option>
+              <option value="Africa">أفريقيا</option>
+              <option value="Asia">آسيا</option>
+              <option value="Europe">أوروبا</option>
+              <option value="North America">أمريكا الشمالية</option>
+              <option value="South America">أمريكا الجنوبية</option>
+              <option value="Oceania">أوقيانوسيا</option>
+            </select>
           </div>
         </div>
 
@@ -177,6 +190,7 @@ export default function AdminCountriesPage() {
                   <p className="font-bold text-white text-lg">{item.country}</p>
                   <p className="text-sm text-gray-400">{item.trainer_name}</p>
                   {item.trainer_title && <p className="text-xs text-sky-400">{item.trainer_title}</p>}
+                  {item.continent && <p className="text-xs text-gray-500">{item.continent}</p>}
                 </div>
               </div>
               <div className="flex gap-2">
