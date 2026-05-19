@@ -90,28 +90,28 @@ export default async function NewsPage() {
         {partners && partners.length > 0 && (
           <section className="mt-24 border-t border-zinc-800 pt-16">
             <div className="text-center mb-10">
-              <span className="inline-flex rounded-full bg-sky-600/15 px-4 py-2 text-xs uppercase tracking-[0.4em] text-sky-300 shadow-sm shadow-sky-900/20 mb-4">
+              <span className="inline-flex rounded-full bg-red-600/15 px-4 py-2 text-xs uppercase tracking-[0.4em] text-red-300 shadow-sm shadow-red-900/20 mb-4">
                 Our Partners
               </span>
               <h2 className="text-3xl font-bold">
-                Collaborating <span className="text-sky-500">Organizations</span>
+                Collaborating <span className="text-red-600">Organizations</span>
               </h2>
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-6">
               {(partners as Partner[]).map((p) => (
-                <div key={p.id} className="flex flex-col items-center gap-3 bg-zinc-800/30 border border-zinc-700/30 rounded-2xl px-6 py-5 hover:border-sky-500/30 transition-all duration-300 hover:bg-zinc-800/50 w-44">
+                <div key={p.id} className="flex flex-col items-center gap-3 bg-zinc-900 rounded-2xl border border-zinc-800 px-6 py-5 hover:border-red-600/40 transition-all duration-300 group w-44">
                   {p.logo_url ? (
                     <div className="w-32 h-32 flex items-center justify-center overflow-hidden">
-                      <img src={p.logo_url} alt={p.name} className="max-w-full max-h-full object-contain" />
+                      <img src={p.logo_url} alt={p.name} className="max-w-full max-h-full object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300" />
                     </div>
                   ) : null}
                   {p.website_url ? (
-                    <a href={p.website_url} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-300 hover:text-white text-center leading-tight">
+                    <a href={p.website_url} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-400 hover:text-white text-center leading-tight transition">
                       {p.name}
                     </a>
                   ) : (
-                    <span className="text-sm text-gray-300 text-center leading-tight">{p.name}</span>
+                    <span className="text-sm text-gray-400 text-center leading-tight">{p.name}</span>
                   )}
                 </div>
               ))}
