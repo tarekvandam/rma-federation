@@ -116,6 +116,7 @@ export const generateMetadata = (pageTitle?: string, pageDescription?: string, a
     alternates: {
       canonical: siteMetadata.url,
       languages: {
+        'x-default': siteMetadata.url,
         'en': siteMetadata.url,
         'ar': siteMetadata.url,
       },
