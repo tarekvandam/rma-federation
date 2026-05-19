@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { useLanguage } from "./LanguageProvider";
 import { translations } from "@/lib/i18n";
 
@@ -59,12 +60,12 @@ export default function Hero() {
             transition={{ duration: 1.6, ease: "easeOut" }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full"
           >
-            <button className="w-full sm:w-auto bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 px-10 py-4 rounded-full text-white font-semibold text-lg shadow-2xl shadow-red-900/40 transition-transform duration-300 hover:-translate-y-0.5 hover:scale-[1.02]">
+            <Link href="/membership" className="w-full sm:w-auto bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 px-10 py-4 rounded-full text-white font-semibold text-lg shadow-2xl shadow-red-900/40 transition-transform duration-300 hover:-translate-y-0.5 hover:scale-[1.02] text-center">
               {t.join}
-            </button>
-            <button className="w-full sm:w-auto bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 px-10 py-4 rounded-full text-white font-semibold text-lg transition-transform duration-300 hover:-translate-y-0.5 hover:scale-[1.02]">
+            </Link>
+            <Link href="/championships" className="w-full sm:w-auto bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 px-10 py-4 rounded-full text-white font-semibold text-lg transition-transform duration-300 hover:-translate-y-0.5 hover:scale-[1.02] text-center">
               {t.explore}
-            </button>
+            </Link>
           </motion.div>
         </motion.div>
       </div>
