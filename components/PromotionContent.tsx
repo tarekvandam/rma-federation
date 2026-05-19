@@ -259,7 +259,7 @@ export default function PromotionContent() {
             <span className="text-red-600">Promotion</span> Program & Rules
           </h1>
           <p className="text-gray-400 text-lg">Real Martial Art (RMA) – Realistic Self-Defense System</p>
-          <p className="text-gray-500 mt-2">Founder: Tarek Said Ibrahim (Tarek Vandam)</p>
+          <p className="text-gray-500 mt-2">Founder: Tarek Said Ibrahim (Tarek Sayed Ibrahim)</p>
         </div>
 
         <div className="flex justify-center gap-4 mb-14">
@@ -390,7 +390,7 @@ export default function PromotionContent() {
             </div>
             <div className="mt-16 bg-zinc-900/50 rounded-3xl p-8 border border-zinc-800 text-center">
               <p className="text-gray-400 mb-4">International Federation of Real Martial Art (RMA)</p>
-              <p className="text-white font-bold">Captain / Tarek Said Ibrahim (Tarek Vandam)</p>
+              <p className="text-white font-bold">Captain / Tarek Said Ibrahim (Tarek Sayed Ibrahim)</p>
               <p className="text-gray-500 text-sm mb-6">Founder & President</p>
               <div className="border-t border-zinc-800 pt-6">
                 <p className="text-gray-500 text-sm">Official Seal & Signature</p>

@@ -76,7 +76,7 @@ export const translations = {
           name: "Tarek Sayed Ibrahim",
           role: "Founder & Head Coach",
           image: "/images/tarek.jpg",
-          description: "Founder of RMA Federation — Tarek Vandam — with 30 years of experience in realistic martial arts and combat systems. Built the federation on authentic fighting principles, leading international certifications and training elite fighters worldwide.",
+          description: "Founder of RMA Federation — Tarek Sayed Ibrahim — with 30 years of experience in realistic martial arts and combat systems. Built the federation on authentic fighting principles, leading international certifications and training elite fighters worldwide.",
           stats: [
             { label: "Years Experience", value: "30" },
           ],

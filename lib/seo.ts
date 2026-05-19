@@ -20,7 +20,7 @@ export const siteMetadata = {
     'martial arts federation', 'world martial arts', 'international martial arts',
     'combat training', 'fighting techniques', 'martial arts near me',
     'martial arts academy', 'martial arts gym', 'learn martial arts online',
-    'Tarek Vandam', 'martial arts Egypt', 'RMA champions',
+    'Tarek Sayed Ibrahim', 'martial arts Egypt', 'RMA champions',
     'martial arts belts', 'belt ranking system', 'martial arts promotion',
     'MMA training', 'kickboxing training', 'boxing training',
     'martial arts for beginners', 'advanced martial arts', 'martial arts competition',
@@ -30,7 +30,7 @@ export const siteMetadata = {
     'فنون قتالية', 'دفاع عن النفس', 'اتحاد فنون قتالية', 'ملاكمة', 'كيك بوكسينغ',
     'مواي تاي', 'جيو جيتسو', 'كاراتيه', 'تايكوندو', 'جودو',
   ],
-  author: 'Tarek Vandam — World Real Martial Art Federation',
+  author: 'Tarek Sayed Ibrahim — World Real Martial Art Federation',
   image: defaultImage,
   logo: logoImage,
   sameAs: [
@@ -40,7 +40,7 @@ export const siteMetadata = {
   phone: '+20 100 190 4418',
   email: 'realmartialartrma@gmail.com',
   founded: 2013,
-  founder: 'Tarek Vandam',
+  founder: 'Tarek Sayed Ibrahim',
 };
 
 export function generateOrganizationSchema() {
@@ -59,7 +59,7 @@ export function generateOrganizationSchema() {
         foundingDate: '2013',
         founder: {
           '@type': 'Person',
-          name: 'Tarek Vandam',
+          name: 'Tarek Sayed Ibrahim',
           jobTitle: 'Founder & Head Coach',
           url: siteMetadata.url,
           sameAs: siteMetadata.sameAs,

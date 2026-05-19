@@ -9,7 +9,7 @@ import { siteMetadata } from "@/lib/seo";
 const en = {
   heroBadge: "About the Federation",
   heroPrefix: "Founded by",
-  heroName: "Tarek Vandam",
+  heroName: "Tarek Sayed Ibrahim",
   heroDesc: "— a martial artist, coach, and founder dedicated to realistic combat, exposing fake systems, and building disciplined fighters worldwide. RMA was established in",
   heroYear: "2013",
   heroSuffix: "and has been evolving ever since.",
@@ -18,7 +18,7 @@ const en = {
   aboutBadge: "About the Federation",
   aboutTitle: 'World Real Martial Art <span class="text-red-600">Federation</span>',
   aboutP1: 'World Real Martial Art Federation (RMA) is a modern martial arts organization dedicated to building a <strong class="text-white">realistic combat system</strong> based on practical application, scientific training methods, and authentic self-defense principles.',
-  aboutP2: 'Founded by <strong class="text-white">Tarek Vandam</strong> in <strong class="text-red-400">2013</strong>, RMA was created to challenge unrealistic martial arts myths and promote effective combat skills that can be applied in real-life situations, competitions, and personal protection.',
+  aboutP2: 'Founded by <strong class="text-white">Tarek Sayed Ibrahim</strong> in <strong class="text-red-400">2013</strong>, RMA was created to challenge unrealistic martial arts myths and promote effective combat skills that can be applied in real-life situations, competitions, and personal protection.',
   coreMessage: "Not everything you see should be believed.",
   coreDesc: "RMA focuses on testing techniques under realistic pressure instead of relying on exaggerated demonstrations or theatrical movements.",
   missionBadge: "Our Purpose",
@@ -63,7 +63,7 @@ const en = {
   founderBadge: "Founder Story",
   founderTag: "Founder & Lead Coach",
   founderTitle: 'Tarek<br /><span class="text-red-600">Vandam</span>',
-  founderP1: 'A martial artist and self-defense coach with years of combat experience, Tarek Vandam founded <strong class="text-white">Real Martial Art (RMA)</strong> in <strong class="text-red-400">2013</strong> to bridge the gap between fantasy fighting and real-world effectiveness.',
+  founderP1: 'A martial artist and self-defense coach with years of combat experience, Tarek Sayed Ibrahim founded <strong class="text-white">Real Martial Art (RMA)</strong> in <strong class="text-red-400">2013</strong> to bridge the gap between fantasy fighting and real-world effectiveness.',
   founderP2: 'As the <strong class="text-white">Egypt Representative for the International Kyokushin Karate-do Federation (3rd Dan)</strong> and the <strong class="text-white">International MMA Federation (3rd Dan)</strong>, he brings authentic martial arts lineage combined with modern combat training methodologies.',
   founderP3: 'Through RMA, Tarek has built a global community of disciplined fighters, created millions of views worth of combat education content, and continues to train the next generation of martial artists who value substance over show.',
   founderTags: ["Martial Arts Coach", "Kyokushin 3rd Dan", "IMMAF Representative", "Self-Defense Expert", "Founder of RMA"],
@@ -233,7 +233,7 @@ export default function AboutContent() {
     url: `${siteMetadata.url}/about`,
     mainEntity: {
       '@type': 'Organization', name: siteMetadata.title, foundingDate: '2013',
-      founder: { '@type': 'Person', name: 'Tarek Vandam' },
+      founder: { '@type': 'Person', name: 'Tarek Sayed Ibrahim' },
       sport: ['MartialArts', 'Boxing', 'Kickboxing', 'MuayThai', 'MixedMartialArts', 'BrazilianJiuJitsu', 'Karate', 'Taekwondo', 'Judo', 'KravMaga'],
     },
   };

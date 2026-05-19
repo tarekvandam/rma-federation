@@ -116,7 +116,7 @@ export default function AdminTrainersPage() {
       <h1 className="text-3xl font-bold text-green-500 mb-8">🥋 إدارة المدربين</h1>
 
       <div className="bg-zinc-900/50 border border-zinc-800 p-4 rounded-xl mb-6 text-sm text-yellow-400">
-        ⚠️ لتعديل المدربين الأساسيين (Tarek Vandam, Mayada Salah)، أضفهم هنا بنفس الأسماء بالضبط، ثم عدّل بياناتهم.
+        ⚠️ لتعديل المدربين الأساسيين (Tarek Sayed Ibrahim, Mayada Salah)، أضفهم هنا بنفس الأسماء بالضبط، ثم عدّل بياناتهم.
       </div>
 
       <form onSubmit={addItem} className="bg-zinc-900 p-6 rounded-2xl mb-8 space-y-4 border border-zinc-800">
