@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "../../../lib/supabase";
 
 type Partner = {
-  id: number;
+  id: string;
   name: string;
   logo_url: string;
   website_url: string;
@@ -17,11 +17,22 @@ export default function AdminPartnersPage() {
   const [websiteUrl, setWebsiteUrl] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
-  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   async function fetchPartners() {
-    const { data } = await supabase.from("partners").select("*").order("created_at", { ascending: false });
-    if (data) setPartners(data as Partner[]);
+    const { data } = await supabase
+      .from("media_gallery")
+      .select("*")
+      .order("created_at", { ascending: false });
+    if (data) {
+      setPartners(data.map((item: any) => ({
+        id: item.id,
+        name: item.title?.split("|||")[0] || "",
+        logo_url: item.image || "",
+        website_url: item.title?.split("|||")[1] || "",
+        created_at: item.created_at,
+      })));
+    }
   }
 
   useEffect(() => { fetchPartners(); }, []);
@@ -51,15 +62,16 @@ export default function AdminPartnersPage() {
       }
     }
 
+    const storedTitle = websiteUrl.trim() ? `${name.trim()}|||${websiteUrl.trim()}` : name.trim();
+
     if (editingId) {
-      const updateData: any = { name: name.trim(), website_url: websiteUrl.trim() };
-      if (logoUrl) updateData.logo_url = logoUrl;
-      await supabase.from("partners").update(updateData).eq("id", editingId);
+      const updateData: any = { title: storedTitle };
+      if (logoUrl) updateData.image = logoUrl;
+      await supabase.from("media_gallery").update(updateData).eq("id", editingId);
     } else {
-      await supabase.from("partners").insert({
-        name: name.trim(),
-        logo_url: logoUrl,
-        website_url: websiteUrl.trim(),
+      await supabase.from("media_gallery").insert({
+        title: storedTitle,
+        image: logoUrl,
       });
     }
 
@@ -78,16 +90,16 @@ export default function AdminPartnersPage() {
     setSelectedFile(null);
   }
 
-  async function deletePartner(id: number) {
+  async function deletePartner(id: string) {
     if (confirm("Delete this partner?")) {
-      await supabase.from("partners").delete().eq("id", id);
+      await supabase.from("media_gallery").delete().eq("id", id);
       fetchPartners();
     }
   }
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-sky-500 mb-8">&#x1F91D; إدارة الشركاء</h1>
+      <h1 className="text-3xl font-bold text-sky-500 mb-8">🤝 إدارة الشركاء</h1>
 
       <form onSubmit={handleSubmit} className="bg-zinc-900 rounded-2xl border border-zinc-800 p-6 mb-8 space-y-4 max-w-lg">
         <h2 className="text-xl font-bold text-white">{editingId ? "تعديل الشريك" : "إضافة شريك جديد"}</h2>
@@ -95,7 +107,7 @@ export default function AdminPartnersPage() {
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="اسم المنظمة / الاتحاد" required
           className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-sky-500 text-white" />
 
-        <input type="url" value={websiteUrl} onChange={(e) => setWebsiteUrl(e.target.value)} placeholder="الموقع الإلكتروني (اختياري)"
+        <input type="url" value={websiteUrl} onChange={(e) => setWebsiteUrl(e.target.value)} placeholder="رابط الموقع (اختياري)"
           className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-sky-500 text-white" />
 
         <div>

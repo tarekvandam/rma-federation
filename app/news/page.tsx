@@ -20,11 +20,17 @@ export default async function NewsPage() {
 
   const [newsRes, partnersRes] = await Promise.allSettled([
     supabase.from("news").select("*").order("created_at", { ascending: false }),
-    supabase.from("partners").select("*").order("created_at", { ascending: false }),
+    supabase.from("media_gallery").select("*").order("created_at", { ascending: false }),
   ]);
 
   const news = newsRes.status === "fulfilled" ? newsRes.value.data : null;
-  const partners = partnersRes.status === "fulfilled" ? partnersRes.value.data : null;
+  const rawPartners = partnersRes.status === "fulfilled" ? partnersRes.value.data : null;
+  const partners: Partner[] = (rawPartners || []).map((item: any) => ({
+    id: item.id,
+    name: item.title?.split("|||")[0] || "",
+    logo_url: item.image || "",
+    website_url: item.title?.split("|||")[1] || "",
+  }));
 
   return (
     <main className="bg-black text-white min-h-screen pt-32 px-6 pb-20">
