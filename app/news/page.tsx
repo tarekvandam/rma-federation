@@ -98,18 +98,18 @@ export default async function NewsPage() {
               </h2>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-6 gap-y-4">
+            <div className="flex flex-wrap items-center justify-center gap-4 gap-y-3">
               {(partners as Partner[]).map((p) => (
-                <div key={p.id} className="flex items-center gap-2 bg-zinc-800/40 border border-zinc-700/40 rounded-xl px-4 py-2 hover:border-sky-500/30 transition-all duration-300 hover:bg-zinc-800/60">
+                <div key={p.id} className="flex items-center gap-1.5 bg-zinc-800/40 border border-zinc-700/40 rounded-lg px-3 py-1.5 hover:border-sky-500/30 transition-all duration-300 hover:bg-zinc-800/60">
                   {p.logo_url ? (
-                    <img src={p.logo_url} alt={p.name} className="h-8 w-auto object-contain" />
+                    <img src={p.logo_url} alt={p.name} className="h-6 w-auto max-w-[60px] object-contain" />
                   ) : null}
                   {p.website_url ? (
-                    <a href={p.website_url} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-300 hover:text-white truncate max-w-[120px]">
+                    <a href={p.website_url} target="_blank" rel="noopener noreferrer" className="text-xs text-gray-300 hover:text-white truncate max-w-[100px]">
                       {p.name}
                     </a>
                   ) : (
-                    <span className="text-sm text-gray-300 truncate max-w-[120px]">{p.name}</span>
+                    <span className="text-xs text-gray-300 truncate max-w-[100px]">{p.name}</span>
                   )}
                 </div>
               ))}
