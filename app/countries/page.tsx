@@ -68,31 +68,30 @@ export default async function CountriesPage() {
               key={item.id}
               className="bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden hover:border-sky-600/40 transition duration-300 group"
             >
-              <div className="h-40 bg-gradient-to-br from-zinc-800 to-zinc-900 relative flex items-center justify-center">
-                {item.flag ? (
-                  <img
-                    src={item.flag}
-                    alt={item.country}
-                    className="w-24 h-auto shadow-lg rounded"
+              <div className="h-48 bg-gradient-to-br from-zinc-800 to-zinc-900 relative flex items-center justify-center overflow-hidden">
+                {item.trainer_image ? (
+                  <div
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                    style={{ backgroundImage: `url(${item.trainer_image})` }}
                   />
+                ) : item.flag ? (
+                  <img src={item.flag} alt={item.country} className="w-24 h-auto shadow-lg rounded" />
                 ) : (
                   <span className="text-6xl">{item.country.charAt(0).toUpperCase()}</span>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                   <h3 className="text-xl font-bold text-white">{item.country}</h3>
+                  {item.flag && (
+                    <img src={item.flag} alt={item.country} className="mt-1 w-8 h-auto rounded shadow opacity-80" />
+                  )}
                 </div>
               </div>
 
               <div className="p-5 space-y-3">
-                <div className="flex items-center gap-3">
-                  {item.trainer_image && (
-                    <img src={item.trainer_image} alt={item.trainer_name} className="w-10 h-10 object-cover rounded-full border border-sky-600/40" />
-                  )}
-                  <div>
-                    <p className="text-white font-bold">{item.trainer_name}</p>
-                    {item.trainer_title && <p className="text-xs text-sky-400">{item.trainer_title}</p>}
-                  </div>
+                <div>
+                  <p className="text-white font-bold text-lg">{item.trainer_name}</p>
+                  {item.trainer_title && <p className="text-xs text-sky-400">{item.trainer_title}</p>}
                 </div>
 
                 <div className="space-y-2 text-sm text-gray-400">
