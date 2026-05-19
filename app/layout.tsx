@@ -5,7 +5,6 @@ import Footer from "../components/Footer";
 import LanguageProvider from "../components/LanguageProvider";
 
 import { siteMetadata, generateOrganizationSchema } from "../lib/seo";
-import Script from "next/script";
 
 export const metadata = {
   title: siteMetadata.title,
@@ -64,13 +63,11 @@ export default function RootLayout({
   return (
     <html lang="en" dir="auto">
       <body className="bg-black text-white">
-        <Script
+        <script
           id="organization-schema"
           type="application/ld+json"
-          strategy="afterInteractive"
-        >
-          {JSON.stringify(schema)}
-        </Script>
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
         <LanguageProvider>
           <Navbar />
 

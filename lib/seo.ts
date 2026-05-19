@@ -103,8 +103,8 @@ export function generateOrganizationSchema() {
   };
 }
 
-export const generateMetadata = (pageTitle?: string, pageDescription?: string, arPageDescription?: string): Metadata => {
-  const title = pageTitle ? `${pageTitle} | ${siteMetadata.title}` : siteMetadata.title;
+export const generateMetadata = (pageTitle?: string, pageDescription?: string, arPageDescription?: string, fullTitle?: string): Metadata => {
+  const title = fullTitle || (pageTitle ? `${pageTitle} | ${siteMetadata.title}` : siteMetadata.title);
   const description = pageDescription || siteMetadata.description;
 
   return {

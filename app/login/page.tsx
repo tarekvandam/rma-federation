@@ -28,7 +28,7 @@ export default function LoginPage() {
     }
 
     if (data?.session?.access_token) {
-      document.cookie = `sb-access-token=${data.session.access_token}; path=/; max-age=${60 * 60 * 24 * 7}`;
+      document.cookie = `sb-access-token=${data.session.access_token}; path=/; max-age=${60 * 60 * 24 * 7}; Secure; SameSite=Lax`;
     }
 
     router.push("/admin/news");

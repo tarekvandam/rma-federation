@@ -26,15 +26,23 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    let cancelled = false;
     const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        router.push("/login");
-      } else {
-        setAuthenticated(true);
+      const { data, error } = await supabase.auth.refreshSession();
+      if (error || !data.session) {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+          router.push("/login");
+          return;
+        }
+        if (!cancelled) setAuthenticated(true);
+        return;
       }
+      document.cookie = `sb-access-token=${data.session.access_token}; path=/; max-age=${60 * 60 * 24 * 7}; Secure; SameSite=Lax`;
+      if (!cancelled) setAuthenticated(true);
     };
     checkAuth();
+    return () => { cancelled = true; };
   }, [router]);
 
   async function handleLogout() {
