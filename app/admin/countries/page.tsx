@@ -7,12 +7,15 @@ import { getFlagUrl } from "../../../lib/countryFlags";
 export default function AdminCountriesPage() {
   const [country, setCountry] = useState("");
   const [trainerName, setTrainerName] = useState("");
+  const [trainerTitle, setTrainerTitle] = useState("");
+  const [trainerImage, setTrainerImage] = useState<File | null>(null);
   const [flag, setFlag] = useState("");
   const [landline, setLandline] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [fax, setFax] = useState("");
+  const [uploading, setUploading] = useState(false);
   const [items, setItems] = useState<any[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -29,26 +32,55 @@ export default function AdminCountriesPage() {
     if (autoFlag) setFlag(autoFlag);
   }
 
+  async function uploadImage(file: File) {
+    setUploading(true);
+    try {
+      const ext = file.name.split('.').pop();
+      const fn = `country_${Date.now()}.${ext}`;
+      const { error } = await supabase.storage.from('news-images').upload(fn, file);
+      if (error) throw error;
+      return `https://bqedictvigmpxscbjboq.supabase.co/storage/v1/object/public/news-images/${fn}`;
+    } catch (err: any) { alert("Upload error: " + (err?.message || err)); return ""; }
+    finally { setUploading(false); }
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setUploading(true);
     const finalFlag = flag || getFlagUrl(country);
-
-    if (editingId) {
-      const { error } = await supabase.from("countries").update({ country, trainer_name: trainerName, flag: finalFlag, landline, mobile, email, address, fax }).eq("id", editingId);
-      if (!error) { resetForm(); fetchData(); } else { alert(`خطأ: ${error.message}`); }
-    } else {
-      const { error } = await supabase.from("countries").insert([{ country, trainer_name: trainerName, flag: finalFlag, landline, mobile, email, address, fax }]);
-      if (!error) { resetForm(); fetchData(); } else { alert(`خطأ: ${error.message}`); }
+    let imageUrl = editingId ? items.find(i => i.id === editingId)?.trainer_image || "" : "";
+    if (trainerImage) {
+      const url = await uploadImage(trainerImage);
+      if (url) imageUrl = url;
     }
+
+    const payload = {
+      country, trainer_name: trainerName, trainer_title: trainerTitle, trainer_image: imageUrl,
+      flag: finalFlag, landline, mobile, email, address, fax,
+    };
+
+    let error;
+    if (editingId) {
+      ({ error } = await supabase.from("countries").update(payload).eq("id", editingId));
+    } else {
+      ({ error } = await supabase.from("countries").insert([payload]));
+    }
+
+    setUploading(false);
+    if (!error) { resetForm(); fetchData(); } else { alert(`خطأ: ${error.message}`); }
   }
 
   function resetForm() {
-    setCountry(""); setTrainerName(""); setFlag(""); setLandline(""); setMobile(""); setEmail(""); setAddress(""); setFax("");
+    setCountry(""); setTrainerName(""); setTrainerTitle(""); setTrainerImage(null); setFlag("");
+    setLandline(""); setMobile(""); setEmail(""); setAddress(""); setFax("");
     setEditingId(null);
   }
 
   function editItem(item: any) {
-    setCountry(item.country); setTrainerName(item.trainer_name); setFlag(item.flag || ""); setLandline(item.landline || ""); setMobile(item.mobile || ""); setEmail(item.email || ""); setAddress(item.address || ""); setFax(item.fax || "");
+    setCountry(item.country); setTrainerName(item.trainer_name); setTrainerTitle(item.trainer_title || "");
+    setFlag(item.flag || ""); setLandline(item.landline || ""); setMobile(item.mobile || "");
+    setEmail(item.email || ""); setAddress(item.address || ""); setFax(item.fax || "");
+    setTrainerImage(null);
     setEditingId(item.id);
   }
 
@@ -72,6 +104,17 @@ export default function AdminCountriesPage() {
           <div>
             <label className="block text-sm text-gray-400 mb-1">اسم المدرب *</label>
             <input type="text" value={trainerName} onChange={(e) => setTrainerName(e.target.value)} required className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-sky-500" />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm text-gray-400 mb-1">صفة المدرب</label>
+            <input type="text" value={trainerTitle} onChange={(e) => setTrainerTitle(e.target.value)} placeholder="مثال: مدرب معتمد - رئيس الاتحاد" className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-sky-500" />
+          </div>
+          <div>
+            <label className="block text-sm text-gray-400 mb-1">صورة المدرب الشخصية</label>
+            <input type="file" accept="image/*" onChange={(e) => setTrainerImage(e.target.files?.[0] || null)} className="text-sm file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-sky-600 file:text-white hover:file:bg-sky-700 cursor-pointer w-full" />
           </div>
         </div>
 
@@ -107,8 +150,8 @@ export default function AdminCountriesPage() {
         </div>
 
         <div className="flex gap-3">
-          <button type="submit" className="flex-1 bg-sky-600 py-3 rounded-xl font-bold hover:bg-sky-700 transition">
-            {editingId ? "تحديث" : "إضافة الدولة"}
+          <button type="submit" disabled={uploading} className="flex-1 bg-sky-600 py-3 rounded-xl font-bold hover:bg-sky-700 transition disabled:opacity-50">
+            {uploading ? "جاري الرفع..." : editingId ? "تحديث" : "إضافة الدولة"}
           </button>
           {editingId && (
             <button type="button" onClick={resetForm} className="bg-zinc-700 px-6 py-3 rounded-xl font-bold hover:bg-zinc-600 transition">
@@ -125,10 +168,15 @@ export default function AdminCountriesPage() {
           <div key={item.id} className="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
             <div className="flex justify-between items-start">
               <div className="flex items-center gap-4">
-                {item.flag && <img src={item.flag} alt={item.country} className="w-12 h-auto rounded shadow" />}
+                {item.trainer_image ? (
+                  <img src={item.trainer_image} className="w-12 h-12 object-cover rounded-full" />
+                ) : item.flag ? (
+                  <img src={item.flag} alt={item.country} className="w-12 h-auto rounded shadow" />
+                ) : null}
                 <div>
                   <p className="font-bold text-white text-lg">{item.country}</p>
-                  <p className="text-sm text-gray-400">المدرب: {item.trainer_name}</p>
+                  <p className="text-sm text-gray-400">{item.trainer_name}</p>
+                  {item.trainer_title && <p className="text-xs text-sky-400">{item.trainer_title}</p>}
                 </div>
               </div>
               <div className="flex gap-2">

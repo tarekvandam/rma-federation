@@ -13,6 +13,8 @@ type Country = {
   id: string;
   country: string;
   trainer_name: string;
+  trainer_image: string;
+  trainer_title: string;
   flag: string;
   landline: string;
   mobile: string;
@@ -83,9 +85,14 @@ export default async function CountriesPage() {
               </div>
 
               <div className="p-5 space-y-3">
-                <div className="flex items-center gap-2 text-gray-300">
-                  <span className="text-sm font-medium">Coach:</span>
-                  <span className="text-white font-bold">{item.trainer_name}</span>
+                <div className="flex items-center gap-3">
+                  {item.trainer_image && (
+                    <img src={item.trainer_image} alt={item.trainer_name} className="w-10 h-10 object-cover rounded-full border border-sky-600/40" />
+                  )}
+                  <div>
+                    <p className="text-white font-bold">{item.trainer_name}</p>
+                    {item.trainer_title && <p className="text-xs text-sky-400">{item.trainer_title}</p>}
+                  </div>
                 </div>
 
                 <div className="space-y-2 text-sm text-gray-400">
