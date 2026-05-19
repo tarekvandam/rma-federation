@@ -18,12 +18,14 @@ export default function AdminPartnersPage() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [error, setError] = useState("");
 
   async function fetchPartners() {
-    const { data } = await supabase
+    const { data, error: fetchErr } = await supabase
       .from("media_gallery")
       .select("*")
       .order("created_at", { ascending: false });
+    if (fetchErr) { setError("Error loading: " + fetchErr.message); return; }
     if (data) {
       setPartners(data.map((item: any) => ({
         id: item.id,
@@ -39,6 +41,7 @@ export default function AdminPartnersPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setError("");
     if (!name.trim()) return;
     setUploading(true);
 
@@ -57,25 +60,30 @@ export default function AdminPartnersPage() {
           body: selectedFile,
         }
       );
-      if (res.ok) {
-        logoUrl = `https://bqedictvigmpxscbjboq.supabase.co/storage/v1/object/public/news-images/${fileName}`;
-      }
+      if (!res.ok) { setError("Failed to upload image"); setUploading(false); return; }
+      logoUrl = `https://bqedictvigmpxscbjboq.supabase.co/storage/v1/object/public/news-images/${fileName}`;
     }
 
     const storedTitle = websiteUrl.trim() ? `${name.trim()}|||${websiteUrl.trim()}` : name.trim();
 
+    let dbError;
     if (editingId) {
       const updateData: any = { title: storedTitle };
       if (logoUrl) updateData.image = logoUrl;
-      await supabase.from("media_gallery").update(updateData).eq("id", editingId);
+      const { error: e } = await supabase.from("media_gallery").update(updateData).eq("id", editingId);
+      dbError = e;
     } else {
-      await supabase.from("media_gallery").insert({
+      const { error: e } = await supabase.from("media_gallery").insert({
         title: storedTitle,
         image: logoUrl,
       });
+      dbError = e;
     }
 
     setUploading(false);
+
+    if (dbError) { setError("Database error: " + dbError.message); return; }
+
     setName("");
     setWebsiteUrl("");
     setSelectedFile(null);
@@ -126,6 +134,7 @@ export default function AdminPartnersPage() {
               className="flex-1 bg-zinc-800 py-3 rounded-xl font-bold hover:bg-zinc-700 transition">إلغاء</button>
           )}
         </div>
+        {error && <p className="text-red-400 text-sm text-center">{error}</p>}
       </form>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
