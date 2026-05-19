@@ -13,6 +13,7 @@ export default function PlayerApplyPage() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submissionId, setSubmissionId] = useState("");
 
   const beltOptions = [
     "White",
@@ -61,7 +62,7 @@ export default function PlayerApplyPage() {
       }
     }
 
-    const { error } = await supabase.from("player_submissions").insert([
+    const { data: inserted, error } = await supabase.from("player_submissions").insert([
       {
         name,
         image: imageUrl,
@@ -69,16 +70,19 @@ export default function PlayerApplyPage() {
         date_obtained: dateObtained,
         promotions,
       },
-    ]);
+    ]).select();
 
     setUploading(false);
 
-    if (!error) {
+    if (!error && inserted?.length > 0) {
+      setSubmissionId(inserted[0].id);
       setSubmitted(true);
     } else {
-      alert("Error submitting: " + error.message);
+      alert("Error submitting: " + error?.message || "Unknown error");
     }
   }
+
+  const editLink = typeof window !== "undefined" ? `${window.location.origin}/players/edit/${submissionId}` : "";
 
   if (submitted) {
     return (
@@ -86,9 +90,20 @@ export default function PlayerApplyPage() {
         <div className="text-center max-w-lg">
           <p className="text-6xl mb-6">✅</p>
           <h1 className="text-3xl font-bold mb-4">Submission Received!</h1>
-          <p className="text-gray-400 text-lg">
+          <p className="text-gray-400 text-lg mb-6">
             Your information has been submitted. The federation admin will review it and approve it shortly.
           </p>
+          {submissionId && (
+            <div className="bg-zinc-800 rounded-2xl p-5 border border-zinc-700">
+              <p className="text-sm text-gray-400 mb-2">Edit Link (save this!)</p>
+              <a href={editLink} className="text-sky-400 hover:text-sky-300 text-sm break-all underline underline-offset-2">
+                {editLink}
+              </a>
+              <p className="text-xs text-gray-500 mt-2">
+                Keep this link to update your profile and add new belts later.
+              </p>
+            </div>
+          )}
         </div>
       </main>
     );
