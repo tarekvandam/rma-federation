@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const revalidate = 60;
 
@@ -64,6 +65,10 @@ function FlagEmoji({ country }: { country: string }) {
     "New Zealand": "🇳🇿", "Fiji": "🇫🇯",
   };
   return <span className="text-lg">{flag[country] || "🌍"}</span>;
+}
+
+function slugify(text: string) {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
 export default async function CountriesPage() {
@@ -191,7 +196,9 @@ export default async function CountriesPage() {
               <h2 className="text-2xl font-bold text-white">Founder &amp; President</h2>
             </div>
             <div className="max-w-sm">
-              <CountryCard item={founder} />
+              <Link href={`/countries/${slugify(founder.country)}`}>
+                <CountryCard item={founder} />
+              </Link>
             </div>
           </div>
         )}
@@ -205,7 +212,9 @@ export default async function CountriesPage() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {grouped[cont].map((item) => (
-                <CountryCard key={item.id} item={item} />
+                <Link key={item.id} href={`/countries/${slugify(item.country)}`}>
+                  <CountryCard item={item} />
+                </Link>
               ))}
             </div>
           </div>
