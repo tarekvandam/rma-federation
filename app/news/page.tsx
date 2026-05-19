@@ -1,4 +1,11 @@
 import { supabase } from "../../lib/supabase";
+import { generateMetadata } from "@/lib/seo";
+
+export const metadata = generateMetadata(
+  "News — RMA Federation Latest Updates",
+  "Stay updated with the latest news, events, and announcements from the World Real Martial Art Federation. Official updates, event highlights, and fighter stories.",
+  "أحدث أخبار وفعاليات وإعلانات الاتحاد العالمي للفنون القتالية الحقيقية. تغطية رسمية للبطولات واللاعبين."
+);
 
 export const dynamic = "force-dynamic";
 

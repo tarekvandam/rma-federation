@@ -536,7 +536,7 @@ export default function AboutContent() {
 
         {/* ============ CTA ============ */}
         <section className="relative overflow-hidden py-28 px-6">
-          <div className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110 animate-[slowzoom_20s_ease-in-out_infinite]" style={{ backgroundImage: "url('/gallery/1.jpg')" }} />
+          <div className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110 animate-[slowzoom_20s_ease-in-out_infinite]" style={{ backgroundImage: "url('/images/hero.jpg')" }} />
           <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/85 to-black/95" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(220,38,38,0.12),_rgba(0,0,0,0.95))]" />
           <div className="relative z-10 mx-auto max-w-4xl text-center">

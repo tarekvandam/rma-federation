@@ -87,9 +87,9 @@ export default function Rankings() {
           </div>
 
           {loading ? (
-            <p className="text-gray-500 text-center py-12">Loading rankings...</p>
+            <p className="text-gray-500 text-center py-12">{t.loading || "Loading..."}</p>
           ) : fighters.length === 0 ? (
-            <p className="text-gray-500 text-center py-12">No rankings available yet.</p>
+            <p className="text-gray-500 text-center py-12">{t.empty || "No rankings yet."}</p>
           ) : (
             <div className="mt-8 overflow-hidden rounded-[28px] border border-white/10 bg-black/40">
               <table className="min-w-full border-separate border-spacing-0 text-left text-sm">

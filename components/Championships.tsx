@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { CalendarDays, MapPin } from "lucide-react";
+import { useLanguage } from "./LanguageProvider";
+import { translations } from "@/lib/i18n";
 import { supabase } from "@/lib/supabase";
 
 type Championship = {
@@ -15,6 +17,8 @@ type Championship = {
 };
 
 export default function Championships() {
+  const { locale } = useLanguage();
+  const t = translations[locale].championships;
   const [events, setEvents] = useState<Championship[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -33,7 +37,7 @@ export default function Championships() {
   if (loading) {
     return (
       <section className="bg-zinc-950 py-20 sm:py-24 px-4 sm:px-6 lg:px-10 min-h-[60vh] flex items-center justify-center">
-        <p className="text-gray-500">Loading...</p>
+        <p className="text-gray-500">{t.loading || "Loading..."}</p>
       </section>
     );
   }
@@ -49,8 +53,8 @@ export default function Championships() {
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl font-bold text-white mb-4">Championships</h2>
-          <p className="text-gray-400 text-lg">Official RMA tournaments and events</p>
+          <h2 className="text-5xl font-bold text-white mb-4">{t.title}</h2>
+          <p className="text-gray-400 text-lg">{t.description}</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

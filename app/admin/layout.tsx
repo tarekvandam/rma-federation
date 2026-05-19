@@ -6,6 +6,7 @@ import { supabase } from "../../lib/supabase";
 import Link from "next/link";
 
 const navItems = [
+  { label: "لوحة التحكم", href: "/admin", icon: "📊" },
   { label: "الأخبار", href: "/admin/news", icon: "📰" },
   { label: "البطولات", href: "/admin/championships", icon: "🏆" },
   { label: "الترتيب", href: "/admin/rankings", icon: "📊" },

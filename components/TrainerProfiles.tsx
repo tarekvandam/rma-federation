@@ -120,7 +120,7 @@ export default function TrainerProfiles() {
                 {trainer.certifications && trainer.certifications.length > 0 && (
                   <div className="space-y-3 rounded-[28px] border border-white/10 bg-black/30 p-5">
                     <p className="text-xs uppercase tracking-[0.35em] text-red-400/80">
-                      Certifications
+                      {locale === "ar" ? "الشهادات" : "Certifications"}
                     </p>
                     <div className="grid gap-3 sm:grid-cols-2">
                       {trainer.certifications.map((cert) => (

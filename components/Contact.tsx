@@ -45,7 +45,7 @@ export default function Contact() {
       setSent(true);
       setForm({ name: "", email: "", subject: "", message: "" });
     } catch {
-      setError("Failed to send message. Please try again.");
+      setError(t.form.error || "Failed to send message. Please try again.");
     } finally {
       setSending(false);
     }
@@ -235,7 +235,7 @@ export default function Contact() {
                 {sending ? (
                   <>
                     <Loader2 size={18} className="animate-spin" />
-                    Sending...
+                    {t.form.submitting || "Sending..."}
                   </>
                 ) : (
                   <>
@@ -246,7 +246,7 @@ export default function Contact() {
               </button>
               {sent && (
                 <div className="rounded-3xl border border-emerald-500/20 bg-emerald-500/10 px-5 py-4 text-sm text-emerald-200">
-                  Thank you — your message has been sent. We will reply as soon as possible.
+                  {t.form.success || "Thank you! Your message has been sent."}
                 </div>
               )}
               {error && (

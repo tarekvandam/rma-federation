@@ -229,24 +229,26 @@ export default function Membership() {
         >
           <div className="text-center mb-8">
             <span className="inline-flex rounded-full bg-green-600/15 px-4 py-2 text-xs uppercase tracking-[0.35em] text-green-300 shadow-sm shadow-green-900/20 mb-4">
-              {isAr ? "التحقق من الشهادات" : "Certificate Verification"}
+              {translations[locale].verify.badge}
             </span>
             <h2 className="text-3xl sm:text-4xl font-black text-white">
-              {isAr ? "تحقق من صحة الشهادة" : "Verify a Certificate"}
+              {translations[locale].verify.title}
             </h2>
             <p className="mt-3 text-gray-400">
-              {isAr ? "أدخل رقم الشهادة للتحقق من صحتها" : "Enter the certificate ID to verify its authenticity"}
+              {translations[locale].verify.subtitle}
             </p>
           </div>
 
-          <VerifyForm isAr={isAr} />
+          <VerifyForm />
         </motion.div>
       </div>
     </section>
   );
 }
 
-function VerifyForm({ isAr }: { isAr: boolean }) {
+function VerifyForm() {
+  const { locale } = useLanguage();
+  const v = translations[locale].verify;
   const [search, setSearch] = useState("");
   const [result, setResult] = useState<any>(null);
   const [loading, setLoading] = useState(false);
@@ -279,7 +281,7 @@ function VerifyForm({ isAr }: { isAr: boolean }) {
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder={isAr ? "مثال: RMA-2026-0001" : "e.g. RMA-2026-0001"}
+          placeholder={v.placeholder}
           className="flex-1 bg-black border border-white/10 p-4 rounded-2xl outline-none focus:border-green-500 text-white text-center font-mono tracking-wider uppercase"
           required
         />
@@ -288,19 +290,15 @@ function VerifyForm({ isAr }: { isAr: boolean }) {
           disabled={loading}
           className="bg-green-600 px-6 py-4 rounded-2xl font-bold hover:bg-green-700 disabled:opacity-50 transition text-sm"
         >
-          {loading ? "..." : isAr ? "تحقق" : "Verify"}
+          {loading ? "..." : v.verify}
         </button>
       </form>
 
       {notFound && (
         <div className="bg-black/50 border border-red-600/30 rounded-2xl p-6 text-center">
           <p className="text-4xl mb-3">❌</p>
-          <h3 className="text-lg font-bold text-red-400 mb-1">
-            {isAr ? "الشهادة غير موجودة" : "Certificate Not Found"}
-          </h3>
-          <p className="text-sm text-gray-400">
-            {isAr ? "لا توجد شهادة بهذا الرقم. تحقق من الرقم وحاول مرة أخرى." : "No certificate matches this ID. Please check and try again."}
-          </p>
+          <h3 className="text-lg font-bold text-red-400 mb-1">{v.notFound}</h3>
+          <p className="text-sm text-gray-400">{v.notFoundDesc}</p>
         </div>
       )}
 
@@ -308,43 +306,29 @@ function VerifyForm({ isAr }: { isAr: boolean }) {
         <div className="bg-black/50 border border-green-600/30 rounded-2xl overflow-hidden">
           <div className="bg-green-600/10 p-5 text-center border-b border-green-600/20">
             <p className="text-4xl mb-2">✅</p>
-            <h3 className="text-lg font-bold text-green-400">
-              {isAr ? "شهادة صالحة" : "Valid Certificate"}
-            </h3>
-            <p className="text-green-600/60 text-xs mt-1">
-              {isAr ? "هذه الشهادة مسجلة وأصلية" : "This certificate is registered and authentic"}
-            </p>
+            <h3 className="text-lg font-bold text-green-400">{v.found}</h3>
+            <p className="text-green-600/60 text-xs mt-1">{v.foundDesc}</p>
           </div>
           <div className="p-5 space-y-3">
             <div className="bg-black/30 rounded-xl p-3">
-              <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-0.5">
-                {isAr ? "رقم الشهادة" : "Certificate ID"}
-              </p>
+              <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-0.5">{v.id}</p>
               <p className="font-mono text-green-400 font-bold">{result.certificate_id}</p>
             </div>
             <div className="bg-black/30 rounded-xl p-3">
-              <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-0.5">
-                {isAr ? "اسم الحاصل" : "Holder Name"}
-              </p>
+              <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-0.5">{v.holder}</p>
               <p className="text-white font-bold">{result.holder_name}</p>
             </div>
             <div className="grid grid-cols-3 gap-3">
               <div className="bg-black/30 rounded-xl p-3">
-                <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-0.5">
-                  {isAr ? "الحزام" : "Belt"}
-                </p>
+                <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-0.5">{v.belt}</p>
                 <p className="text-white font-bold text-sm">{result.belt}</p>
               </div>
               <div className="bg-black/30 rounded-xl p-3">
-                <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-0.5">
-                  {isAr ? "التاريخ" : "Date"}
-                </p>
+                <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-0.5">{v.date}</p>
                 <p className="text-white font-bold text-sm">{result.issue_date}</p>
               </div>
               <div className="bg-black/30 rounded-xl p-3">
-                <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-0.5">
-                  {isAr ? "المدرب" : "Trainer"}
-                </p>
+                <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-0.5">{v.trainer}</p>
                 <p className="text-white font-bold text-sm">{result.trainer}</p>
               </div>
             </div>
@@ -355,12 +339,8 @@ function VerifyForm({ isAr }: { isAr: boolean }) {
       {result && result.status === "revoked" && (
         <div className="bg-black/50 border border-red-600/30 rounded-2xl p-6 text-center">
           <p className="text-4xl mb-3">⛔</p>
-          <h3 className="text-lg font-bold text-red-400 mb-1">
-            {isAr ? "شهادة ملغاة" : "Revoked Certificate"}
-          </h3>
-          <p className="text-sm text-gray-400">
-            {isAr ? "هذه الشهادة تم إلغاؤها ولم تعد صالحة." : "This certificate has been revoked and is no longer valid."}
-          </p>
+          <h3 className="text-lg font-bold text-red-400 mb-1">{v.revoked}</h3>
+          <p className="text-sm text-gray-400">{v.revokedDesc}</p>
         </div>
       )}
     </div>
