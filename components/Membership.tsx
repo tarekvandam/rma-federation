@@ -6,6 +6,7 @@ import { Loader2 } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { translations } from "@/lib/i18n";
 import { supabase } from "@/lib/supabase";
+import { sendEmail } from "@/lib/emailjs";
 
 export default function Membership() {
   const { locale } = useLanguage();
@@ -51,6 +52,16 @@ export default function Membership() {
     if (err) {
       setError("Failed to submit. Please try again.");
     } else {
+      try {
+        await sendEmail({
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: `Membership Request — ${selectedPlan}`,
+          message: `Plan: ${selectedPlan}\nName: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`,
+        });
+      } catch {
+        // Email failure is non-critical — submission saved
+      }
       setSubmitted(true);
       setFormData({ name: "", email: "", message: "" });
     }
