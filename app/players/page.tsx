@@ -83,11 +83,12 @@ export default async function PlayersPage() {
                 key={player.id}
                 className="bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden group hover:border-red-600/40 transition-all duration-300"
               >
-                <div className="relative h-56 bg-zinc-800 overflow-hidden">
+                <div className="relative bg-zinc-800" style={{ aspectRatio: "3/4" }}>
                   {player.image ? (
-                    <div
-                      className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                      style={{ backgroundImage: `url(${player.image})` }}
+                    <img
+                      src={player.image}
+                      alt={player.name}
+                      className="absolute inset-0 w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                     />
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center">
@@ -110,12 +111,12 @@ export default async function PlayersPage() {
 
                 {player.promotions?.length > 0 && (
                   <div className="p-4 border-t border-zinc-800">
-                    <p className="text-xs uppercase tracking-wider text-red-400 mb-2">Promotions</p>
-                    <div className="flex flex-wrap gap-1.5">
+                    <p className="text-xs uppercase tracking-wider text-red-400 mb-2">Promotions ({player.promotions.length})</p>
+                    <div className="flex gap-1.5 overflow-x-auto pb-1">
                       {player.promotions.map((p, i) => {
                         const pClass = getBeltClass(p.belt);
                         return (
-                          <span key={i} className={`inline-flex items-center gap-1 rounded-full ${pClass} px-2.5 py-0.5 text-xs font-bold shadow`}>
+                          <span key={i} className={`inline-flex items-center gap-1 rounded-full ${pClass} px-2.5 py-0.5 text-xs font-bold shadow whitespace-nowrap shrink-0`}>
                             {p.belt} {p.date}
                           </span>
                         );
