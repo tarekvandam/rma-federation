@@ -81,9 +81,9 @@ export default async function PlayersPage() {
             return (
               <div
                 key={player.id}
-                className="bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden group hover:border-red-600/40 transition-all duration-300"
+                className="bg-zinc-900 rounded-2xl border border-zinc-800 group hover:border-red-600/40 transition-all duration-300"
               >
-                <div className="relative bg-zinc-800" style={{ aspectRatio: "3/4" }}>
+                <div className="relative bg-zinc-800 overflow-hidden rounded-t-2xl" style={{ aspectRatio: "3/4" }}>
                   {player.image ? (
                     <img
                       src={player.image}
