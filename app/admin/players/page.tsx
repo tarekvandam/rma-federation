@@ -132,12 +132,12 @@ export default function AdminPlayersPage() {
     fetchData();
   }
 
-  function renderCards(items: Submission[], showAction: boolean) {
-    function copyEditLink(id: string, name: string) {
-      navigator.clipboard.writeText(`https://rma-federation.vercel.app/players/edit/${id}`);
-      alert(`✅ Edit link copied for "${name}"`);
-    }
+  function copyEditLink(id: string, name: string) {
+    navigator.clipboard.writeText(`https://rma-federation.vercel.app/players/edit/${id}`);
+    alert(`✅ Edit link copied for "${name}"`);
+  }
 
+  function renderCards(items: Submission[], showAction: boolean) {
     return items.map((item) => (
       <div key={item.id} className="bg-zinc-900 rounded-xl border border-zinc-800 p-4">
         <div className="flex items-start gap-4">
