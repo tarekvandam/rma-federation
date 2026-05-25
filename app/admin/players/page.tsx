@@ -133,6 +133,11 @@ export default function AdminPlayersPage() {
   }
 
   function renderCards(items: Submission[], showAction: boolean) {
+    function copyEditLink(id: string, name: string) {
+      navigator.clipboard.writeText(`https://rma-federation.vercel.app/players/edit/${id}`);
+      alert(`✅ Edit link copied for "${name}"`);
+    }
+
     return items.map((item) => (
       <div key={item.id} className="bg-zinc-900 rounded-xl border border-zinc-800 p-4">
         <div className="flex items-start gap-4">
@@ -149,6 +154,8 @@ export default function AdminPlayersPage() {
                 {item.date_obtained && <span className="text-gray-500 text-sm ml-2">Since {item.date_obtained}</span>}
               </div>
               <div className="flex gap-2">
+                <button onClick={() => copyEditLink(item.id, item.name)}
+                  className="bg-indigo-600 text-white px-3 py-1.5 rounded-lg text-sm hover:bg-indigo-700 transition" title="Copy edit link">🔗</button>
                 {showAction && (
                   <>
                     <button onClick={() => updateStatus(item.id, "approved")}
@@ -188,8 +195,12 @@ export default function AdminPlayersPage() {
             {item.image && (
               <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded-xl" />
             )}
-            <div className="flex-1">
-              <p className="font-bold text-white text-lg">{item.name}</p>
+              <div className="flex-1">
+                <div className="flex items-center justify-between">
+                  <p className="font-bold text-white text-lg">{item.name}</p>
+                  <button onClick={() => copyEditLink(item.id, item.name)}
+                    className="bg-indigo-600 text-white px-3 py-1.5 rounded-lg text-sm hover:bg-indigo-700 transition" title="Copy edit link">🔗</button>
+                </div>
               <div className="space-y-2 mt-2">
                 {pendingPromos.map((p: any, i: number) => (
                   <div key={i} className="flex items-center justify-between bg-zinc-800/50 rounded-xl px-3 py-2">
