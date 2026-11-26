@@ -1,4 +1,5 @@
 import "./globals.css";
+import { headers } from "next/headers";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -53,22 +54,23 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const schema = generateOrganizationSchema();
+  const locale = (await headers()).get("x-locale") === "ar" ? "ar" : "en";
 
   return (
-    <html lang="en" dir="auto">
+    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <body className="bg-black text-white">
         <script
           id="organization-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
-        <LanguageProvider>
+        <LanguageProvider initialLocale={locale}>
           <Navbar />
 
           {children}
