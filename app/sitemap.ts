@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { siteMetadata } from '@/lib/seo'
+import { AR_PATHS, toArPath } from '@/lib/localePath'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes: Array<{ path: string; changeFrequency: MetadataRoute.Sitemap[0]['changeFrequency']; priority: number }> = [
@@ -18,10 +19,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/partners', changeFrequency: 'monthly', priority: 0.6 },
   ]
 
-  return routes.map(({ path, changeFrequency, priority }) => ({
-    url: `${siteMetadata.url}${path}`,
-    lastModified: new Date(),
-    changeFrequency,
-    priority,
-  }))
+  const entries: MetadataRoute.Sitemap = []
+
+  for (const { path, changeFrequency, priority } of routes) {
+    const url = `${siteMetadata.url}${path}`
+    if (AR_PATHS.includes(path)) {
+      const arUrl = `${siteMetadata.url}${toArPath(path)}`
+      const alternates = { languages: { en: url, ar: arUrl } }
+      entries.push({ url, lastModified: new Date(), changeFrequency, priority, alternates })
+      entries.push({ url: arUrl, lastModified: new Date(), changeFrequency, priority: priority * 0.9, alternates })
+    } else {
+      entries.push({ url, lastModified: new Date(), changeFrequency, priority })
+    }
+  }
+
+  return entries
 }
