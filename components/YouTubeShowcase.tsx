@@ -75,7 +75,7 @@ export default function YouTubeShowcase() {
               <div className="relative overflow-hidden">
                 <div
                   className="h-72 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                  style={{ backgroundImage: `url(${video.thumbnail})` }}
+                  role="img" aria-label={video.title} style={{ backgroundImage: `url(${video.thumbnail})` }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                 <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-black/70 px-3 py-2 text-xs uppercase tracking-[0.35em] text-white/90 backdrop-blur-sm">
