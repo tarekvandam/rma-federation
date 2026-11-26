@@ -11,7 +11,7 @@ export const siteMetadata = {
   description:
     'World Real Martial Art Federation (RMA) — official platform for boxing, kickboxing, Muay Thai, MMA, Jiu-Jitsu, Karate, Taekwondo, and self-defense training with world-class coaches.',
   arDescription:
-    'المنصة الرسمية للاتحاد العالمي للفنون القتالية الحقيقية (RMA). انضم إلى مجتمع عالمي مكرس للقتال الحقيقي، الدفاع عن النفس، الانضباط، والتدريب القتالي على مستوى البطولة.',
+    'المنصة الرسمية للاتحاد الدولى لفن القتال الواقعى (RMA). انضم إلى مجتمع عالمي مكرس للقتال الحقيقي، الدفاع عن النفس، الانضباط، والتدريب القتالي على مستوى البطولة.',
   url: siteUrl,
   keywords: [
     'real martial art', 'RMA federation', 'martial arts', 'self defense', 'combat sports',
@@ -51,7 +51,7 @@ export function generateOrganizationSchema() {
       {
         '@type': 'SportsOrganization',
         name: siteMetadata.title,
-        alternateName: 'RMA Federation',
+        alternateName: ['RMA Federation', 'الاتحاد الدولى لفن القتال الواقعى'],
         description: siteMetadata.description,
         url: siteMetadata.url,
         logo: siteMetadata.logo,
@@ -168,7 +168,7 @@ export const generateMetadata = (pageTitle?: string, pageDescription?: string, a
 
 export const generateArMetadata = (path: string, title: string, description: string): Metadata => {
   const arUrl = toArPath(path);
-  const arSiteName = 'الاتحاد العالمي للفنون القتالية الحقيقية';
+  const arSiteName = 'الاتحاد الدولى لفن القتال الواقعى';
 
   return {
     title,
@@ -194,7 +194,7 @@ export const generateArMetadata = (path: string, title: string, description: str
       images: [
         {
           url: siteMetadata.image,
-          alt: 'الاتحاد العالمي للفنون القتالية الحقيقية: تدريب وبطولات',
+          alt: 'الاتحاد الدولى لفن القتال الواقعى: تدريب وبطولات',
           width: 1200,
           height: 630,
         },
