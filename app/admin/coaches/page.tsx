@@ -112,7 +112,7 @@ export default function AdminCoachesPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-green-500 mb-8">🥋 مدربو وحكام الدورة</h1>
+      <h1 className="text-3xl font-bold text-green-500 mb-8">🥋 المدربين والحكام</h1>
 
       <div className="bg-zinc-900/50 border border-zinc-800 p-4 rounded-xl mb-6 text-sm text-gray-400">
         هذه القائمة تظهر فقط في صفحة Coaches &amp; Referees (من صفحة اللاعبين)، ولا تظهر في الصفحة الرئيسية.
