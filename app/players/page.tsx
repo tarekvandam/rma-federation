@@ -2,7 +2,7 @@ import { supabase } from "@/lib/supabase";
 import { generateMetadata } from "@/lib/seo";
 
 export const metadata = generateMetadata(
-  "Players — RMA Federation Athletes & Belt Rankings",
+  "Players & Coaches — RMA Federation Athletes & Belt Rankings",
   "Browse registered Real Martial Art Federation players and fighters. View belt rankings, promotion history, and athlete profiles from our global martial arts community.",
   "تصفح لاعبي ورياضيي اتحاد الفنون القتالية الحقيقية المسجلين. تعرف على تاريخ الأحزمة والترقيات وملفات الرياضيين من مجتمعنا القتالي العالمي."
 );
@@ -64,7 +64,7 @@ export default async function PlayersPage() {
             RMA Athletes
           </span>
           <h1 className="text-4xl sm:text-5xl font-bold mb-4">
-            Our <span className="text-red-600">Players</span>
+            Our <span className="text-red-600">Players & Coaches</span>
           </h1>
           <p className="text-gray-400 text-lg">
             Meet the fighters of the Real Martial Art Federation
