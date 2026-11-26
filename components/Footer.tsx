@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "./LocaleLink";
 import { useLanguage } from "./LanguageProvider";
 import { translations } from "@/lib/i18n";
 
