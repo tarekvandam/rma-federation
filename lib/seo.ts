@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-const siteUrl = 'https://rma-federation.org';
+const siteUrl = 'https://rma-federation.vercel.app';
 const defaultImage = `${siteUrl}/images/hero.jpg`;
 const logoImage = `${siteUrl}/images/logo.png`;
 
@@ -114,12 +114,7 @@ export const generateMetadata = (pageTitle?: string, pageDescription?: string, a
     authors: [{ name: siteMetadata.author }],
     metadataBase: new URL(siteMetadata.url),
     alternates: {
-      canonical: siteMetadata.url,
-      languages: {
-        'x-default': siteMetadata.url,
-        'en': siteMetadata.url,
-        'ar': siteMetadata.url,
-      },
+      canonical: './',
     },
     openGraph: {
       title,

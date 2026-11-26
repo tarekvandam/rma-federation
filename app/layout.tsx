@@ -13,12 +13,7 @@ export const metadata = {
   keywords: siteMetadata.keywords,
   authors: [{ name: siteMetadata.author }],
   alternates: {
-    canonical: siteMetadata.url,
-    languages: {
-      'x-default': siteMetadata.url,
-      'en': siteMetadata.url,
-      'ar': siteMetadata.url,
-    },
+    canonical: './',
   },
   openGraph: {
     title: siteMetadata.title,
