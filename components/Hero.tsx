@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
+import Link from "./LocaleLink";
 import { useLanguage } from "./LanguageProvider";
 import { translations } from "@/lib/i18n";
 
