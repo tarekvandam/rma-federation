@@ -10,7 +10,7 @@ import { generateMetadata, siteMetadata } from "@/lib/seo";
 export const metadata = generateMetadata(
   "Home — Real Combat & Discipline",
   "World Real Martial Art Federation (RMA) — official platform for boxing, kickboxing, Muay Thai, MMA, Jiu-Jitsu, Karate, Taekwondo, and self-defense training with world-class coaches.",
-  "الاتحاد العالمي للفنون القتالية الحقيقية (RMA) — المنصة الرسمية لتدريب الملاكمة، الكيك بوكسينغ، المواي تاي، الفنون القتالية المختلطة، الجيو جيتسو، الكاراتيه، التايكوندو والدفاع عن النفس مع مدربين عالميين.",
+  "الاتحاد الدولى لفن القتال الواقعى (RMA) — المنصة الرسمية لتدريب الملاكمة، الكيك بوكسينغ، المواي تاي، الفنون القتالية المختلطة، الجيو جيتسو، الكاراتيه، التايكوندو والدفاع عن النفس مع مدربين عالميين.",
   "World Real Martial Art Federation — Real Combat and Discipline",
   "/"
 );
