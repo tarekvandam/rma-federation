@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 
 type Promotion = { belt: string; date: string };
 type Player = {
-  id: string;
+  created_at: string;
   name: string;
   image: string;
   belt_color: string;
@@ -50,7 +50,7 @@ const beltOrder: Record<string, number> = {
 export default async function PlayersPage() {
   const { data: players } = await supabase
     .from("player_submissions")
-    .select("*")
+    .select("name, image, belt_color, date_obtained, promotions, status, created_at")
     .eq("status", "approved")
     .order("created_at", { ascending: true });
 
@@ -86,7 +86,7 @@ export default async function PlayersPage() {
             const beltClass = getBeltClass(player.belt_color);
             return (
               <div
-                key={player.id}
+                key={`${player.name}-${player.created_at}`}
                 className="bg-zinc-900 rounded-2xl border border-zinc-800 group hover:border-red-600/40 transition-all duration-300"
               >
                 <div className="relative bg-zinc-800 overflow-hidden rounded-t-2xl" style={{ aspectRatio: "3/4" }}>

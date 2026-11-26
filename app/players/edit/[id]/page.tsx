@@ -34,11 +34,8 @@ export default function PlayerEditPage() {
 
   useEffect(() => {
     async function load() {
-      const { data, error: fetchError } = await supabase
-        .from("player_submissions")
-        .select("*")
-        .eq("id", id)
-        .single();
+      const { data: rows, error: fetchError } = await supabase.rpc("get_player_for_edit", { p_id: id });
+      const data = Array.isArray(rows) ? rows[0] : rows;
 
       if (fetchError || !data) {
         setNotFound(true);
@@ -93,31 +90,14 @@ export default function PlayerEditPage() {
       }
     }
 
-    const { data: existing } = await supabase
-      .from("player_submissions")
-      .select("promotions")
-      .eq("id", id)
-      .single();
-
-    const oldPromos = (existing?.promotions || []) as { belt: string; date: string }[];
-    const oldKeys = new Set(oldPromos.map((p: any) => p.belt + "|" + p.date));
-
-    const mergedPromos = promotions.map(p => ({
-      belt: p.belt,
-      date: p.date,
-      approved: oldKeys.has(p.belt + "|" + p.date),
-    }));
-
-    const { error: updateError } = await supabase
-      .from("player_submissions")
-      .update({
-        name,
-        belt_color: beltColor,
-        date_obtained: dateObtained,
-        image: imageUrl,
-        promotions: mergedPromos,
-      })
-      .eq("id", id);
+    const { error: updateError } = await supabase.rpc("update_player_public", {
+      p_id: id,
+      p_name: name,
+      p_belt: beltColor,
+      p_date: dateObtained,
+      p_image: imageUrl,
+      p_promos: promotions,
+    });
 
     setSaving(false);
 

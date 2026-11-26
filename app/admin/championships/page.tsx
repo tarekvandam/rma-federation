@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { supabase } from "../../../lib/supabase";
+import { supabase, adminHeaders } from "../../../lib/supabase";
 
 export default function AdminChampionshipsPage() {
   const [title, setTitle] = useState("");
@@ -28,10 +28,7 @@ export default function AdminChampionshipsPage() {
       `https://bqedictvigmpxscbjboq.supabase.co/storage/v1/object/news-images/${name}`,
       {
         method: "POST",
-        headers: {
-          apikey: "sb_publishable_7p64Ye0CsqkP9Iny8QQsTA_y0KRCOIn",
-          Authorization: "Bearer sb_publishable_7p64Ye0CsqkP9Iny8QQsTA_y0KRCOIn",
-        },
+        headers: await adminHeaders(),
         body: file,
       }
     );
