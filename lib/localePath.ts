@@ -4,6 +4,7 @@ export const AR_PATHS = [
   "/about",
   "/championships",
   "/contact",
+  "/gallery",
   "/membership",
   "/promotion",
   "/rankings",
