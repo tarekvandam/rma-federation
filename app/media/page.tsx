@@ -68,6 +68,7 @@ export default async function MediaPage() {
 
         <section>
           <h2 className="text-4xl font-bold mb-10">Gallery</h2>
+          <a href="/gallery" className="inline-flex mb-8 rounded-full border border-zinc-700 px-5 py-2 text-sm text-gray-300 hover:border-red-600 hover:text-white transition">Open the full photo gallery →</a>
           {galleryImages.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {galleryImages.map((image: string, index: number) => (
