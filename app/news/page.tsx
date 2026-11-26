@@ -55,28 +55,6 @@ export default async function NewsPage() {
         {/* News Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-          {/* Course poster (static) */}
-          <div className="bg-zinc-900 border border-zinc-800 hover:border-red-600 transition rounded-2xl overflow-hidden">
-            <a href="/news/2-rma-course-poster.jpg" target="_blank" rel="noopener noreferrer">
-              <img
-                src="/news/2-rma-course-poster.jpg"
-                alt="الدورة التأسيسية الدولية الأولى للمدربين والحكام واللاعبين - 4 و5 ديسمبر 2026"
-                width={800}
-                height={876}
-                loading="lazy"
-                className="w-full h-auto"
-              />
-            </a>
-            <div className="p-6" dir="rtl">
-              <h2 className="text-2xl font-bold mb-4">
-                الدورة التأسيسية الدولية الأولى للمدربين والحكام واللاعبين
-              </h2>
-              <p className="text-gray-400 leading-8">
-                الجمعة والسبت 4 و5 ديسمبر 2026. المكان يُحدد فيما بعد. للحجز والتسجيل: 01207612965
-              </p>
-            </div>
-          </div>
-
           {news?.map((item) => (
             <div
               key={item.id}
@@ -85,7 +63,7 @@ export default async function NewsPage() {
 
               {/* Image */}
               {item.image ? (
-                <img src={item.image} alt={item.title} className="h-60 w-full object-cover" />
+                <a href={item.image} target="_blank" rel="noopener noreferrer"><img src={item.image} alt={item.title} className="w-full h-auto" /></a>
               ) : (
                 <div className="h-60 w-full bg-zinc-800 flex items-center justify-center">
                   <span className="text-gray-600 text-4xl">📰</span>
