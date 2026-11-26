@@ -81,7 +81,7 @@ export default function TrainerProfiles() {
                 {trainer.image && (
                   <div
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                    style={{ backgroundImage: `url(${trainer.image})` }}
+                    role="img" aria-label={trainer.name} style={{ backgroundImage: `url(${trainer.image})` }}
                   />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
