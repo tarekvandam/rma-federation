@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { toArPath } from './localePath';
 
 const siteUrl = 'https://rma-federation.vercel.app';
 const defaultImage = `${siteUrl}/images/hero.jpg`;
@@ -103,7 +104,7 @@ export function generateOrganizationSchema() {
   };
 }
 
-export const generateMetadata = (pageTitle?: string, pageDescription?: string, arPageDescription?: string, fullTitle?: string): Metadata => {
+export const generateMetadata = (pageTitle?: string, pageDescription?: string, arPageDescription?: string, fullTitle?: string, path?: string): Metadata => {
   const title = fullTitle || (pageTitle ? `${pageTitle} | ${siteMetadata.title}` : siteMetadata.title);
   const description = pageDescription || siteMetadata.description;
 
@@ -113,9 +114,18 @@ export const generateMetadata = (pageTitle?: string, pageDescription?: string, a
     keywords: siteMetadata.keywords,
     authors: [{ name: siteMetadata.author }],
     metadataBase: new URL(siteMetadata.url),
-    alternates: {
-      canonical: './',
-    },
+    alternates: path
+      ? {
+          canonical: './',
+          languages: {
+            'x-default': path,
+            en: path,
+            ar: toArPath(path),
+          },
+        }
+      : {
+          canonical: './',
+        },
     openGraph: {
       title,
       description,
@@ -127,6 +137,64 @@ export const generateMetadata = (pageTitle?: string, pageDescription?: string, a
         {
           url: siteMetadata.image,
           alt: 'RMA Federation martial arts training and championship action',
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [siteMetadata.image],
+      creator: '@tarekvandam',
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    verification: {
+      google: 'zxiKr2lYoKAKPNj3ojEM6kug7MPdE4tpweAUodEVmfE',
+    },
+  };
+};
+
+export const generateArMetadata = (path: string, title: string, description: string): Metadata => {
+  const arUrl = toArPath(path);
+  const arSiteName = 'الاتحاد العالمي للفنون القتالية الحقيقية';
+
+  return {
+    title,
+    description,
+    keywords: siteMetadata.keywords,
+    authors: [{ name: siteMetadata.author }],
+    metadataBase: new URL(siteMetadata.url),
+    alternates: {
+      canonical: arUrl,
+      languages: {
+        'x-default': path,
+        en: path,
+        ar: arUrl,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: arUrl,
+      siteName: arSiteName,
+      type: 'website',
+      locale: 'ar_EG',
+      images: [
+        {
+          url: siteMetadata.image,
+          alt: 'الاتحاد العالمي للفنون القتالية الحقيقية: تدريب وبطولات',
           width: 1200,
           height: 630,
         },
