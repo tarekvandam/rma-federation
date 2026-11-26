@@ -17,9 +17,9 @@ function GalleryImage({ item, index, onOpen }: { item: Item; index: number; onOp
       type="button"
       onClick={() => onOpen(index)}
       aria-label={item.caption || "Open photo"}
-      className="group relative mb-5 block w-full overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 text-start break-inside-avoid shadow-lg shadow-black/40 transition-all duration-500 hover:-translate-y-1 hover:border-red-600/50 hover:shadow-red-900/20 focus:outline-none focus-visible:border-red-500"
+      className="group relative block aspect-[4/3] w-full overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 text-start shadow-lg shadow-black/40 transition-all duration-500 hover:-translate-y-1 hover:border-red-600/50 hover:shadow-red-900/20 focus:outline-none focus-visible:border-red-500"
     >
-      <div className={`min-h-40 bg-zinc-800 ${loaded ? "" : "animate-pulse"}`}>
+      <div className={`absolute inset-0 bg-zinc-800 ${loaded ? "" : "animate-pulse"}`}>
         <img
           ref={imgRef}
           src={thumbUrl(item.image_url, 700)}
@@ -28,7 +28,8 @@ function GalleryImage({ item, index, onOpen }: { item: Item; index: number; onOp
           decoding="async"
           referrerPolicy="no-referrer"
           onLoad={() => setLoaded(true)}
-          className={`block w-full h-auto transition-all duration-700 group-hover:scale-105 ${loaded ? "opacity-100" : "opacity-0"}`}
+          style={{ height: "100%" }}
+          className={`block h-full w-full object-cover transition-all duration-700 group-hover:scale-105 ${loaded ? "opacity-100" : "opacity-0"}`}
         />
       </div>
       <div className="pointer-events-none absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/85 via-black/10 to-transparent p-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -81,7 +82,7 @@ export default function MediaGallery({ items }: { items: Item[] }) {
   return (
     <>
       <style>{`@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }`}</style>
-      <div className="columns-1 sm:columns-2 lg:columns-3 gap-5">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((item, i) => (
           <GalleryImage key={item.id} item={item} index={i} onOpen={setCurrent} />
         ))}
