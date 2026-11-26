@@ -64,7 +64,7 @@ export default function Navbar() {
             <div className="relative h-16 w-16">
               <Image
                 src="/images/logo.png"
-                alt="RMA Logo"
+                alt="Real Martial Art (RMA) Federation logo"
                 fill
                 sizes="64px"
                 loading="lazy"
