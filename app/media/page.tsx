@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import { generateMetadata } from "@/lib/seo";
+import MediaGallery from "@/components/MediaGallery";
 
 export const metadata = generateMetadata(
   "Media Center — Videos & Gallery",
@@ -16,15 +17,11 @@ export default async function MediaPage() {
     .order("created_at", { ascending: false });
 
   const { data: gallery } = await supabase
-    .from("media_gallery")
-    .select("*")
+    .from("gallery_images")
+    .select("id,image_url,caption")
     .order("created_at", { ascending: false });
 
-  const galleryItems = gallery ? gallery.filter((g: any) => !g.title?.startsWith("[PARTNER]")) : [];
-
-  const galleryImages = galleryItems.length > 0
-    ? galleryItems.map((g: any) => g.image)
-    : [];
+  const galleryItems = (gallery as { id: number; image_url: string; caption: string }[] | null) ?? [];
 
   return (
     <main className="bg-black text-white min-h-screen pt-32 px-6 pb-20">
@@ -68,17 +65,8 @@ export default async function MediaPage() {
 
         <section>
           <h2 className="text-4xl font-bold mb-10">Gallery</h2>
-          {galleryImages.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {galleryImages.map((image: string, index: number) => (
-                <img
-                  key={index}
-                  src={image}
-                  alt={`RMA gallery image ${index + 1}`}
-                  className="rounded-2xl object-cover h-72 w-full hover:scale-105 transition duration-300"
-                />
-              ))}
-            </div>
+          {galleryItems.length > 0 ? (
+            <MediaGallery items={galleryItems} />
           ) : (
             <p className="text-gray-500 text-center py-16 text-lg">No gallery images uploaded yet — add them from the admin panel.</p>
           )}
