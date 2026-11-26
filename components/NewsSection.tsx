@@ -83,7 +83,7 @@ export default function NewsSection() {
                   {item.image && (
                     <div
                       className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                      style={{ backgroundImage: `url(${item.image})` }}
+                      role="img" aria-label={item.title} style={{ backgroundImage: `url(${item.image})` }}
                     />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
