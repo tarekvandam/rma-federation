@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { AR_PATHS } from "./lib/localePath";
 
-export function middleware(request: NextRequest) {
+const ADMIN_EMAIL = "eng.tarek.sayed@gmail.com";
+
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (pathname === "/ar" || pathname.startsWith("/ar/")) {
@@ -18,23 +20,29 @@ export function middleware(request: NextRequest) {
 
   if (pathname.startsWith("/admin")) {
     const token = request.cookies.get("sb-access-token");
-
-    if (!token) {
-      const loginUrl = new URL("/login", request.url);
-      return NextResponse.redirect(loginUrl);
-    }
-
-    try {
-      const payload = JSON.parse(atob(token.value.split(".")[1]));
-      if (payload.exp * 1000 < Date.now()) {
-        const res = NextResponse.redirect(new URL("/login", request.url));
-        res.cookies.delete("sb-access-token");
-        return res;
-      }
-    } catch {
+    const toLogin = () => {
       const res = NextResponse.redirect(new URL("/login", request.url));
       res.cookies.delete("sb-access-token");
       return res;
+    };
+
+    if (!token) return toLogin();
+
+    // Ask Supabase whether this token is genuine (signature + expiry) and
+    // who it belongs to. A hand-made cookie cannot pass this check.
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/v1/user`, {
+        headers: {
+          apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "",
+          Authorization: `Bearer ${token.value}`,
+        },
+        cache: "no-store",
+      });
+      if (!res.ok) return toLogin();
+      const user = await res.json();
+      if (String(user?.email || "").toLowerCase() !== ADMIN_EMAIL) return toLogin();
+    } catch {
+      return toLogin();
     }
   }
 
