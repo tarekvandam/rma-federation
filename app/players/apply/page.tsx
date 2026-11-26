@@ -62,20 +62,18 @@ export default function PlayerApplyPage() {
       }
     }
 
-    const { data: inserted, error } = await supabase.from("player_submissions").insert([
-      {
-        name,
-        image: imageUrl,
-        belt_color: beltColor,
-        date_obtained: dateObtained,
-        promotions,
-      },
-    ]).select();
+    const { data: newId, error } = await supabase.rpc("create_player_submission", {
+      p_name: name,
+      p_image: imageUrl,
+      p_belt: beltColor,
+      p_date: dateObtained,
+      p_promos: promotions,
+    });
 
     setUploading(false);
 
-    if (!error && inserted?.length > 0) {
-      setSubmissionId(inserted[0].id);
+    if (!error && newId) {
+      setSubmissionId(newId as string);
       setSubmitted(true);
     } else {
       alert("Error submitting: " + error?.message || "Unknown error");
