@@ -73,12 +73,23 @@ export default function Navbar() {
             </div>
 
             <div className="min-w-0">
-              <p className="text-sm uppercase tracking-[0.35em] text-red-400/90 font-semibold">
-                RMA Federation
-              </p>
-              <p className="text-xs text-white/60 truncate">
-                Real Martial Art
-              </p>
+              {locale === "ar" ? (
+                <>
+                  <p className="text-sm text-red-400/90 font-semibold">
+                    الاتحاد الدولى لفن القتال الواقعى
+                  </p>
+                  <p className="text-xs text-white/60 truncate">RMA</p>
+                </>
+              ) : (
+                <>
+                  <p className="text-sm uppercase tracking-[0.35em] text-red-400/90 font-semibold">
+                    RMA Federation
+                  </p>
+                  <p className="text-xs text-white/60 truncate">
+                    Real Martial Art
+                  </p>
+                </>
+              )}
             </div>
           </Link>
 
