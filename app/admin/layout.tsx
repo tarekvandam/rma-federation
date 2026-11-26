@@ -11,6 +11,7 @@ const navItems = [
   { label: "البطولات", href: "/admin/championships", icon: "🏆" },
   { label: "الترتيب", href: "/admin/rankings", icon: "📊" },
   { label: "المدربين", href: "/admin/trainers", icon: "🥋" },
+  { label: "المدربين والحكام", href: "/admin/coaches", icon: "🎓" },
   { label: "اللاعبين", href: "/admin/players", icon: "👤" },
   { label: "العضوية", href: "/admin/membership", icon: "🪪" },
   { label: "الدول", href: "/admin/countries", icon: "🌍" },
