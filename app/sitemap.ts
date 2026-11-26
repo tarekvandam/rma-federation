@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/rankings', changeFrequency: 'weekly', priority: 0.8 },
     { path: '/players', changeFrequency: 'daily', priority: 0.8 },
     { path: '/players/apply', changeFrequency: 'monthly', priority: 0.6 },
+    { path: '/players/coaches', changeFrequency: 'weekly', priority: 0.6 },
     { path: '/promotion', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/countries', changeFrequency: 'monthly', priority: 0.7 },
     { path: '/media', changeFrequency: 'weekly', priority: 0.8 },
