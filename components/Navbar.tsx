@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "./LocaleLink";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";

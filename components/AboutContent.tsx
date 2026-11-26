@@ -110,7 +110,7 @@ const ar: typeof en = {
   joinBtn: "انضم إلى الاتحاد",
   startBtn: "ابدأ التدريب",
   aboutBadge: "عن الاتحاد",
-  aboutTitle: 'الاتحاد العالمي للفنون القتالية <span class="text-red-600">الحقيقية</span>',
+  aboutTitle: 'الاتحاد الدولى لفن القتال <span class="text-red-600">الواقعى</span>',
   aboutP1: 'اتحاد RMA هو منظمة فنون قتالية حديثة مكرسة لبناء <strong class="text-white">نظام قتالي واقعي</strong> قائم على التطبيق العملي وطرق التدريب العلمية ومبادئ الدفاع عن النفس الأصيلة.',
   aboutP2: 'أسس <strong class="text-white">طارق سيد إبراهيم</strong> اتحاد RMA في <strong class="text-red-400">2013</strong> لتحدي أساطير الفنون القتالية غير الواقعية وتعزيز مهارات القتال الفعالة.',
   coreMessage: "ليس كل ما تراه يجب أن تصدقه.",
@@ -189,7 +189,7 @@ const ar: typeof en = {
   achievementsDesc: "تأثير حقيقي عبر المنصات والفعاليات الدولية.",
   ctaBadge: "انضم للحركة",
   ctaTitle: 'مستعد للتدرب<br /><span class="text-red-600 drop-shadow-[0_0_30px_rgba(220,38,38,0.3)]">بواقعية؟</span>',
-  ctaDesc: "انضم إلى الاتحاد العالمي للفنون القتالية الحقيقية. تدرب بهدف. قاتل بانضباط. تحول بالكامل.",
+  ctaDesc: "انضم إلى الاتحاد الدولى لفن القتال الواقعى. تدرب بهدف. قاتل بانضباط. تحول بالكامل.",
   ctaBtn: "انضم إلى RMA",
   ctaStart: "ابدأ التدريب",
 };
@@ -257,16 +257,16 @@ export default function AboutContent() {
                 {t.heroBadge}
               </span>
               <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black leading-[0.9] tracking-tighter text-white">
-                {isAr ? <>الحقيقية<br /><span className="text-red-600 drop-shadow-[0_0_40px_rgba(220,38,38,0.3)]">الفنون القتالية</span><br />الاتحاد العالمي للفنون القتالية</> : <>REAL<br /><span className="text-red-600 drop-shadow-[0_0_40px_rgba(220,38,38,0.3)]">MARTIAL</span><br />ART</>}
+                {isAr ? <>الاتحاد الدولى<br /><span className="text-red-600 drop-shadow-[0_0_40px_rgba(220,38,38,0.3)]">لفن القتال</span><br />الواقعى</> : <>REAL<br /><span className="text-red-600 drop-shadow-[0_0_40px_rgba(220,38,38,0.3)]">MARTIAL</span><br />ART</>}
               </h1>
               <p className="mt-8 max-w-2xl text-lg sm:text-xl text-gray-300 leading-relaxed">
                 {t.heroPrefix} <span className="text-white font-bold">{t.heroName}</span>{t.heroDesc} <span className="text-red-400 font-bold">{t.heroYear}</span> {t.heroSuffix}
               </p>
               <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                <a href="/membership" className="group inline-flex items-center gap-3 bg-gradient-to-r from-red-600 to-red-800 px-8 py-4 rounded-full text-lg font-bold shadow-2xl shadow-red-900/40 transition-all duration-300 hover:from-red-700 hover:to-red-900 hover:scale-[1.03]">
+                <a href={isAr ? "/ar/membership" : "/membership"} className="group inline-flex items-center gap-3 bg-gradient-to-r from-red-600 to-red-800 px-8 py-4 rounded-full text-lg font-bold shadow-2xl shadow-red-900/40 transition-all duration-300 hover:from-red-700 hover:to-red-900 hover:scale-[1.03]">
                   {t.joinBtn}<ChevronRight size={20} className="transition-transform duration-300 group-hover:translate-x-1" />
                 </a>
-                <a href="/contact" className="group inline-flex items-center gap-3 border border-white/20 bg-white/5 px-8 py-4 rounded-full text-lg font-semibold backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:scale-[1.03]">
+                <a href={isAr ? "/ar/contact" : "/contact"} className="group inline-flex items-center gap-3 border border-white/20 bg-white/5 px-8 py-4 rounded-full text-lg font-semibold backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:scale-[1.03]">
                   <Crown size={18} className="text-red-400" />{t.startBtn}
                 </a>
               </div>
@@ -547,10 +547,10 @@ export default function AboutContent() {
                 <p className="max-w-2xl mx-auto text-xl text-gray-300 leading-relaxed">{t.ctaDesc}</p>
               </div>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
-                <a href="/membership" className="group inline-flex items-center gap-3 bg-gradient-to-r from-red-600 to-red-800 px-10 py-5 rounded-full text-lg font-bold shadow-2xl shadow-red-900/50 transition-all duration-300 hover:from-red-700 hover:to-red-900 hover:scale-[1.04] hover:shadow-red-900/70">
+                <a href={isAr ? "/ar/membership" : "/membership"} className="group inline-flex items-center gap-3 bg-gradient-to-r from-red-600 to-red-800 px-10 py-5 rounded-full text-lg font-bold shadow-2xl shadow-red-900/50 transition-all duration-300 hover:from-red-700 hover:to-red-900 hover:scale-[1.04] hover:shadow-red-900/70">
                   <Crown size={20} />{t.ctaBtn}<ChevronRight size={20} className="transition-transform duration-300 group-hover:translate-x-1" />
                 </a>
-                <a href="/contact" className="group inline-flex items-center gap-3 border border-white/20 bg-white/5 px-10 py-5 rounded-full text-lg font-semibold backdrop-blur-md shadow-xl transition-all duration-300 hover:bg-white/10 hover:scale-[1.04] hover:border-white/30">
+                <a href={isAr ? "/ar/contact" : "/contact"} className="group inline-flex items-center gap-3 border border-white/20 bg-white/5 px-10 py-5 rounded-full text-lg font-semibold backdrop-blur-md shadow-xl transition-all duration-300 hover:bg-white/10 hover:scale-[1.04] hover:border-white/30">
                   <Flame size={20} className="text-red-400" />{t.ctaStart}
                 </a>
               </div>

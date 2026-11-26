@@ -98,7 +98,7 @@ export default function PromotionContent() {
       <div className="max-w-5xl mx-auto" dir={isAr ? "rtl" : "ltr"}>
         <div className="text-center mb-16">
           <span className="inline-flex rounded-full bg-red-600/15 px-4 py-2 text-xs uppercase tracking-[0.4em] text-red-300 shadow-sm shadow-red-900/20 mb-6">
-            {isAr ? "اتحاد RMA" : "RMA Federation"}
+            {isAr ? "الاتحاد الدولى لفن القتال الواقعى" : "RMA Federation"}
           </span>
           <h1 className="text-4xl sm:text-5xl font-bold mb-4">
             {isAr ? (<><span className="text-red-600">نظام الترقية</span> والقواعد</>) : (<><span className="text-red-600">Promotion</span> Program & Rules</>)}
@@ -231,7 +231,7 @@ export default function PromotionContent() {
                 {isAr ? "القواعد واللوائح الرسمية للقتال" : "Official Combat Rules & Regulations"}
               </h2>
               <p className="text-gray-500">
-                {isAr ? "الاتحاد الدولي للفن القتالي الحقيقي (RMA)" : "International Federation of Real Martial Art (RMA)"}
+                {isAr ? "الاتحاد الدولى لفن القتال الواقعى (RMA)" : "International Federation of Real Martial Art (RMA)"}
               </p>
             </div>
             <div className="space-y-4">
@@ -267,7 +267,7 @@ export default function PromotionContent() {
             </div>
             <div className="mt-16 bg-zinc-900/50 rounded-3xl p-8 border border-zinc-800 text-center">
               <p className="text-gray-400 mb-4">
-                {isAr ? "الاتحاد الدولي للفن القتالي الحقيقي (RMA)" : "International Federation of Real Martial Art (RMA)"}
+                {isAr ? "الاتحاد الدولى لفن القتال الواقعى (RMA)" : "International Federation of Real Martial Art (RMA)"}
               </p>
               <p className="text-white font-bold">
                 {isAr ? "الكابتن / طارق سيد إبراهيم" : "Captain / Tarek Sayed Ibrahim"}

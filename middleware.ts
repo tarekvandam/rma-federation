@@ -1,7 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
+import { AR_PATHS } from "./lib/localePath";
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  if (pathname === "/ar" || pathname.startsWith("/ar/")) {
+    const rest = pathname.replace(/^\/ar/, "").replace(/\/+$/, "") || "/";
+    if (!AR_PATHS.includes(rest)) {
+      const url = request.nextUrl.clone();
+      url.pathname = rest;
+      return NextResponse.redirect(url);
+    }
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set("x-locale", "ar");
+    return NextResponse.next({ request: { headers: requestHeaders } });
+  }
 
   if (pathname.startsWith("/admin")) {
     const token = request.cookies.get("sb-access-token");
@@ -29,5 +42,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/ar", "/ar/:path*"],
 };
