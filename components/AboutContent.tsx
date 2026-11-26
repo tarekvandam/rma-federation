@@ -110,7 +110,7 @@ const ar: typeof en = {
   joinBtn: "انضم إلى الاتحاد",
   startBtn: "ابدأ التدريب",
   aboutBadge: "عن الاتحاد",
-  aboutTitle: 'الاتحاد العالمي للفنون القتالية <span class="text-red-600">الحقيقية</span>',
+  aboutTitle: 'الاتحاد الدولى لفن القتال <span class="text-red-600">الواقعى</span>',
   aboutP1: 'اتحاد RMA هو منظمة فنون قتالية حديثة مكرسة لبناء <strong class="text-white">نظام قتالي واقعي</strong> قائم على التطبيق العملي وطرق التدريب العلمية ومبادئ الدفاع عن النفس الأصيلة.',
   aboutP2: 'أسس <strong class="text-white">طارق سيد إبراهيم</strong> اتحاد RMA في <strong class="text-red-400">2013</strong> لتحدي أساطير الفنون القتالية غير الواقعية وتعزيز مهارات القتال الفعالة.',
   coreMessage: "ليس كل ما تراه يجب أن تصدقه.",
@@ -189,7 +189,7 @@ const ar: typeof en = {
   achievementsDesc: "تأثير حقيقي عبر المنصات والفعاليات الدولية.",
   ctaBadge: "انضم للحركة",
   ctaTitle: 'مستعد للتدرب<br /><span class="text-red-600 drop-shadow-[0_0_30px_rgba(220,38,38,0.3)]">بواقعية؟</span>',
-  ctaDesc: "انضم إلى الاتحاد العالمي للفنون القتالية الحقيقية. تدرب بهدف. قاتل بانضباط. تحول بالكامل.",
+  ctaDesc: "انضم إلى الاتحاد الدولى لفن القتال الواقعى. تدرب بهدف. قاتل بانضباط. تحول بالكامل.",
   ctaBtn: "انضم إلى RMA",
   ctaStart: "ابدأ التدريب",
 };
@@ -257,7 +257,7 @@ export default function AboutContent() {
                 {t.heroBadge}
               </span>
               <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black leading-[0.9] tracking-tighter text-white">
-                {isAr ? <>الحقيقية<br /><span className="text-red-600 drop-shadow-[0_0_40px_rgba(220,38,38,0.3)]">الفنون القتالية</span><br />الاتحاد العالمي للفنون القتالية</> : <>REAL<br /><span className="text-red-600 drop-shadow-[0_0_40px_rgba(220,38,38,0.3)]">MARTIAL</span><br />ART</>}
+                {isAr ? <>الاتحاد الدولى<br /><span className="text-red-600 drop-shadow-[0_0_40px_rgba(220,38,38,0.3)]">لفن القتال</span><br />الواقعى</> : <>REAL<br /><span className="text-red-600 drop-shadow-[0_0_40px_rgba(220,38,38,0.3)]">MARTIAL</span><br />ART</>}
               </h1>
               <p className="mt-8 max-w-2xl text-lg sm:text-xl text-gray-300 leading-relaxed">
                 {t.heroPrefix} <span className="text-white font-bold">{t.heroName}</span>{t.heroDesc} <span className="text-red-400 font-bold">{t.heroYear}</span> {t.heroSuffix}
