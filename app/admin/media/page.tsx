@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { supabase } from "../../../lib/supabase";
+import { isValidImageUrl, thumbUrl } from "../../../lib/gallery";
 
 export default function AdminMediaPage() {
   const [title, setTitle] = useState("");
@@ -13,8 +14,9 @@ export default function AdminMediaPage() {
     const match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
     return match ? match[1] : url;
   }
-  const [uploading, setUploading] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState("");
+  const [caption, setCaption] = useState("");
+  const [saving, setSaving] = useState(false);
   const [videos, setVideos] = useState<any[]>([]);
   const [gallery, setGallery] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState<"videos" | "gallery">("videos");
@@ -22,24 +24,11 @@ export default function AdminMediaPage() {
   async function fetchData() {
     const { data: vData } = await supabase.from("media_videos").select("*").order("created_at", { ascending: false });
     if (vData) setVideos(vData);
-    const { data: gData } = await supabase.from("media_gallery").select("*").order("created_at", { ascending: false });
-    if (gData) setGallery(gData.filter((item: any) => !item.title?.startsWith("[PARTNER]")));
+    const { data: gData } = await supabase.from("gallery_images").select("*").order("created_at", { ascending: false });
+    if (gData) setGallery(gData);
   }
 
   useEffect(() => { fetchData(); }, []);
-
-  async function handleUpload(file: File) {
-    try {
-      setUploading(true);
-      const ext = file.name.split('.').pop();
-      const fn = `${Date.now()}.${ext}`;
-      const { error } = await supabase.storage.from('news-images').upload(fn, file);
-      if (error) throw error;
-      const { data } = supabase.storage.from('news-images').getPublicUrl(fn);
-      return data.publicUrl;
-    } catch { return ""; }
-    finally { setUploading(false); }
-  }
 
   async function addVideo(e: React.FormEvent) {
     e.preventDefault();
@@ -52,15 +41,16 @@ export default function AdminMediaPage() {
 
   async function addGallery(e: React.FormEvent) {
     e.preventDefault();
-    if (!selectedFile) return;
-    const imageUrl = await handleUpload(selectedFile);
-    if (!imageUrl) { alert("فشل رفع الصورة — تأكد من وجود Storage bucket"); return; }
-    const { error } = await supabase.from("media_gallery").insert([{ image: imageUrl, title: title || "Gallery Image" }]);
-    if (!error) { setTitle(""); setSelectedFile(null); fetchData(); }
+    const clean = imageUrl.trim();
+    if (!isValidImageUrl(clean)) { alert("الرابط لازم يبدأ بـ https://"); return; }
+    setSaving(true);
+    const { error } = await supabase.from("gallery_images").insert([{ image_url: clean, caption: caption.trim().slice(0, 200) }]);
+    setSaving(false);
+    if (!error) { setImageUrl(""); setCaption(""); fetchData(); }
     else { alert(`خطأ: ${error.message}`); }
   }
 
-  async function deleteItem(table: string, id: string) {
+  async function deleteItem(table: string, id: string | number) {
     if (confirm("حذف؟")) {
       await supabase.from(table).delete().eq("id", id);
       fetchData();
@@ -106,15 +96,20 @@ export default function AdminMediaPage() {
       {activeTab === "gallery" && (
         <div>
           <form onSubmit={addGallery} className="bg-zinc-900 p-6 rounded-2xl mb-8 space-y-4 border border-zinc-800">
-            <input type="text" placeholder="عنوان الصورة (اختياري)" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-purple-500" />
-            <input type="file" accept="image/*" onChange={(e) => setSelectedFile(e.target.files?.[0] || null)} required className="text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-700 cursor-pointer" />
-            <button type="submit" disabled={uploading} className="w-full bg-purple-600 py-3 rounded-xl font-bold hover:bg-purple-700 disabled:opacity-50 transition">رفع الصورة</button>
+            <p className="text-sm text-gray-400">ارفع الصورة على Cloudinary ثم الصق رابطها هنا.</p>
+            <input type="url" dir="ltr" placeholder="رابط الصورة (https://res.cloudinary.com/...)" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} required className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-purple-500" />
+            <input type="text" maxLength={200} placeholder="وصف الصورة (اختياري)" value={caption} onChange={(e) => setCaption(e.target.value)} className="w-full bg-black border border-zinc-700 p-3 rounded-xl outline-none focus:border-purple-500" />
+            {imageUrl.trim() && isValidImageUrl(imageUrl) && (
+              <img src={thumbUrl(imageUrl, 400)} alt="معاينة" referrerPolicy="no-referrer" className="h-40 rounded-xl object-cover" />
+            )}
+            <button type="submit" disabled={saving} className="w-full bg-purple-600 py-3 rounded-xl font-bold hover:bg-purple-700 disabled:opacity-50 transition">إضافة للمعرض</button>
           </form>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {gallery.map((g) => (
-              <div key={g.id} className="relative group">
-                <img src={g.image} className="w-full h-40 object-cover rounded-xl" />
-                <button onClick={() => deleteItem("media_gallery", g.id)} className="absolute top-2 right-2 bg-red-600/80 text-white text-xs px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition">حذف</button>
+              <div key={g.id} className="relative group bg-zinc-900 rounded-xl overflow-hidden border border-zinc-800">
+                <img src={thumbUrl(g.image_url, 400)} alt={g.caption || ""} referrerPolicy="no-referrer" className="w-full h-40 object-cover" />
+                {g.caption && <p className="p-2 text-xs text-gray-400">{g.caption}</p>}
+                <button onClick={() => deleteItem("gallery_images", g.id)} className="absolute top-2 right-2 bg-red-600/80 text-white text-xs px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition">حذف</button>
               </div>
             ))}
           </div>
