@@ -69,6 +69,12 @@ export default async function PlayersPage() {
           <p className="text-gray-400 text-lg">
             Meet the fighters of the Real Martial Art Federation
           </p>
+          <a
+            href="/players/coaches"
+            className="inline-flex mt-6 rounded-full bg-red-600 px-6 py-3 text-sm font-bold text-white hover:bg-red-700 transition"
+          >
+            Coaches &amp; Referees →
+          </a>
         </div>
 
         {(!players || players.length === 0) && (
